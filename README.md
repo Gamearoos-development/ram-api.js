@@ -20,15 +20,17 @@ can be found under example.js
 
 ```
 
-## Missing endpoints
-
-ram api endpoints can be found at https://ram.gamearoo.top/api/docs
-
-In the event that the ram api is on v4 instead of v3 you can always use axios to connect to it manually
-
 ## Custom connections
 
-We currently have no way to make a connection Manually however we are working on a way in the event the ram api updates b4 we update this package
+```javascript
+ramapi.custom(apiv, "endpoint").then((data) => {
+	console.log(data); //its up to u to figure this out
+});
+```
+
+example endpoint is /version
+ram api endpoints can be found at https://ram.gamearoo.top/api/docs
+Note v3 is the latest version so using v2 or under can lead to unexpected responses if not part of said version
 
 ## Support
 
