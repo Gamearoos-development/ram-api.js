@@ -35,3 +35,7 @@ ramapi.api8ball(apiv).then((data) => {
 ramapi.apihello(apiv).then((data) => {
 	console.log(data.text); //text
 });
+
+ramapi.apicuddle(apiv).then((data) => {
+	console.log(data.url); //url
+});

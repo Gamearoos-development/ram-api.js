@@ -175,6 +175,24 @@ exports.apihello = async function (version) {
 
 	return p3;
 };
+exports.apicuddle = async function (version) {
+	if (!version.startsWith("v")) version = `v${version}`;
+	let p3 = new Promise(async (resolve, reject) => {
+		await axios
+			.get(`/cuddle`, { baseURL: `https://ram.gamearoo.top/api/${version}` })
+			.then(async function (response) {
+				resolve(response.data);
+			})
+			.catch((error) => {
+				return (
+					// console.log(error) &&
+					logger.error(`An error has happened ${error.response.statusText}`)
+				);
+			});
+	});
+
+	return p3;
+};
 exports.custom = async function (version, endpoint) {
 	if (!version.startsWith("v")) version = `v${version}`;
 	if (!endpoint.startsWith("/")) endpoint = `/${endpoint}`;
