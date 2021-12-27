@@ -2,6 +2,10 @@
 
 a npm module to connect to ram api easier
 
+## About this package
+
+We understand using ram api can be hard as it has alot this package calls the api for you however this wont bypass the ratelimit youll still see the ratelimit error
+
 ## Install
 
 install axios `npm i axios` or `yarn add axios`
