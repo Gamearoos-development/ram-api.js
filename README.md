@@ -13,8 +13,6 @@ install the logs `npm i winston-console-format winston ` or `yarn add winston-co
 
 `npm i ram-api.js` or `yarn add ram-api.js`
 
-This package was more for a test but I may make a new package for each bot.
-
 ### Example
 
 ```
