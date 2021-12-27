@@ -70,6 +70,25 @@ exports.apigm = async function (version) {
 	return p2;
 };
 
+exports.apign = async function (version) {
+	if (!version.startsWith("v")) version = `v${version}`;
+	let p3 = new Promise(async (resolve, reject) => {
+		await axios
+			.get(`/gn`, { baseURL: `https://ram.gamearoo.top/api/${version}` })
+			.then(async function (response) {
+				resolve(response.data);
+			})
+			.catch((error) => {
+				return (
+					// console.log(error) &&
+					logger.error(`An error has happened ${error.response.statusText}`)
+				);
+			});
+	});
+
+	return p3;
+};
+
 exports.apiversion = async function (version) {
 	if (!version.startsWith("v")) version = `v${version}`;
 	await axios

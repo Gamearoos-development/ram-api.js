@@ -11,3 +11,8 @@ ramapi.apigm(apiv).then(async (data) => {
 	console.log(data.url); //url
 	console.log(data.text); //text
 });
+
+ramapi.apign(apiv).then(async (data) => {
+	console.log(data.url); //url
+	console.log(data.text); //text
+});
