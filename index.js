@@ -38,7 +38,7 @@ exports.apihug = async function (version) {
 		await axios
 			.get(`/hug`, { baseURL: `https://ram.gamearoo.top/api/${version}` })
 			.then(async function (response) {
-				resolve(response);
+				resolve(response.data);
 			})
 			.catch((error) => {
 				return (
@@ -49,6 +49,25 @@ exports.apihug = async function (version) {
 	});
 
 	return p;
+};
+
+exports.apigm = async function (version) {
+	if (!version.startsWith("v")) version = `v${version}`;
+	let p2 = new Promise(async (resolve, reject) => {
+		await axios
+			.get(`/gm`, { baseURL: `https://ram.gamearoo.top/api/${version}` })
+			.then(async function (response) {
+				resolve(response.data);
+			})
+			.catch((error) => {
+				return (
+					// console.log(error) &&
+					logger.error(`An error has happened ${error.response.statusText}`)
+				);
+			});
+	});
+
+	return p2;
 };
 
 exports.apiversion = async function (version) {

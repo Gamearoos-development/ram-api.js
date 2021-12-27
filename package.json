@@ -1,24 +1,24 @@
 {
-  "name": "ram-api",
-  "version": "0.0.0",
-  "description": "a npm module to connect to ram api for you",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Gamearoos-development/ram-api.js.git"
-  },
-  "author": "Gamearoo_Codes",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Gamearoos-development/ram-api.js/issues"
-  },
-  "homepage": "https://github.com/Gamearoos-development/ram-api.js#readme",
-  "dependencies": {
-    "axios": "^0.24.0",
-    "winston": "^3.3.3",
-    "winston-console-format": "^1.0.8"
-  }
+	"name": "ram-api",
+	"version": "0.0.0",
+	"description": "a npm module to connect to ram api for you",
+	"main": "index.js",
+	"scripts": {
+		"test": "node example.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Gamearoos-development/ram-api.js.git"
+	},
+	"author": "Gamearoo_Codes",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Gamearoos-development/ram-api.js/issues"
+	},
+	"homepage": "https://github.com/Gamearoos-development/ram-api.js#readme",
+	"dependencies": {
+		"axios": "^0.24.0",
+		"winston": "^3.3.3",
+		"winston-console-format": "^1.0.8"
+	}
 }

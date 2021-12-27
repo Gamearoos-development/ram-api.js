@@ -13,15 +13,9 @@ This package was more for a test but I may make a new package for each bot.
 
 ### Example
 
-```javascript
-const ramapi = require("ram-api");
-const apiv = "v3"; //v2 and up are available ram api versions note versions
+```
+can be found under example.js
 
-ramapi.apiversion(apiv); // outputs rather the api is outdated or not
-
-ramapi.apihug(apiv).then(async (data) => {
-	console.log(await data.data.url);
-});
 ```
 
 ## Missing endpoints
