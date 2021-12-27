@@ -39,3 +39,25 @@ ramapi.apihello(apiv).then((data) => {
 ramapi.apicuddle(apiv).then((data) => {
 	console.log(data.url); //url
 });
+
+ramapi.apitired(apiv).then((data) => {
+	console.log(data.url); //url
+});
+
+ramapi.apisick(apiv).then((data) => {
+	console.log(data.url); //url
+});
+
+ramapi.apimeme(apiv).then((data) => {
+	let url = data.url;
+	let title = data.title;
+	let author = data.author;
+	let nsfw = data.nsfw;
+	let postlink = data.postLink;
+	console.log(`${url} \n ${title} \n ${author} \n ${nsfw} \n ${postlink}`);
+});
+
+ramapi.apicry(apiv).then((data) => {
+	console.log(data.url); //url
+	console.log(data.text); //text
+});
