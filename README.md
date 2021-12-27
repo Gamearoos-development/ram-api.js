@@ -9,6 +9,7 @@ We understand using ram api can be hard as it has alot this package calls the ap
 ## Install
 
 install axios `npm i axios` or `yarn add axios`
+
 install the logs `npm i winston-console-format winston ` or `yarn add winston-console-format winston `
 
 `npm i ram-api.js` or `yarn add ram-api.js`
@@ -92,10 +93,13 @@ ramapi.custom(apiv, "endpoint").then((data) => {
 ```
 
 example endpoint is /version
+
 ram api endpoints can be found at https://ram.gamearoo.top/api/docs
+
 Note v3 is the latest version so using v2 or under can lead to unexpected responses if not part of said version
 
 ## Support
 
 email : support@gamearoodev.com
+
 discord: https://discord.gamearoodev.com
