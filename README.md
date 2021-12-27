@@ -23,6 +23,8 @@ can be found under example.js
 ## Custom connections
 
 ```javascript
+const ramapi = require("ram-api");
+const apiv = "v3"; //v2 and up are available ram api versions note versions
 ramapi.custom(apiv, "endpoint").then((data) => {
 	console.log(data); //its up to u to figure this out
 });
