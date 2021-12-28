@@ -29,8 +29,7 @@ check example for more info
 
 ```
 
-for a api key go to https://ram.gamearoo.top/api/key
-and use the form to make a api key
+for a api key join the discord and go to #request-api-keys https://discord.gamearoodev.com
 
 ### Example
 
