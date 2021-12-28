@@ -32,11 +32,18 @@ const logger = createLogger({
 		}),
 	],
 });
-exports.apihug = async function (version) {
+exports.apihug = async function (version, apikey) {
 	if (!version.startsWith("v")) version = `v${version}`;
+	if (!apikey) return logger.error("A api key is required");
 	let p = new Promise(async (resolve, reject) => {
 		await axios
-			.get(`/hug`, { baseURL: `https://ram.gamearoo.top/api/${version}` })
+			.get(`/hug`, {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://ram.gamearoo.top/api/${version}`,
+			})
 			.then(async function (response) {
 				resolve(response.data);
 			})
@@ -51,11 +58,18 @@ exports.apihug = async function (version) {
 	return p;
 };
 
-exports.apigm = async function (version) {
+exports.apigm = async function (version, apikey) {
 	if (!version.startsWith("v")) version = `v${version}`;
+	if (!apikey) return logger.error("A api key is required");
 	let p2 = new Promise(async (resolve, reject) => {
 		await axios
-			.get(`/gm`, { baseURL: `https://ram.gamearoo.top/api/${version}` })
+			.get(`/gm`, {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://ram.gamearoo.top/api/${version}`,
+			})
 			.then(async function (response) {
 				resolve(response.data);
 			})
@@ -70,11 +84,18 @@ exports.apigm = async function (version) {
 	return p2;
 };
 
-exports.apign = async function (version) {
+exports.apign = async function (version, apikey) {
 	if (!version.startsWith("v")) version = `v${version}`;
+	if (!apikey) return logger.error("A api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
 		await axios
-			.get(`/gn`, { baseURL: `https://ram.gamearoo.top/api/${version}` })
+			.get(`/gn`, {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://ram.gamearoo.top/api/${version}`,
+			})
 			.then(async function (response) {
 				resolve(response.data);
 			})
@@ -89,12 +110,19 @@ exports.apign = async function (version) {
 	return p3;
 };
 
-exports.apislap = async function (version, user, user2) {
+exports.apislap = async function (version, apikey, user, user2) {
 	if (!user || !user2) return logger.error(`You must provide the users names`);
 	if (!version.startsWith("v")) version = `v${version}`;
+	if (!apikey) return logger.error("A api key is required!");
 	let p3 = new Promise(async (resolve, reject) => {
 		await axios
-			.get(`/slap`, { baseURL: `https://ram.gamearoo.top/api/${version}` })
+			.get(`/slap`, {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://ram.gamearoo.top/api/${version}`,
+			})
 			.then(async function (response) {
 				let restext = response.data.text;
 				let restext2 = response.data.text2;
@@ -120,11 +148,18 @@ exports.apislap = async function (version, user, user2) {
 	return p3;
 };
 
-exports.apikiss = async function (version) {
+exports.apikiss = async function (version, apikey) {
 	if (!version.startsWith("v")) version = `v${version}`;
+	if (!apikey) return logger.error("A api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
 		await axios
-			.get(`/kiss`, { baseURL: `https://ram.gamearoo.top/api/${version}` })
+			.get(`/kiss`, {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://ram.gamearoo.top/api/${version}`,
+			})
 			.then(async function (response) {
 				resolve(response.data);
 			})
@@ -138,11 +173,18 @@ exports.apikiss = async function (version) {
 
 	return p3;
 };
-exports.api8ball = async function (version) {
+exports.api8ball = async function (version, apikey) {
 	if (!version.startsWith("v")) version = `v${version}`;
+	if (!apikey) return logger.error("A api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
 		await axios
-			.get(`/8ball`, { baseURL: `https://ram.gamearoo.top/api/${version}` })
+			.get(`/8ball`, {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://ram.gamearoo.top/api/${version}`,
+			})
 			.then(async function (response) {
 				resolve(response.data);
 			})
@@ -157,11 +199,18 @@ exports.api8ball = async function (version) {
 	return p3;
 };
 
-exports.apihello = async function (version) {
+exports.apihello = async function (version, apikey) {
 	if (!version.startsWith("v")) version = `v${version}`;
+	if (!apikey) return logger.error("A api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
 		await axios
-			.get(`/hello`, { baseURL: `https://ram.gamearoo.top/api/${version}` })
+			.get(`/hello`, {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://ram.gamearoo.top/api/${version}`,
+			})
 			.then(async function (response) {
 				resolve(response.data);
 			})
@@ -175,11 +224,18 @@ exports.apihello = async function (version) {
 
 	return p3;
 };
-exports.apicuddle = async function (version) {
+exports.apicuddle = async function (version, apikey) {
 	if (!version.startsWith("v")) version = `v${version}`;
+	if (!apikey) return logger.error("A api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
 		await axios
-			.get(`/cuddle`, { baseURL: `https://ram.gamearoo.top/api/${version}` })
+			.get(`/cuddle`, {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://ram.gamearoo.top/api/${version}`,
+			})
 			.then(async function (response) {
 				resolve(response.data);
 			})
@@ -193,11 +249,18 @@ exports.apicuddle = async function (version) {
 
 	return p3;
 };
-exports.apitired = async function (version) {
+exports.apitired = async function (version, apikey) {
 	if (!version.startsWith("v")) version = `v${version}`;
+	if (!apikey) return logger.error("A api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
 		await axios
-			.get(`/tired`, { baseURL: `https://ram.gamearoo.top/api/${version}` })
+			.get(`/tired`, {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://ram.gamearoo.top/api/${version}`,
+			})
 			.then(async function (response) {
 				resolve(response.data);
 			})
@@ -211,11 +274,18 @@ exports.apitired = async function (version) {
 
 	return p3;
 };
-exports.apisick = async function (version) {
+exports.apisick = async function (version, apikey) {
 	if (!version.startsWith("v")) version = `v${version}`;
+	if (!apikey) return logger.error("A api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
 		await axios
-			.get(`/sick`, { baseURL: `https://ram.gamearoo.top/api/${version}` })
+			.get(`/sick`, {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://ram.gamearoo.top/api/${version}`,
+			})
 			.then(async function (response) {
 				resolve(response.data);
 			})
@@ -229,11 +299,18 @@ exports.apisick = async function (version) {
 
 	return p3;
 };
-exports.apimeme = async function (version) {
+exports.apimeme = async function (version, apikey) {
 	if (!version.startsWith("v")) version = `v${version}`;
+	if (!apikey) return logger.error("A api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
 		await axios
-			.get(`/meme`, { baseURL: `https://ram.gamearoo.top/api/${version}` })
+			.get(`/meme`, {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://ram.gamearoo.top/api/${version}`,
+			})
 			.then(async function (response) {
 				resolve(response.data);
 			})
@@ -247,11 +324,46 @@ exports.apimeme = async function (version) {
 
 	return p3;
 };
-exports.apicry = async function (version) {
+exports.apicry = async function (version, apikey) {
 	if (!version.startsWith("v")) version = `v${version}`;
+
+	if (!apikey) return logger.error("An api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
 		await axios
-			.get(`/cry`, { baseURL: `https://ram.gamearoo.top/api/${version}` })
+			.get(`/cry`, {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://ram.gamearoo.top/api/${version}`,
+			})
+			.then(async function (response) {
+				resolve(response.data);
+			})
+			.catch((error) => {
+				return (
+					// console.log(error) &&
+					logger.error(`An error has happened ${error.response.statusText}`)
+				);
+			});
+	});
+
+	return p3;
+};
+
+exports.apilol = async function (version, apikey) {
+	if (!version.startsWith("v")) version = `v${version}`;
+
+	if (!apikey) return logger.error("An api key is required");
+	let p3 = new Promise(async (resolve, reject) => {
+		await axios
+			.get(`/laugh`, {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://ram.gamearoo.top/api/${version}`,
+			})
 			.then(async function (response) {
 				resolve(response.data);
 			})
@@ -266,23 +378,7 @@ exports.apicry = async function (version) {
 	return p3;
 };
 exports.custom = async function (version, endpoint) {
-	if (!version.startsWith("v")) version = `v${version}`;
-	if (!endpoint.startsWith("/")) endpoint = `/${endpoint}`;
-	let p3 = new Promise(async (resolve, reject) => {
-		await axios
-			.get(endpoint, { baseURL: `https://ram.gamearoo.top/api/${version}` })
-			.then(async function (response) {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p3;
+	return logger.error("Custom api connections was removed!");
 };
 
 exports.apiversion = async function (version) {
