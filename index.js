@@ -50,7 +50,8 @@ exports.apihug = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`)
+					logger.error(`An error has happened ${error.response.statusText}`) &&
+					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
 	});
@@ -76,7 +77,8 @@ exports.apigm = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`)
+					logger.error(`An error has happened ${error.response.statusText}`) &&
+					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
 	});
@@ -102,7 +104,8 @@ exports.apign = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`)
+					logger.error(`An error has happened ${error.response.statusText}`) &&
+					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
 	});
@@ -140,7 +143,8 @@ exports.apislap = async function (version, apikey, user, user2) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`)
+					logger.error(`An error has happened ${error.response.statusText}`) &&
+					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
 	});
@@ -166,7 +170,8 @@ exports.apikiss = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`)
+					logger.error(`An error has happened ${error.response.statusText}`) &&
+					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
 	});
@@ -191,7 +196,8 @@ exports.api8ball = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`)
+					logger.error(`An error has happened ${error.response.statusText}`) &&
+					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
 	});
@@ -217,7 +223,8 @@ exports.apihello = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`)
+					logger.error(`An error has happened ${error.response.statusText}`) &&
+					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
 	});
@@ -242,7 +249,8 @@ exports.apicuddle = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`)
+					logger.error(`An error has happened ${error.response.statusText}`) &&
+					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
 	});
@@ -267,7 +275,8 @@ exports.apitired = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`)
+					logger.error(`An error has happened ${error.response.statusText}`) &&
+					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
 	});
@@ -292,7 +301,8 @@ exports.apisick = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`)
+					logger.error(`An error has happened ${error.response.statusText}`) &&
+					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
 	});
@@ -317,7 +327,8 @@ exports.apimeme = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`)
+					logger.error(`An error has happened ${error.response.statusText}`) &&
+					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
 	});
@@ -343,7 +354,8 @@ exports.apicry = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`)
+					logger.error(`An error has happened ${error.response.statusText}`) &&
+					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
 	});
@@ -369,8 +381,9 @@ exports.apilol = async function (version, apikey) {
 			})
 			.catch((error) => {
 				return (
-					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`)
+					logger.error(`An error has happened ${error.response.statusText}`) &&
+					reject(`An error has happened ${error.response.statusText}`) &&
+					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
 	});
