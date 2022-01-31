@@ -42,7 +42,7 @@ exports.apihug = async function (version, apikey) {
 					"Content-Type": "application/json",
 					"api-key": apikey,
 				},
-				baseURL: `https://ram.gamearoo.top/${version}`,
+				baseURL: `https://api.rambot.xyz/${version}`,
 			})
 			.then(async function (response) {
 				resolve(response.data);
@@ -69,7 +69,7 @@ exports.apigm = async function (version, apikey) {
 					"Content-Type": "application/json",
 					"api-key": apikey,
 				},
-				baseURL: `https://ram.gamearoo.top/${version}`,
+				baseURL: `https://api.rambot.xyz/${version}`,
 			})
 			.then(async function (response) {
 				resolve(response.data);
@@ -96,7 +96,7 @@ exports.apign = async function (version, apikey) {
 					"Content-Type": "application/json",
 					"api-key": apikey,
 				},
-				baseURL: `https://ram.gamearoo.top/${version}`,
+				baseURL: `https://api.rambot.xyz/${version}`,
 			})
 			.then(async function (response) {
 				resolve(response.data);
@@ -124,7 +124,7 @@ exports.apislap = async function (version, apikey, user, user2) {
 					"Content-Type": "application/json",
 					"api-key": apikey,
 				},
-				baseURL: `https://ram.gamearoo.top/${version}`,
+				baseURL: `https://api.rambot.xyz/${version}`,
 			})
 			.then(async function (response) {
 				let restext = response.data.text;
@@ -162,7 +162,7 @@ exports.apikiss = async function (version, apikey) {
 					"Content-Type": "application/json",
 					"api-key": apikey,
 				},
-				baseURL: `https://ram.gamearoo.top/${version}`,
+				baseURL: `https://api.rambot.xyz/${version}`,
 			})
 			.then(async function (response) {
 				resolve(response.data);
@@ -188,7 +188,7 @@ exports.api8ball = async function (version, apikey) {
 					"Content-Type": "application/json",
 					"api-key": apikey,
 				},
-				baseURL: `https://ram.gamearoo.top/${version}`,
+				baseURL: `https://api.rambot.xyz/${version}`,
 			})
 			.then(async function (response) {
 				resolve(response.data);
@@ -215,7 +215,7 @@ exports.apihello = async function (version, apikey) {
 					"Content-Type": "application/json",
 					"api-key": apikey,
 				},
-				baseURL: `https://ram.gamearoo.top/${version}`,
+				baseURL: `https://api.rambot.xyz/${version}`,
 			})
 			.then(async function (response) {
 				resolve(response.data);
@@ -241,7 +241,7 @@ exports.apicuddle = async function (version, apikey) {
 					"Content-Type": "application/json",
 					"api-key": apikey,
 				},
-				baseURL: `https://ram.gamearoo.top/${version}`,
+				baseURL: `https://api.rambot.xyz/${version}`,
 			})
 			.then(async function (response) {
 				resolve(response.data);
@@ -267,7 +267,7 @@ exports.apitired = async function (version, apikey) {
 					"Content-Type": "application/json",
 					"api-key": apikey,
 				},
-				baseURL: `https://ram.gamearoo.top/${version}`,
+				baseURL: `https://api.rambot.xyz/${version}`,
 			})
 			.then(async function (response) {
 				resolve(response.data);
@@ -293,7 +293,7 @@ exports.apisick = async function (version, apikey) {
 					"Content-Type": "application/json",
 					"api-key": apikey,
 				},
-				baseURL: `https://ram.gamearoo.top/${version}`,
+				baseURL: `https://api.rambot.xyz/${version}`,
 			})
 			.then(async function (response) {
 				resolve(response.data);
@@ -319,7 +319,7 @@ exports.apimeme = async function (version, apikey) {
 					"Content-Type": "application/json",
 					"api-key": apikey,
 				},
-				baseURL: `https://ram.gamearoo.top/${version}`,
+				baseURL: `https://api.rambot.xyz/${version}`,
 			})
 			.then(async function (response) {
 				resolve(response.data);
@@ -346,7 +346,7 @@ exports.apicry = async function (version, apikey) {
 					"Content-Type": "application/json",
 					"api-key": apikey,
 				},
-				baseURL: `https://ram.gamearoo.top/${version}`,
+				baseURL: `https://api.rambot.xyz/${version}`,
 			})
 			.then(async function (response) {
 				resolve(response.data);
@@ -374,7 +374,7 @@ exports.apilol = async function (version, apikey) {
 					"Content-Type": "application/json",
 					"api-key": apikey,
 				},
-				baseURL: `https://ram.gamearoo.top/${version}`,
+				baseURL: `https://api.rambot.xyz/${version}`,
 			})
 			.then(async function (response) {
 				resolve(response.data);
@@ -397,7 +397,7 @@ exports.custom = async function (version, endpoint) {
 exports.apiversion = async function (version) {
 	if (!version.startsWith("v")) version = `v${version}`;
 	await axios
-		.get(`/version`, { baseURL: `https://ram.gamearoo.top/${version}` })
+		.get(`/version`, { baseURL: `https://api.rambot.xyz/${version}` })
 		.then(async function (response) {
 			let apiversion = response.data.version;
 			let ifSupported = response.data.supported;
