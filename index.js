@@ -77,7 +77,7 @@ exports.apigm = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`) &&
+
 					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
@@ -104,7 +104,7 @@ exports.apign = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`) &&
+
 					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
@@ -143,7 +143,7 @@ exports.apislap = async function (version, apikey, user, user2) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`) &&
+
 					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
@@ -170,7 +170,7 @@ exports.apikiss = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`) &&
+
 					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
@@ -196,7 +196,7 @@ exports.api8ball = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`) &&
+
 					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
@@ -223,7 +223,7 @@ exports.apihello = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`) &&
+
 					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
@@ -249,7 +249,7 @@ exports.apicuddle = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`) &&
+
 					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
@@ -275,7 +275,7 @@ exports.apitired = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`) &&
+
 					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
@@ -301,7 +301,7 @@ exports.apisick = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`) &&
+
 					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
@@ -327,7 +327,7 @@ exports.apimeme = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`) &&
+
 					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
@@ -335,6 +335,17 @@ exports.apimeme = async function (version, apikey) {
 
 	return p3;
 };
+
+exports.executeconsole = async function (msg, iserror, iswarnning) {
+	if (iserror) {
+		logger.error(msg);
+	} else if (iswarnning) {
+		logger.warn(msg);
+	} else {
+		logger.info(msg);
+	}
+};
+
 exports.apicry = async function (version, apikey) {
 	if (!version.startsWith("v")) version = `v${version}`;
 
@@ -354,7 +365,7 @@ exports.apicry = async function (version, apikey) {
 			.catch((error) => {
 				return (
 					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`) &&
+
 					reject(`An error has happened ${error.response.statusText}`)
 				);
 			});
@@ -380,18 +391,33 @@ exports.apilol = async function (version, apikey) {
 				resolve(response.data);
 			})
 			.catch((error) => {
-				return (
-					logger.error(`An error has happened ${error.response.statusText}`) &&
-					reject(`An error has happened ${error.response.statusText}`) &&
-					reject(`An error has happened ${error.response.statusText}`)
-				);
+				return reject(`An error has happened ${error.response.statusText}`);
 			});
 	});
 
 	return p3;
 };
-exports.custom = async function (version, endpoint) {
-	return logger.error("Custom api connections was removed!");
+
+exports.apiversioncheck = async function (version) {
+	if (!version.startsWith("v")) version = `v${version}`;
+
+	let p3 = new Promise(async (resolve, reject) => {
+		await axios
+			.get(`/version`, {
+				headers: {
+					"Content-Type": "application/json",
+				},
+				baseURL: `https://api.rambot.xyz/${version}`,
+			})
+			.then(async function (response) {
+				resolve(response.data);
+			})
+			.catch((error) => {
+				return reject(`An error has happened ${error.response.statusText}`);
+			});
+	});
+
+	return p3;
 };
 
 exports.apiversion = async function (version) {
@@ -399,6 +425,9 @@ exports.apiversion = async function (version) {
 	await axios
 		.get(`/version`, { baseURL: `https://api.rambot.xyz/${version}` })
 		.then(async function (response) {
+			logger.warn(
+				"apiversion is deprecated, change to apiversioncheck more info on https://www.npmjs.com/package/ram-api.js"
+			);
 			let apiversion = response.data.version;
 			let ifSupported = response.data.supported;
 			let ifOutdated = response.data.outdated;
