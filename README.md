@@ -40,8 +40,8 @@ for a api key join the discord and go to #request-api-keys https://discord.gamea
 ### Example
 
 ```javascript
-const ramapi = require("ram-api");
-const apiv = "v4"; //v2 and up are available ram api versions note versions
+const ramapi = require("ram-api.js");
+const apiv = "v5"; //v2 and up are available ram api versions note versions
 const apikey = "apikey"; //ask for a key by contacting support
 
 //! note ram api has a 5 calls per 5 seconds
@@ -207,11 +207,23 @@ ramapi
 	.catch((err) => {
 		ramapi.executeconsole(err, true, false);
 	});
+
+ramapi
+	.apibday(apiv, apikey)
+	.then((data) => {
+		let text = data.text;
+		let url = data.url;
+
+		console.log(text + "\n" + url);
+	})
+	.catch((err) => {
+		ramapi.executeconsole(err, true, false);
+	});
 ```
 
 ## Missing endpoint
 
-current api version is v4 if v5 is out then contact support
+current api version is v5 if v6 is out then contact support
 
 ram api endpoints can be found at https://ram.gamearoo.top/api/docs
 

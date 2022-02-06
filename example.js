@@ -1,10 +1,46 @@
-const ramapi = require("ram-api");
-const apiv = "v4"; //v2 and up are available ram api versions note versions
+const ramapi = require("ram-api.js");
+const apiv = "v5"; //v2 and up are available ram api versions note versions
 const apikey = "apikey"; //ask for a key by contacting support
 
 //! note ram api has a 5 calls per 5 seconds
 
-ramapi.apiversion(apiv); // outputs rather the api is outdated or not also this console logs for you
+//! running this file will trigger the api ratelimit this is just examples
+
+ramapi.executeconsole("Online", false, false); // msg to log, iferror, ifwarning
+
+ramapi
+	.apiversioncheck(apiv)
+	.then((data) => {
+		let apiversion = data.version;
+		let ifSupported = data.supported;
+		let ifOutdated = data.outdated;
+		let latest = data.latest;
+
+		if (ifOutdated) {
+			if (!ifSupported) {
+				ramapi.executeconsole(
+					`${apiversion} is No longer supported the latest version is ${latest}`,
+					true,
+					false
+				);
+			} else {
+				return ramapi.executeconsole(
+					`${apiversion} is outdated but still supported the latest version is ${latest}`,
+					false,
+					true
+				);
+			}
+		} else {
+			ramapi.executeconsole(
+				`${apiversion} is the latest version`,
+				false,
+				false
+			);
+		}
+	})
+	.catch((err) => {
+		ramapi.executeconsole(err, true, false);
+	});
 
 ramapi
 	.apihug(apiv, apikey)
@@ -12,7 +48,7 @@ ramapi
 		console.log(await data.data.url); // logs the url
 	})
 	.catch((err) => {
-		console.log(err);
+		ramapi.executeconsole(err, true, false);
 	});
 
 ramapi
@@ -22,7 +58,7 @@ ramapi
 		console.log(data.text); //text
 	})
 	.catch((err) => {
-		console.log(err);
+		ramapi.executeconsole(err, true, false);
 	});
 
 ramapi
@@ -32,7 +68,7 @@ ramapi
 		console.log(data.text); //text
 	})
 	.catch((err) => {
-		console.log(err);
+		ramapi.executeconsole(err, true, false);
 	});
 
 ramapi
@@ -42,7 +78,7 @@ ramapi
 		console.log(data.text); //texts (it puts this together so the user1 and user2 would be needed)
 	})
 	.catch((err) => {
-		console.log(err);
+		ramapi.executeconsole(err, true, false);
 	});
 
 ramapi
@@ -51,7 +87,7 @@ ramapi
 		console.log(data.url); // returns the url
 	})
 	.catch((err) => {
-		console.log(err);
+		ramapi.executeconsole(err, true, false);
 	});
 
 ramapi
@@ -60,7 +96,7 @@ ramapi
 		console.log(data.text); // text
 	})
 	.catch((err) => {
-		console.log(err);
+		ramapi.executeconsole(err, true, false);
 	});
 
 ramapi
@@ -69,7 +105,7 @@ ramapi
 		console.log(data.text); //text
 	})
 	.catch((err) => {
-		console.log(err);
+		ramapi.executeconsole(err, true, false);
 	});
 
 ramapi
@@ -78,7 +114,7 @@ ramapi
 		console.log(data.url); //url
 	})
 	.catch((err) => {
-		console.log(err);
+		ramapi.executeconsole(err, true, false);
 	});
 
 ramapi
@@ -87,7 +123,7 @@ ramapi
 		console.log(data.url); //url
 	})
 	.catch((err) => {
-		console.log(err);
+		ramapi.executeconsole(err, true, false);
 	});
 
 ramapi
@@ -96,7 +132,7 @@ ramapi
 		console.log(data.url); //url
 	})
 	.catch((err) => {
-		console.log(err);
+		ramapi.executeconsole(err, true, false);
 	});
 
 ramapi
@@ -110,7 +146,7 @@ ramapi
 		console.log(`${url} \n ${title} \n ${author} \n ${nsfw} \n ${postlink}`);
 	})
 	.catch((err) => {
-		console.log(err);
+		ramapi.executeconsole(err, true, false);
 	});
 
 ramapi
@@ -120,7 +156,7 @@ ramapi
 		console.log(data.text); //text
 	})
 	.catch((err) => {
-		console.log(err);
+		ramapi.executeconsole(err, true, false);
 	});
 
 ramapi
@@ -129,5 +165,17 @@ ramapi
 		console.log(data.url); //url
 	})
 	.catch((err) => {
-		console.log(err);
+		ramapi.executeconsole(err, true, false);
+	});
+
+ramapi
+	.apibday(apiv, apikey)
+	.then((data) => {
+		let text = data.text;
+		let url = data.url;
+
+		console.log(text + "\n" + url);
+	})
+	.catch((err) => {
+		ramapi.executeconsole(err, true, false);
 	});

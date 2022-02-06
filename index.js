@@ -1,6 +1,8 @@
 const axios = require("axios");
 const { createLogger, format, transports, level } = require("winston");
 const { consoleFormat } = require("winston-console-format");
+const outdated = ["v0", "v1", "v2", "v3"];
+const latest = "v5";
 
 const logger = createLogger({
 	level: "silly",
@@ -33,9 +35,13 @@ const logger = createLogger({
 	],
 });
 exports.apihug = async function (version, apikey) {
-	if (!version.startsWith("v")) version = `v${version}`;
-	if (!apikey) return logger.error("A api key is required");
 	let p = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+
+		if (!apikey) return reject("A api key is required");
+
 		await axios
 			.get(`/hug`, {
 				headers: {
@@ -60,9 +66,11 @@ exports.apihug = async function (version, apikey) {
 };
 
 exports.apigm = async function (version, apikey) {
-	if (!version.startsWith("v")) version = `v${version}`;
-	if (!apikey) return logger.error("A api key is required");
 	let p2 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+		if (!apikey) return reject("A api key is required");
+
 		await axios
 			.get(`/gm`, {
 				headers: {
@@ -87,9 +95,11 @@ exports.apigm = async function (version, apikey) {
 };
 
 exports.apign = async function (version, apikey) {
-	if (!version.startsWith("v")) version = `v${version}`;
-	if (!apikey) return logger.error("A api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+		if (!apikey) return reject("A api key is required");
+
 		await axios
 			.get(`/gn`, {
 				headers: {
@@ -114,10 +124,12 @@ exports.apign = async function (version, apikey) {
 };
 
 exports.apislap = async function (version, apikey, user, user2) {
-	if (!user || !user2) return logger.error(`You must provide the users names`);
-	if (!version.startsWith("v")) version = `v${version}`;
-	if (!apikey) return logger.error("A api key is required!");
 	let p3 = new Promise(async (resolve, reject) => {
+		if (!user || !user2) return reject(`You must provide the users names`);
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+		if (!apikey) return reject("A api key is required!");
+
 		await axios
 			.get(`/slap`, {
 				headers: {
@@ -153,9 +165,11 @@ exports.apislap = async function (version, apikey, user, user2) {
 };
 
 exports.apikiss = async function (version, apikey) {
-	if (!version.startsWith("v")) version = `v${version}`;
-	if (!apikey) return logger.error("A api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+		if (!apikey) return reject("A api key is required");
+
 		await axios
 			.get(`/kiss`, {
 				headers: {
@@ -179,9 +193,11 @@ exports.apikiss = async function (version, apikey) {
 	return p3;
 };
 exports.api8ball = async function (version, apikey) {
-	if (!version.startsWith("v")) version = `v${version}`;
-	if (!apikey) return logger.error("A api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+		if (!apikey) return reject("A api key is required");
+
 		await axios
 			.get(`/8ball`, {
 				headers: {
@@ -206,9 +222,11 @@ exports.api8ball = async function (version, apikey) {
 };
 
 exports.apihello = async function (version, apikey) {
-	if (!version.startsWith("v")) version = `v${version}`;
-	if (!apikey) return logger.error("A api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+		if (!apikey) return reject("A api key is required");
+
 		await axios
 			.get(`/hello`, {
 				headers: {
@@ -232,9 +250,11 @@ exports.apihello = async function (version, apikey) {
 	return p3;
 };
 exports.apicuddle = async function (version, apikey) {
-	if (!version.startsWith("v")) version = `v${version}`;
-	if (!apikey) return logger.error("A api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+		if (!apikey) return reject("A api key is required");
+
 		await axios
 			.get(`/cuddle`, {
 				headers: {
@@ -258,9 +278,11 @@ exports.apicuddle = async function (version, apikey) {
 	return p3;
 };
 exports.apitired = async function (version, apikey) {
-	if (!version.startsWith("v")) version = `v${version}`;
-	if (!apikey) return logger.error("A api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+		if (!apikey) return reject("A api key is required");
+
 		await axios
 			.get(`/tired`, {
 				headers: {
@@ -284,9 +306,11 @@ exports.apitired = async function (version, apikey) {
 	return p3;
 };
 exports.apisick = async function (version, apikey) {
-	if (!version.startsWith("v")) version = `v${version}`;
-	if (!apikey) return logger.error("A api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+		if (!apikey) return reject("A api key is required");
+
 		await axios
 			.get(`/sick`, {
 				headers: {
@@ -310,9 +334,11 @@ exports.apisick = async function (version, apikey) {
 	return p3;
 };
 exports.apimeme = async function (version, apikey) {
-	if (!version.startsWith("v")) version = `v${version}`;
-	if (!apikey) return logger.error("A api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+		if (!apikey) return reject("A api key is required");
+
 		await axios
 			.get(`/meme`, {
 				headers: {
@@ -347,10 +373,12 @@ exports.executeconsole = async function (msg, iserror, iswarnning) {
 };
 
 exports.apicry = async function (version, apikey) {
-	if (!version.startsWith("v")) version = `v${version}`;
-
-	if (!apikey) return logger.error("An api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+
+		if (!apikey) return reject("An api key is required");
+
 		await axios
 			.get(`/cry`, {
 				headers: {
@@ -375,10 +403,13 @@ exports.apicry = async function (version, apikey) {
 };
 
 exports.apilol = async function (version, apikey) {
-	if (!version.startsWith("v")) version = `v${version}`;
-
-	if (!apikey) return logger.error("An api key is required");
 	let p3 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+
+		if (!apikey) return reject("An api key is required");
+
 		await axios
 			.get(`/laugh`, {
 				headers: {
@@ -396,6 +427,35 @@ exports.apilol = async function (version, apikey) {
 	});
 
 	return p3;
+};
+
+exports.apibday = async function (version, apikey) {
+	let p4 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+		let version2 = version.replace(/v/g, "");
+
+		if (version2 < 5) return reject(`This requires ${latest} or higher to use`);
+
+		if (!apikey) return reject("An api key is required");
+
+		await axios
+			.get(`/bday`, {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://api.rambot.xyz/${version}`,
+			})
+			.then(async function (response) {
+				resolve(response.data);
+			})
+			.catch((error) => {
+				return reject(`An error has happened ${error.response.statusText}`);
+			});
+	});
+	return p4;
 };
 
 exports.apiversioncheck = async function (version) {
