@@ -8,13 +8,9 @@ We understand using ram api can be hard as it has alot this package calls the ap
 
 ## Install
 
-install axios `npm i axios` or `yarn add axios`
-
-install the logs `npm i winston-console-format winston ` or `yarn add winston-console-format winston `
-
 `npm i ram-api.js` or `yarn add ram-api.js`
 
-## Update to v4.0.0
+## Update to v4.2.0
 
 remove the code for any custom connections
 
@@ -41,7 +37,7 @@ for a api key join the discord and go to #request-api-keys https://discord.gamea
 
 ```javascript
 const ramapi = require("ram-api.js");
-const apiv = "v5"; //v2 and up are available ram api versions note versions
+const apiv = "v6"; //v2 and up are available ram api versions note versions
 const apikey = "apikey"; //ask for a key by contacting support
 
 //! note ram api has a 5 calls per 5 seconds
@@ -219,13 +215,54 @@ ramapi
 	.catch((err) => {
 		ramapi.executeconsole(err, true, false);
 	});
+
+ramapi
+	.apiramimage(apiv, apikey)
+	.then((data) => console.log(data))
+	.catch((err) => ramapi.executeconsole(err, true, false));
+ramapi
+	.apigetinfo(apiv, apikey)
+	.then((data) => {
+		let { supported, outdated, version, name, package } = data;
+
+		let arraysup = [
+			supported.api,
+			supported.v6,
+			supported.v5,
+			supported.v4,
+			supported.v3,
+			supported.v2,
+			supported.v1,
+		];
+
+		let arrayout = [
+			outdated.api,
+			outdated.v6,
+			outdated.v5,
+			outdated.v4,
+			outdated.v3,
+			outdated.v2,
+			outdated.v1,
+		];
+
+		console.log(name);
+		console.log(version);
+		console.log(package); // this package  is what it links
+		let mappedsup = arraysup.map((m) => `- ${m}`).join("\n");
+		console.log(mappedsup);
+		let mappedout = arrayout.map((m) => `- ${m}`).join("\n");
+		console.log(mappedout);
+	})
+	.catch((err) => {
+		ramapi.executeconsole(err, true, false);
+	});
 ```
 
 ## Missing endpoint
 
-current api version is v5 if v6 is out then contact support
+current api version is v6 if v7 is out then contact support
 
-ram api endpoints can be found at https://ram.gamearoo.top/api/docs
+ram api endpoints can be found at https://api.rambot.xyz/docs
 
 ## Support
 

@@ -1,8 +1,8 @@
 const axios = require("axios");
 const { createLogger, format, transports, level } = require("winston");
 const { consoleFormat } = require("winston-console-format");
-const outdated = ["v0", "v1", "v2", "v3"];
-const latest = "v5";
+const outdated = ["v0", "v1", "v2", "v3", "v4"];
+const latest = "v6";
 
 const logger = createLogger({
 	level: "silly",
@@ -63,6 +63,62 @@ exports.apihug = async function (version, apikey) {
 	});
 
 	return p;
+};
+
+exports.apigetinfo = async function (version, apikey) {
+	let p2 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		let version2 = version.replace(/v/g, "");
+
+		if (version2 < 6) return reject(`This requires ${latest} or higher to use`);
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+
+		if (!apikey) return reject("A api key is required");
+
+		await axios
+			.get("/apiinfo", {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://api.rambot.xyz/${version}`,
+			})
+			.then((response) => {
+				resolve(response.data);
+			})
+			.catch((err) => {
+				return reject(`An error has happened ${err.response.statusText}`);
+			});
+	});
+	return p2;
+};
+
+exports.apiramimage = async function (version, apikey) {
+	let p2 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		let version2 = version.replace(/v/g, "");
+
+		if (version2 < 6) return reject(`This requires ${latest} or higher to use`);
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+
+		if (!apikey) return reject("A api key is required");
+
+		await axios
+			.get("/ram", {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://api.rambot.xyz/${version}`,
+			})
+			.then((response) => {
+				resolve(response.data.url);
+			})
+			.catch((err) => {
+				return reject(`An error has happened ${err.response.statusText}`);
+			});
+	});
+	return p2;
 };
 
 exports.apigm = async function (version, apikey) {
