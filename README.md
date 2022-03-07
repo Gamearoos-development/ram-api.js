@@ -10,7 +10,7 @@ We understand using ram api can be hard as it has alot this package calls the ap
 
 `npm i ram-api.js` or `yarn add ram-api.js`
 
-## Update to v4.2.0
+## Update to v5.0.0
 
 remove the code for any custom connections
 
@@ -22,11 +22,17 @@ const apikey = 'apikey'
 
 check example for more info
 
-apiversion to apiversioncheck(apiv).then(data => {
+apiversion to versioncheck(apiv).then(data => {
 	//code here
 }).then(err => {
 	//err code here
 })
+
+//remove api from the beginning of things
+
+//example apihug too hug
+
+//for 8ball do _8ball
 
 
 ```
@@ -37,15 +43,19 @@ for a api key join the discord and go to #request-api-keys https://discord.gamea
 
 ```javascript
 const ramapi = require("ram-api.js");
-const apiv = "v6"; //v2 and up are available ram api versions note versions
+const apiv = "v7"; //v2 and up are available ram api versions note versions
+const lang = "english"; // english and spanish is the choices atm
 const apikey = "apikey"; //ask for a key by contacting support
 
 //! note ram api has a 5 calls per 5 seconds
 
-ramapi.executeconsole("Online", false, false); // msg to log, iferror, ifwarning
+ramapi.consoleerror("test error");
+
+ramapi.consoleinfo("test info");
+ramapi.consolewarn("test warn");
 
 ramapi
-	.apiversioncheck(apiv)
+	.versioncheck(apiv)
 	.then((data) => {
 		let apiversion = data.version;
 		let ifSupported = data.supported;
@@ -79,7 +89,7 @@ ramapi
 	});
 
 ramapi
-	.apihug(apiv, apikey)
+	.hug(apiv, apikey)
 	.then(async (data) => {
 		console.log(await data.data.url); // logs the url
 	})
@@ -88,7 +98,7 @@ ramapi
 	});
 
 ramapi
-	.apigm(apiv, apikey)
+	.gm(apiv, apikey, lang)
 	.then(async (data) => {
 		console.log(data.url); //url
 		console.log(data.text); //text
@@ -98,7 +108,7 @@ ramapi
 	});
 
 ramapi
-	.apign(apiv, apikey)
+	.gn(apiv, apikey, lang)
 	.then(async (data) => {
 		console.log(data.url); //url
 		console.log(data.text); //text
@@ -108,7 +118,7 @@ ramapi
 	});
 
 ramapi
-	.apislap(apiv, apikey, "user1", "user2")
+	.slap(apiv, apikey, lang)
 	.then(async (data) => {
 		console.log(data.url); //url
 		console.log(data.text); //texts (it puts this together so the user1 and user2 would be needed)
@@ -118,7 +128,7 @@ ramapi
 	});
 
 ramapi
-	.apikiss(apiv, apikey)
+	.kiss(apiv, apikey)
 	.then((data) => {
 		console.log(data.url); // returns the url
 	})
@@ -127,7 +137,7 @@ ramapi
 	});
 
 ramapi
-	.api8ball(apiv, apikey)
+	._8ball(apiv, apikey, lang)
 	.then((data) => {
 		console.log(data.text); // text
 	})
@@ -136,7 +146,7 @@ ramapi
 	});
 
 ramapi
-	.apihello(apiv, apikey)
+	.hello(apiv, apikey, lang)
 	.then((data) => {
 		console.log(data.text); //text
 	})
@@ -145,7 +155,7 @@ ramapi
 	});
 
 ramapi
-	.apicuddle(apiv, apikey)
+	.cuddle(apiv, apikey)
 	.then((data) => {
 		console.log(data.url); //url
 	})
@@ -154,7 +164,7 @@ ramapi
 	});
 
 ramapi
-	.apitired(apiv, apikey)
+	.tired(apiv, apikey)
 	.then((data) => {
 		console.log(data.url); //url
 	})
@@ -163,7 +173,7 @@ ramapi
 	});
 
 ramapi
-	.apisick(apiv, apikey)
+	.sick(apiv, apikey)
 	.then((data) => {
 		console.log(data.url); //url
 	})
@@ -172,7 +182,7 @@ ramapi
 	});
 
 ramapi
-	.apimeme(apiv, apikey)
+	.meme(apiv, apikey)
 	.then((data) => {
 		let url = data.url;
 		let title = data.title;
@@ -186,7 +196,7 @@ ramapi
 	});
 
 ramapi
-	.apicry(apiv, apikey)
+	.cry(apiv, apikey, lang)
 	.then((data) => {
 		console.log(data.url); //url
 		console.log(data.text); //text
@@ -196,7 +206,7 @@ ramapi
 	});
 
 ramapi
-	.apilol(apiv, apikey)
+	.lol(apiv, apikey)
 	.then((data) => {
 		console.log(data.url); //url
 	})
@@ -205,7 +215,7 @@ ramapi
 	});
 
 ramapi
-	.apibday(apiv, apikey)
+	.bday(apiv, apikey, lang)
 	.then((data) => {
 		let text = data.text;
 		let url = data.url;
@@ -217,11 +227,11 @@ ramapi
 	});
 
 ramapi
-	.apiramimage(apiv, apikey)
+	.ramimage(apiv, apikey)
 	.then((data) => console.log(data))
 	.catch((err) => ramapi.executeconsole(err, true, false));
 ramapi
-	.apigetinfo(apiv, apikey)
+	.getinfo(apiv, apikey)
 	.then((data) => {
 		let { supported, outdated, version, name, package } = data;
 
@@ -260,7 +270,7 @@ ramapi
 
 ## Missing endpoint
 
-current api version is v6 if v7 is out then contact support
+current api version is v7 if v8 is out then contact support
 
 ram api endpoints can be found at https://api.rambot.xyz/docs
 
