@@ -916,6 +916,38 @@ exports.meme = async function (version, apikey) {
 	return p3;
 };
 
+exports.anime = async function (version, apikey) {
+	let p3 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+		if (!apikey) return reject("A api key is required");
+		let version2 = version.replace(/v/g, "");
+
+		if (version2 < 8) return reject(`This requires v8 or higher to use`);
+
+		await axios
+			.get(`/anime`, {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://api.rambot.xyz/${version}`,
+			})
+			.then(async function (response) {
+				resolve(response.data);
+			})
+			.catch((error) => {
+				return (
+					// console.log(error) &&
+
+					reject(`An error has happened ${error.response.statusText}`)
+				);
+			});
+	});
+
+	return p3;
+};
+
 exports.cats = async function (version, apikey) {
 	let p3 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;

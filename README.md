@@ -182,6 +182,27 @@ ramapi
 	});
 
 ramapi
+	.anime(apiv, apikey)
+	.then((data) => {
+		const {
+			url,
+			title,
+			author,
+			nsfw,
+			postlink,
+			subreddit,
+			spoiler,
+			preview,
+			ups,
+		} = data;
+
+		ramapi.consoleinfo(
+			`${url} \n ${title} \n ${author} \n ${nsfw} \n ${postlink} \n ${subreddit} \n ${spoiler} \n ${preview} \n ${ups}`
+		);
+	})
+	.catch((err) => ramapi.consoleerror(err));
+
+ramapi
 	.meme(apiv, apikey)
 	.then((data) => {
 		let url = data.url;
