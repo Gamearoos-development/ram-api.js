@@ -19,7 +19,7 @@ remove the code for any custom connections
 ```javascript
 const apikey = 'apikey'
 (apiv) to (apiv, apikey)
-
+getinfo(apiv, apikey) to getinfo(apikey)
 check example for more info
 
 apiversion to versioncheck(apiv).then(data => {
@@ -182,6 +182,27 @@ ramapi
 	});
 
 ramapi
+	.anime(apiv, apikey)
+	.then((data) => {
+		const {
+			url,
+			title,
+			author,
+			nsfw,
+			postlink,
+			subreddit,
+			spoiler,
+			preview,
+			ups,
+		} = data;
+
+		ramapi.consoleinfo(
+			`${url} \n ${title} \n ${author} \n ${nsfw} \n ${postlink} \n ${subreddit} \n ${spoiler} \n ${preview} \n ${ups}`
+		);
+	})
+	.catch((err) => ramapi.consoleerror(err));
+
+ramapi
 	.meme(apiv, apikey)
 	.then((data) => {
 		let url = data.url;
@@ -189,11 +210,38 @@ ramapi
 		let author = data.author;
 		let nsfw = data.nsfw;
 		let postlink = data.postLink;
-		console.log(`${url} \n ${title} \n ${author} \n ${nsfw} \n ${postlink}`);
+		let subreddit = data.subreddit;
+		let spoiler = data.spoiler;
+		let preview = data.preview;
+		let ups = data.ups;
+		console.log(
+			`${url} \n ${title} \n ${author} \n ${nsfw} \n ${postlink} \n ${subreddit} \n ${spoiler} \n ${preview} \n ${ups}`
+		);
 	})
 	.catch((err) => {
 		ramapi.executeconsole(err, true, false);
 	});
+
+ramapi
+	.cats(apiv, apikey)
+	.then((data) => {
+		const {
+			url,
+			title,
+			author,
+			nsfw,
+			postlink,
+			subreddit,
+			spoiler,
+			preview,
+			ups,
+		} = data;
+
+		ramapi.consoleinfo(
+			`${url} \n ${title} \n ${author} \n ${nsfw} \n ${postlink} \n ${subreddit} \n ${spoiler} \n ${preview} \n ${ups}`
+		);
+	})
+	.catch((err) => ramapi.consoleerror(err));
 
 ramapi
 	.cry(apiv, apikey, lang)
@@ -231,7 +279,7 @@ ramapi
 	.then((data) => console.log(data))
 	.catch((err) => ramapi.executeconsole(err, true, false));
 ramapi
-	.getinfo(apiv, apikey)
+	.getinfo(apikey)
 	.then((data) => {
 		let { supported, outdated, version, name, package } = data;
 

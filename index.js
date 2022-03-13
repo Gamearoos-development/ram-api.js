@@ -98,13 +98,13 @@ exports.apihug = async function (version, apikey) {
 	return p;
 };
 
-exports.getinfo = async function (version, apikey) {
+exports.getinfo = async function (apikey) {
 	let p2 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		let version2 = version.replace(/v/g, "");
+		// if (!version.startsWith("v")) version = `v${version}`;
+		// let version2 = version.replace(/v/g, "");
 
-		if (version2 < 6) return reject(`This requires ${latest} or higher to use`);
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
+		// if (version2 < 6) return reject(`This requires ${latest} or higher to use`);
+		// if (outdated.includes(version)) return reject(`This version is outdated!`);
 
 		if (!apikey) return reject("A api key is required");
 
@@ -114,7 +114,7 @@ exports.getinfo = async function (version, apikey) {
 					"Content-Type": "application/json",
 					"api-key": apikey,
 				},
-				baseURL: `https://api.rambot.xyz/${version}`,
+				baseURL: `https://api.rambot.xyz/`,
 			})
 			.then((response) => {
 				resolve(response.data);
@@ -128,7 +128,7 @@ exports.getinfo = async function (version, apikey) {
 
 exports.apigetinfo = async function (version, apikey) {
 	let p2 = new Promise(async (resolve, reject) => {
-		logger.warn("apigetinfo is deprecated! use getinfo instead!");
+		logger.warn("apigetinfo is deprecated! and no longer works!");
 		if (!version.startsWith("v")) version = `v${version}`;
 		let version2 = version.replace(/v/g, "");
 
@@ -143,7 +143,7 @@ exports.apigetinfo = async function (version, apikey) {
 					"Content-Type": "application/json",
 					"api-key": apikey,
 				},
-				baseURL: `https://api.rambot.xyz/${version}`,
+				baseURL: `https://api.rambot.xyz/`,
 			})
 			.then((response) => {
 				resolve(response.data);
@@ -895,6 +895,70 @@ exports.meme = async function (version, apikey) {
 
 		await axios
 			.get(`/meme`, {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://api.rambot.xyz/${version}`,
+			})
+			.then(async function (response) {
+				resolve(response.data);
+			})
+			.catch((error) => {
+				return (
+					// console.log(error) &&
+
+					reject(`An error has happened ${error.response.statusText}`)
+				);
+			});
+	});
+
+	return p3;
+};
+
+exports.anime = async function (version, apikey) {
+	let p3 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+		if (!apikey) return reject("A api key is required");
+		let version2 = version.replace(/v/g, "");
+
+		if (version2 < 8) return reject(`This requires v8 or higher to use`);
+
+		await axios
+			.get(`/anime`, {
+				headers: {
+					"Content-Type": "application/json",
+					"api-key": apikey,
+				},
+				baseURL: `https://api.rambot.xyz/${version}`,
+			})
+			.then(async function (response) {
+				resolve(response.data);
+			})
+			.catch((error) => {
+				return (
+					// console.log(error) &&
+
+					reject(`An error has happened ${error.response.statusText}`)
+				);
+			});
+	});
+
+	return p3;
+};
+
+exports.cats = async function (version, apikey) {
+	let p3 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) return reject(`This version is outdated!`);
+		if (!apikey) return reject("A api key is required");
+		let version2 = version.replace(/v/g, "");
+
+		if (version2 < 8) return reject(`This requires v8 or higher to use`);
+
+		await axios
+			.get(`/cats`, {
 				headers: {
 					"Content-Type": "application/json",
 					"api-key": apikey,
