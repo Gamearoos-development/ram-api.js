@@ -1,8 +1,9 @@
 const axios = require("axios");
 const { createLogger, format, transports, level } = require("winston");
 const { consoleFormat } = require("winston-console-format");
-const outdated = ["v0", "v1", "v2", "v3", "v4"];
-const latest = "v7";
+const outdated = ["v0", "v1", "v2", "v3", "v4", "v5", "v6"];
+const latest = "v9";
+const url = `http://localhost`;
 
 const logger = createLogger({
 	level: "silly",
@@ -35,7 +36,9 @@ const logger = createLogger({
 	],
 });
 
-exports.hug = async function (version, apikey) {
+var tryagain = false;
+
+async function hug(version, apikey) {
 	let p = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 
@@ -43,64 +46,100 @@ exports.hug = async function (version, apikey) {
 
 		if (!apikey) return reject("A api key is required");
 
-		await axios
-			.get(`/hug`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`) &&
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
+		let version2 = version.replace(/v/g, "");
+
+		if (version2 <= 8) {
+			logger.warn(
+				"Your using a older version of ram api reverting to old code"
+			);
+			await axios
+				.get(`/hug`, {
+					headers: {
+						"Content-Type": "application/json",
+						"api-key": apikey,
+					},
+					baseURL: `${url}/${version}`,
+				})
+				.then(async function (response) {
+					resolve(response.data);
+				})
+				.catch((error) => {
+					if (!error.response.statusText) return reject(error);
+					switch (error.response.statusText) {
+						case "Too Many Requests":
+							let err = {
+								code: 429,
+								msg: "Ram api rate limit reached",
+							};
+							if (!tryagain) {
+								logger.warn(`Ram api limit reached retrying in 9 seconds!`);
+								setTimeout(() => {
+									tryagain = true;
+									hug(version, apikey)
+										.then((data) => resolve(data))
+										.catch((err) => reject(err));
+								}, 9000);
+							} else {
+								tryagain = false;
+								reject(err);
+							}
+							break;
+						default:
+							reject(`Error has happened: ${error.response.statusText}`);
+							break;
+					}
+
+					return;
+				});
+		} else if (version2 >= 9) {
+			await axios
+				.get(`/hug`, {
+					headers: {
+						"Content-Type": "application/json",
+						"api-key": apikey,
+					},
+					baseURL: `${url}/${version}/public`,
+				})
+				.then(async function (response) {
+					resolve(response.data);
+				})
+				.catch((error) => {
+					if (!error.response.statusText) return reject(error);
+					switch (error.response.statusText) {
+						case "Too Many Requests":
+							let err = {
+								code: 429,
+								msg: "Ram api rate limit reached",
+							};
+							if (!tryagain) {
+								logger.warn(`Ram api limit reached retrying in 9 seconds!`);
+								setTimeout(() => {
+									tryagain = true;
+									hug(version, apikey)
+										.then((data) => resolve(data))
+										.catch((err) => reject(err));
+								}, 9000);
+							} else {
+								tryagain = false;
+								reject(err);
+							}
+							break;
+						default:
+							reject(`Error has happened: ${error.response.statusText}`);
+							break;
+					}
+
+					return;
+				});
+		}
 	});
 
 	return p;
-};
+}
 
-exports.apihug = async function (version, apikey) {
-	let p = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		logger.warn("apihug is deprecated! use hug instead!");
-
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-
-		if (!apikey) return reject("A api key is required");
-
-		await axios
-			.get(`/hug`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-					logger.error(`An error has happened ${error.response.statusText}`) &&
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p;
-};
-
-exports.getinfo = async function (apikey) {
+async function apiinfo(apikey) {
 	let p2 = new Promise(async (resolve, reject) => {
-		// if (!version.startsWith("v")) version = `v${version}`;
+		if (!version.startsWith("v")) version = `v${version}`;
 		// let version2 = version.replace(/v/g, "");
 
 		// if (version2 < 6) return reject(`This requires ${latest} or higher to use`);
@@ -114,1193 +153,339 @@ exports.getinfo = async function (apikey) {
 					"Content-Type": "application/json",
 					"api-key": apikey,
 				},
-				baseURL: `https://api.rambot.xyz/`,
+				baseURL: `${url}/public`,
 			})
 			.then((response) => {
 				resolve(response.data);
 			})
 			.catch((err) => {
-				return reject(`An error has happened ${err.response.statusText}`);
+				if (!error.response.statusText) return reject(error);
+				switch (error.response.statusText) {
+					case "Too Many Requests":
+						let err = {
+							code: 429,
+							msg: "Ram api rate limit reached",
+						};
+						if (!tryagain) {
+							logger.warn(`Ram api limit reached retrying in 9 seconds!`);
+							setTimeout(() => {
+								tryagain = true;
+								apiinfo(apikey)
+									.then((data) => resolve(data))
+									.catch((err) => reject(err));
+							}, 9000);
+						} else {
+							tryagain = false;
+							reject(err);
+						}
+						break;
+					default:
+						reject(`Error has happened: ${error.response.statusText}`);
+						break;
+				}
+
+				return;
 			});
 	});
 	return p2;
-};
+}
 
-exports.apigetinfo = async function (version, apikey) {
-	let p2 = new Promise(async (resolve, reject) => {
-		logger.warn("apigetinfo is deprecated! and no longer works!");
-		if (!version.startsWith("v")) version = `v${version}`;
-		let version2 = version.replace(/v/g, "");
-
-		if (version2 < 6) return reject(`This requires ${latest} or higher to use`);
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-
-		if (!apikey) return reject("A api key is required");
-
-		await axios
-			.get("/apiinfo", {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/`,
-			})
-			.then((response) => {
-				resolve(response.data);
-			})
-			.catch((err) => {
-				return reject(`An error has happened ${err.response.statusText}`);
-			});
-	});
-	return p2;
-};
-
-exports.ramimage = async function (version, apikey) {
+async function _8ball(version, apikey, lang = "english") {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		let version2 = version.replace(/v/g, "");
 
-		if (version2 < 6) return reject(`This requires v6 or higher to use`);
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-
-		if (!apikey) return reject("A api key is required");
-
-		await axios
-			.get("/ram", {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then((response) => {
-				resolve(response.data.url);
-			})
-			.catch((err) => {
-				return reject(`An error has happened ${err.response.statusText}`);
-			});
-	});
-	return p2;
-};
-
-exports.apiramimage = async function (version, apikey) {
-	let p2 = new Promise(async (resolve, reject) => {
-		logger.warn("apiramimage is deprecated! use ramimage instead!");
-		if (!version.startsWith("v")) version = `v${version}`;
-		let version2 = version.replace(/v/g, "");
-
-		if (version2 < 6) return reject(`This requires ${latest} or higher to use`);
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-
-		if (!apikey) return reject("A api key is required");
-
-		await axios
-			.get("/ram", {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then((response) => {
-				resolve(response.data.url);
-			})
-			.catch((err) => {
-				return reject(`An error has happened ${err.response.statusText}`);
-			});
-	});
-	return p2;
-};
-exports.gm = async function (version, apikey, lang) {
-	let p2 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-
-		let version2 = version.replace(/v/g, "");
-
-		if (!lang) lang = "english";
-
-		if (version2 >= 7) {
-			await axios
-				.get(`/gm/${lang}`, {
-					headers: {
-						"Content-Type": "application/json",
-						"api-key": apikey,
-					},
-					baseURL: `https://api.rambot.xyz/${version}`,
-				})
-				.then(async function (response) {
-					resolve(response.data);
-				})
-				.catch((error) => {
-					return (
-						// console.log(error) &&
-
-						reject(`An error has happened ${error.response.statusText}`)
-					);
-				});
-		} else {
-			await axios
-				.get(`/gm`, {
-					headers: {
-						"Content-Type": "application/json",
-						"api-key": apikey,
-					},
-					baseURL: `https://api.rambot.xyz/${version}`,
-				})
-				.then(async function (response) {
-					resolve(response.data);
-				})
-				.catch((error) => {
-					return (
-						// console.log(error) &&
-
-						reject(`An error has happened ${error.response.statusText}`)
-					);
-				});
-		}
-	});
-
-	return p2;
-};
-
-exports.apigm = async function (version, apikey) {
-	let p2 = new Promise(async (resolve, reject) => {
-		logger.warn("apigm is deprecated! use gm instead!");
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-
-		await axios
-			.get(`/gm`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				if (response.data.error)
-					return reject(`Use gm(apiv, apikey, lang) instead!`);
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p2;
-};
-
-exports.gn = async function (version, apikey, lang) {
-	let p3 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-
-		let version2 = version.replace(/v/g, "");
-
-		if (!lang) lang = "english";
-
-		if (version2 >= 7) {
-			await axios
-				.get(`/gn/${lang}`, {
-					headers: {
-						"Content-Type": "application/json",
-						"api-key": apikey,
-					},
-					baseURL: `https://api.rambot.xyz/${version}`,
-				})
-				.then(async function (response) {
-					resolve(response.data);
-				})
-				.catch((error) => {
-					return (
-						// console.log(error) &&
-
-						reject(`An error has happened ${error.response.statusText}`)
-					);
-				});
-		} else {
-			await axios
-				.get(`/gn`, {
-					headers: {
-						"Content-Type": "application/json",
-						"api-key": apikey,
-					},
-					baseURL: `https://api.rambot.xyz/${version}`,
-				})
-				.then(async function (response) {
-					resolve(response.data);
-				})
-				.catch((error) => {
-					return (
-						// console.log(error) &&
-
-						reject(`An error has happened ${error.response.statusText}`)
-					);
-				});
-		}
-	});
-
-	return p3;
-};
-
-exports.apign = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		logger.warn("apign is deprecated! use gn instead!");
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-
-		await axios
-			.get(`/gn`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				if (response.data.error)
-					return reject(`Use gn(apiv, apikey, lang) instead!`);
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p3;
-};
-
-exports.slap = async function (version, apikey, lang) {
-	let p3 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required!");
-
-		if (!lang) lang = "english";
-
-		let version2 = version.replace(/v/g, "");
-
-		if (version2 >= 7) {
-			await axios
-				.get(`/slap/${lang}`, {
-					headers: {
-						"Content-Type": "application/json",
-						"api-key": apikey,
-					},
-					baseURL: `https://api.rambot.xyz/${version}`,
-				})
-				.then(async function (response) {
-					let data = response.data;
-					resolve(data);
-				})
-				.catch((error) => {
-					return (
-						// console.log(error) &&
-
-						reject(`An error has happened ${error.response.statusText}`)
-					);
-				});
-		} else {
-			await axios
-				.get(`/slap`, {
-					headers: {
-						"Content-Type": "application/json",
-						"api-key": apikey,
-					},
-					baseURL: `https://api.rambot.xyz/${version}`,
-				})
-				.then(async function (response) {
-					let data = response.data;
-					resolve(data);
-				})
-				.catch((error) => {
-					return (
-						// console.log(error) &&
-
-						reject(`An error has happened ${error.response.statusText}`)
-					);
-				});
-		}
-	});
-
-	return p3;
-};
-
-exports.apislap = async function (version, apikey, user, user2) {
-	let p3 = new Promise(async (resolve, reject) => {
-		logger.warn(
-			"apislap is deprecated and only works for v6 and under! use slap instead!"
-		);
-		if (!user || !user2) return reject(`You must provide the users names`);
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required!");
-
-		let version2 = version.replace(/v/g, "");
-		if (version2 >= 7)
-			return reject("use slap as slap has changed in v7 or use v6 instead");
-
-		await axios
-			.get(`/slap`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				let restext = response.data.text;
-				let restext2 = response.data.text2;
-				let restext3 = response.data.text3;
-				let restext4 = response.data.text4;
-				let resurl = response.data.url;
-
-				let text = `${user} ${restext} ${user2}`;
-				if (restext2 !== "NULL")
-					text = `${user} ${restext} ${user2} ${restext2} ${user2} ${restext4} ${user} ${restext3}`;
-
-				let data = { url: resurl, text: text };
-				resolve(data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p3;
-};
-
-exports.kiss = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-
-		await axios
-			.get(`/kiss`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p3;
-};
-
-exports.apikiss = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
-		logger.warn("apikiss is deprecated! use kiss instead!");
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-
-		await axios
-			.get(`/kiss`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p3;
-};
-
-exports._8ball = async function (version, apikey, lang) {
-	let p3 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-		if (!lang) lang = "english";
-
-		let version2 = version.replace(/v/g, "");
-
-		if (version2 >= 7) {
+		if (version2 <= 8) {
+			logger.warn(
+				"Your using a older version of ram api reverting to old code"
+			);
 			await axios
 				.get(`/8ball/${lang}`, {
 					headers: {
 						"Content-Type": "application/json",
 						"api-key": apikey,
 					},
-					baseURL: `https://api.rambot.xyz/${version}`,
+					baseURL: `${url}/${version}`,
 				})
-				.then(async function (response) {
+				.then((response) => {
 					resolve(response.data);
 				})
 				.catch((error) => {
-					return (
-						// console.log(error) &&
+					if (!error.response.statusText) return reject(error);
+					switch (error.response.statusText) {
+						case "Too Many Requests":
+							let err = {
+								code: 429,
+								msg: "Ram api rate limit reached",
+							};
+							if (!tryagain) {
+								logger.warn(`Ram api limit reached retrying in 9 seconds!`);
+								setTimeout(() => {
+									tryagain = true;
+									_8ball(version, apikey)
+										.then((data) => resolve(data))
+										.catch((err) => reject(err));
+								}, 9000);
+							} else {
+								tryagain = false;
+								reject(err);
+							}
+							break;
+						default:
+							reject(`Error has happened: ${error.response.statusText}`);
+							break;
+					}
 
-						reject(`An error has happened ${error.response.statusText}`)
-					);
+					return;
 				});
-		} else {
+		} else if (version2 >= 9) {
 			await axios
-				.get(`/8ball`, {
+				.get(`/8ball/${lang}`, {
 					headers: {
 						"Content-Type": "application/json",
 						"api-key": apikey,
 					},
-					baseURL: `https://api.rambot.xyz/${version}`,
+					baseURL: `${url}/${version}/public`,
 				})
-				.then(async function (response) {
-					resolve(response.data);
-				})
+				.then((response) => resolve(response.data))
 				.catch((error) => {
-					return (
-						// console.log(error) &&
+					if (!error.response.statusText) return reject(error);
+					switch (error.response.statusText) {
+						case "Too Many Requests":
+							let err = {
+								code: 429,
+								msg: "Ram api rate limit reached",
+							};
+							if (!tryagain) {
+								logger.warn(`Ram api limit reached retrying in 9 seconds!`);
+								setTimeout(() => {
+									tryagain = true;
+									_8abll(version, apikey)
+										.then((data) => resolve(data))
+										.catch((err) => reject(err));
+								}, 9000);
+							} else {
+								tryagain = false;
+								reject(err);
+							}
+							break;
+						default:
+							reject(`Error has happened: ${error.response.statusText}`);
+							break;
+					}
 
-						reject(`An error has happened ${error.response.statusText}`)
-					);
+					return;
 				});
 		}
 	});
+	return p2;
+}
 
-	return p3;
+exports.get = {
+	hug,
+	apiinfo,
+	_8ball,
 };
 
-exports.api8ball = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
+async function custom_hello_create(version, apikey, text) {
+	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-
-		logger.warn("api8ball is deprecated! use _8ball instead!");
-
-		await axios
-			.get(`/8ball`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				if (response.data.error)
-					return reject(`Use _8ball(apiv, apikey, lang) instead!`);
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p3;
-};
-
-exports.hello = async function (version, apikey, lang) {
-	let p3 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-
 		let version2 = version.replace(/v/g, "");
-		if (!lang) lang = "english";
-		if (version2 >= 7) {
-			await axios
-				.get(`/hello/${lang}`, {
+
+		if (version2 <= 8) return reject("Use v9 or higher for this endpoint");
+		axios
+			.post(
+				`${url}/${version}/custom/hello/${text}`,
+				{},
+				{
 					headers: {
 						"Content-Type": "application/json",
 						"api-key": apikey,
 					},
-					baseURL: `https://api.rambot.xyz/${version}`,
-				})
-				.then(async function (response) {
-					resolve(response.data);
-				})
-				.catch((error) => {
-					return (
-						// console.log(error) &&
+				}
+			)
+			.then((response) => {
+				let { id } = response.data;
 
-						reject(`An error has happened ${error.response.statusText}`)
-					);
-				});
-		} else {
-			await axios
-				.get(`/hello`, {
+				logger.info(
+					`Note: This is you privet id it is required to call your custom msg \n ${id}`
+				);
+
+				resolve("Completed Id sent to console!");
+			})
+			.catch((error) => {
+				if (!error.response.statusText) return reject(error);
+				switch (error.response.statusText) {
+					case "Too Many Requests":
+						let err = {
+							code: 429,
+							msg: "Ram api rate limit reached",
+						};
+						if (!tryagain) {
+							logger.warn(`Ram api limit reached retrying in 9 seconds!`);
+							setTimeout(() => {
+								tryagain = true;
+								custom_hello_create(version, apikey, text)
+									.then((data) => resolve(data))
+									.catch((err) => reject(err));
+							}, 9000);
+						} else {
+							tryagain = false;
+							reject(err);
+						}
+						break;
+					default:
+						reject(`Error has happened: ${error.response.statusText}`);
+						break;
+				}
+
+				return;
+			});
+	});
+	return p2;
+}
+
+exports.post = {
+	custom_hello_create,
+};
+
+async function custom_hello_add(version, apikey, text, id) {
+	let p2 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		let version2 = version.replace(/v/g, "");
+		if (version2 <= 8) return reject("Use v9 or higher");
+		await axios
+			.put(
+				`${url}/${version}/custom/hello/${text}/${id}`,
+				{},
+				{
 					headers: {
 						"Content-Type": "application/json",
 						"api-key": apikey,
 					},
-					baseURL: `https://api.rambot.xyz/${version}`,
-				})
-				.then(async function (response) {
-					resolve(response.data);
-				})
-				.catch((error) => {
-					return (
-						// console.log(error) &&
-
-						reject(`An error has happened ${error.response.statusText}`)
-					);
-				});
-		}
-	});
-
-	return p3;
-};
-
-exports.apihello = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
-		logger.warn("apihello is deprecated! use hello instead!");
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-
-		await axios
-			.get(`/hello`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				if (response.data.error)
-					return reject(`Use bday(apiv, apikey, lang) instead!`);
-				resolve(response.data);
+				}
+			)
+			.then((response) => {
+				resolve("Completed");
 			})
 			.catch((error) => {
-				return (
-					// console.log(error) &&
+				if (!error.response.statusText) return reject(error);
 
-					reject(`An error has happened ${error.response.statusText}`)
-				);
+				switch (error.response.statusText) {
+					case "Too Many Requests":
+						let err = {
+							code: 429,
+							msg: "Ram api rate limit reached",
+						};
+						if (!tryagain) {
+							logger.warn(`Ram api limit reached retrying in 9 seconds!`);
+							setTimeout(() => {
+								tryagain = true;
+								custom_hello_add(version, apikey, text, id)
+									.then((data) => resolve(data))
+									.catch((err) => reject(err));
+							}, 9000);
+						} else {
+							tryagain = false;
+							reject(err);
+						}
+						break;
+					case "Bad Request":
+						let err2;
+						if (
+							error.response.data.msg === `${text} is already in this array`
+						) {
+							err2 = {
+								code: 409,
+								msg: `${text} is already attached to the provided id`,
+							};
+						} else {
+							err2 = {
+								code: 400,
+								msg: `Ram api returned bad request`,
+							};
+						}
+
+						reject(err2);
+
+						break;
+
+					default:
+						reject(`Error has happened: ${error.response.statusText}`);
+						break;
+				}
+
+				return;
 			});
 	});
+	return p2;
+}
 
-	return p3;
-};
-exports.cuddle = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-
-		await axios
-			.get(`/cuddle`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p3;
-};
-exports.apicuddle = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
-		logger.warn("apicuddle is deprecated! use cuddle instead!");
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-
-		await axios
-			.get(`/cuddle`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p3;
-};
-exports.tired = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-
-		await axios
-			.get(`/tired`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p3;
-};
-exports.apitired = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
-		logger.warn("apitired is deprecated! use tired instead!");
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-
-		await axios
-			.get(`/tired`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p3;
-};
-exports.sick = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-
-		await axios
-			.get(`/sick`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p3;
-};
-exports.apisick = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
-		logger.warn("apisick is deprecated! use sick instead!");
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-
-		await axios
-			.get(`/sick`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p3;
+exports.put = {
+	custom_hello_add,
 };
 
-exports.meme = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
+async function custom_hello_remove(version, apikey, text, id) {
+	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-
-		await axios
-			.get(`/meme`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p3;
-};
-
-exports.anime = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
 		let version2 = version.replace(/v/g, "");
-
-		if (version2 < 8) return reject(`This requires v8 or higher to use`);
+		if (version2 <= 8) return reject("use v9 or higher");
 
 		await axios
-			.get(`/anime`, {
+			.delete(`${url}/${version}/custom/hello/${text}/${id}`, {
 				headers: {
 					"Content-Type": "application/json",
 					"api-key": apikey,
 				},
-				baseURL: `https://api.rambot.xyz/${version}`,
 			})
-			.then(async function (response) {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
+			.then((data) => {
+				let { msg, warning } = data.data;
 
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p3;
-};
-
-exports.cats = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-		let version2 = version.replace(/v/g, "");
-
-		if (version2 < 8) return reject(`This requires v8 or higher to use`);
-
-		await axios
-			.get(`/cats`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				resolve(response.data);
+				if (warning) {
+					resolve(warning);
+				} else {
+					resolve(msg);
+				}
 			})
 			.catch((error) => {
-				return (
-					// console.log(error) &&
+				if (!error.response.statusText) return reject(error);
+				switch (error.response.statusText) {
+					case "I'm a Teapot":
+						let err3 = {
+							code: "I'm a Teapot",
+							msg: "The api refuses to attempt to brew coffee with a teapot.",
+						};
+						reject(err3);
+						break;
+					case "Too Many Requests":
+						let err = {
+							code: 429,
+							msg: "Ram api rate limit reached",
+						};
+						if (!tryagain) {
+							logger.warn(`Ram api limit reached retrying in 9 seconds!`);
+							setTimeout(() => {
+								tryagain = true;
+								custom_hello_remove(version, apikey, text, id)
+									.then((data) => resolve(data))
+									.catch((err) => reject(err));
+							}, 9000);
+						} else {
+							tryagain = false;
+							reject(err);
+						}
+						break;
+					default:
+						reject(`Error has happened: ${error.response.statusText}`);
+						break;
+				}
 
-					reject(`An error has happened ${error.response.statusText}`)
-				);
+				return;
 			});
 	});
+	return p2;
+}
 
-	return p3;
-};
-
-exports.apimeme = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
-		logger.warn("apimeme is deprecated! use meme instead!");
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		if (!apikey) return reject("A api key is required");
-
-		await axios
-			.get(`/meme`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p3;
-};
-
-exports.consoleerror = async function (err) {
-	logger.error(err);
-};
-
-exports.consolewarn = async function (warn) {
-	logger.warn(warn);
-};
-
-exports.consoleinfo = async function (info) {
-	logger.info(info);
-};
-
-exports.executeconsole = async function (msg, iserror, iswarnning) {
-	logger.warn(
-		"executeconsole is deprecated! use consoleinfo(info), consoleerror(error), or consolewarn(warn) instead"
-	);
-	if (iserror) {
-		logger.error(msg);
-	} else if (iswarnning) {
-		logger.warn(msg);
-	} else {
-		logger.info(msg);
-	}
-};
-
-exports.cry = async function (version, apikey, lang) {
-	let p3 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-
-		if (!apikey) return reject("An api key is required");
-
-		if (!lang) lang = "english";
-
-		let version2 = version.replace(/v/g, "");
-
-		if (version2 >= 7) {
-			await axios
-				.get(`/cry/${lang}`, {
-					headers: {
-						"Content-Type": "application/json",
-						"api-key": apikey,
-					},
-					baseURL: `https://api.rambot.xyz/${version}`,
-				})
-				.then(async function (response) {
-					resolve(response.data);
-				})
-				.catch((error) => {
-					return (
-						// console.log(error) &&
-
-						reject(`An error has happened ${error.response.statusText}`)
-					);
-				});
-		} else {
-			await axios
-				.get(`/cry`, {
-					headers: {
-						"Content-Type": "application/json",
-						"api-key": apikey,
-					},
-					baseURL: `https://api.rambot.xyz/${version}`,
-				})
-				.then(async function (response) {
-					resolve(response.data);
-				})
-				.catch((error) => {
-					return (
-						// console.log(error) &&
-
-						reject(`An error has happened ${error.response.statusText}`)
-					);
-				});
-		}
-	});
-
-	return p3;
-};
-
-exports.apicry = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
-		logger.warn("apicry is deprecated! use cry instead!");
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-
-		if (!apikey) return reject("An api key is required");
-
-		await axios
-			.get(`/cry`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				if (response.data.error)
-					return reject(`Use cry(apiv, apikey, lang) instead!`);
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return (
-					// console.log(error) &&
-
-					reject(`An error has happened ${error.response.statusText}`)
-				);
-			});
-	});
-
-	return p3;
-};
-
-exports.lol = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-
-		if (!apikey) return reject("An api key is required");
-
-		await axios
-			.get(`/laugh`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return reject(`An error has happened ${error.response.statusText}`);
-			});
-	});
-
-	return p3;
-};
-
-exports.apilol = async function (version, apikey) {
-	let p3 = new Promise(async (resolve, reject) => {
-		logger.warn("apilol is deprecated! use lol instead");
-		if (!version.startsWith("v")) version = `v${version}`;
-
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-
-		if (!apikey) return reject("An api key is required");
-
-		await axios
-			.get(`/laugh`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return reject(`An error has happened ${error.response.statusText}`);
-			});
-	});
-
-	return p3;
-};
-
-exports.bday = async function (version, apikey, lang) {
-	let p4 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		let version2 = version.replace(/v/g, "");
-
-		if (version2 < 5) return reject(`This requires ${latest} or higher to use`);
-
-		if (!apikey) return reject("An api key is required");
-
-		if (!lang) lang = "english";
-
-		if (version2 >= 7) {
-			await axios
-				.get(`/bday/${lang}`, {
-					headers: {
-						"Content-Type": "application/json",
-						"api-key": apikey,
-					},
-					baseURL: `https://api.rambot.xyz/${version}`,
-				})
-				.then(async function (response) {
-					resolve(response.data);
-				})
-				.catch((error) => {
-					return reject(`An error has happened ${error.response.statusText}`);
-				});
-		} else {
-			await axios
-				.get(`/bday`, {
-					headers: {
-						"Content-Type": "application/json",
-						"api-key": apikey,
-					},
-					baseURL: `https://api.rambot.xyz/${version}`,
-				})
-				.then(async function (response) {
-					resolve(response.data);
-				})
-				.catch((error) => {
-					return reject(`An error has happened ${error.response.statusText}`);
-				});
-		}
-	});
-	return p4;
-};
-
-exports.apibday = async function (version, apikey) {
-	let p4 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		logger.warn("apibday is deprecated! change to bday");
-		if (outdated.includes(version)) return reject(`This version is outdated!`);
-		let version2 = version.replace(/v/g, "");
-
-		if (version2 < 5) return reject(`This requires ${latest} or higher to use`);
-
-		if (!apikey) return reject("An api key is required");
-
-		await axios
-			.get(`/bday`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				if (response.data.error)
-					return reject(`Use bday(apiv, apikey, lang) instead!`);
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return reject(`An error has happened ${error.response.statusText}`);
-			});
-	});
-	return p4;
-};
-
-exports.versioncheck = async function (version) {
-	if (!version.startsWith("v")) version = `v${version}`;
-
-	let p3 = new Promise(async (resolve, reject) => {
-		await axios
-			.get(`/version/${version}`, {
-				headers: {
-					"Content-Type": "application/json",
-				},
-				baseURL: `https://api.rambot.xyz`,
-			})
-			.then(async function (response) {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				return reject(`An error has happened ${error.response.statusText}`);
-			});
-	});
-
-	return p3;
-};
-
-exports.apiversioncheck = async function (version) {
-	if (!version.startsWith("v")) version = `v${version}`;
-	logger.error(
-		"apiversioncheck is deprecated and no longer works! use versioncheck instead!  "
-	);
-	let p3 = new Promise(async (resolve, reject) => {
-		await axios
-			.get(`/version`, {
-				headers: {
-					"Content-Type": "application/json",
-				},
-				baseURL: `https://api.rambot.xyz/${version}`,
-			})
-			.then(async function (response) {
-				reject(
-					`An error has happened ${response.data.error} \n to fix this use versioncheck`
-				);
-			})
-			.catch((error) => {
-				return reject(`An error has happened ${error.response.statusText}`);
-			});
-	});
-
-	return p3;
+exports.delete = {
+	custom_hello_remove,
 };

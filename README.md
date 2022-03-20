@@ -10,31 +10,18 @@ We understand using ram api can be hard as it has alot this package calls the ap
 
 `npm i ram-api.js` or `yarn add ram-api.js`
 
-## Update to v5.0.0
+## Update to 6.0.0
 
 remove the code for any custom connections
 
 # change apiversion check
 
 ```javascript
-const apikey = 'apikey'
-(apiv) to (apiv, apikey)
-getinfo(apiv, apikey) to getinfo(apikey)
-check example for more info
+//look at example
 
-apiversion to versioncheck(apiv).then(data => {
-	//code here
-}).then(err => {
-	//err code here
-})
+add get  in front as such
 
-//remove api from the beginning of things
-
-//example apihug too hug
-
-//for 8ball do _8ball
-
-
+hug to get.hug and kiss to get.kiss
 ```
 
 for a api key join the discord and go to #request-api-keys https://discord.gamearoodev.com
@@ -42,11 +29,16 @@ for a api key join the discord and go to #request-api-keys https://discord.gamea
 ### Example
 
 ```javascript
-const ramapi = require("ram-api.js");
-const apiv = "v7"; //v2 and up are available ram api versions note versions
+const {
+	get: ram_api_get,
+	post: ram_api_post,
+	put: ram_api_put,
+	delete: ram_api_delete,
+} = require("ram-api.js"); // Ram api get endpoints
+const apiv = "v9";
 const lang = "english"; // english and spanish is the choices atm
 const apikey = "apikey"; //ask for a key by contacting support
-
+const helloid = "id to custom hello"; //use the post method to receive the id
 //! note ram api has a 5 calls per 5 seconds
 
 ramapi.consoleerror("test error");
@@ -54,265 +46,43 @@ ramapi.consoleerror("test error");
 ramapi.consoleinfo("test info");
 ramapi.consolewarn("test warn");
 
-ramapi
-	.versioncheck(apiv)
-	.then((data) => {
-		let apiversion = data.version;
-		let ifSupported = data.supported;
-		let ifOutdated = data.outdated;
-		let latest = data.latest;
-
-		if (ifOutdated) {
-			if (!ifSupported) {
-				ramapi.executeconsole(
-					`${apiversion} is No longer supported the latest version is ${latest}`,
-					true,
-					false
-				);
-			} else {
-				return ramapi.executeconsole(
-					`${apiversion} is outdated but still supported the latest version is ${latest}`,
-					false,
-					true
-				);
-			}
-		} else {
-			ramapi.executeconsole(
-				`${apiversion} is the latest version`,
-				false,
-				false
-			);
-		}
-	})
-	.catch((err) => {
-		ramapi.executeconsole(err, true, false);
-	});
-
-ramapi
+ram_api_get
 	.hug(apiv, apikey)
-	.then(async (data) => {
-		console.log(await data.data.url); // logs the url
-	})
-	.catch((err) => {
-		ramapi.executeconsole(err, true, false);
-	});
-
-ramapi
-	.gm(apiv, apikey, lang)
-	.then(async (data) => {
-		console.log(data.url); //url
-		console.log(data.text); //text
-	})
-	.catch((err) => {
-		ramapi.executeconsole(err, true, false);
-	});
-
-ramapi
-	.gn(apiv, apikey, lang)
-	.then(async (data) => {
-		console.log(data.url); //url
-		console.log(data.text); //text
-	})
-	.catch((err) => {
-		ramapi.executeconsole(err, true, false);
-	});
-
-ramapi
-	.slap(apiv, apikey, lang)
-	.then(async (data) => {
-		console.log(data.url); //url
-		console.log(data.text); //texts (it puts this together so the user1 and user2 would be needed)
-	})
-	.catch((err) => {
-		ramapi.executeconsole(err, true, false);
-	});
-
-ramapi
-	.kiss(apiv, apikey)
 	.then((data) => {
-		console.log(data.url); // returns the url
+		console.log(data);
 	})
 	.catch((err) => {
-		ramapi.executeconsole(err, true, false);
+		console.log(err);
 	});
 
-ramapi
-	._8ball(apiv, apikey, lang)
+ram_api_get
+	.apiinfo(apikey)
 	.then((data) => {
-		console.log(data.text); // text
+		console.log(data);
 	})
-	.catch((err) => {
-		ramapi.executeconsole(err, true, false);
-	});
+	.catch((err) => console.log(data));
 
-ramapi
-	.hello(apiv, apikey, lang)
-	.then((data) => {
-		console.log(data.text); //text
-	})
-	.catch((err) => {
-		ramapi.executeconsole(err, true, false);
-	});
-
-ramapi
-	.cuddle(apiv, apikey)
-	.then((data) => {
-		console.log(data.url); //url
-	})
-	.catch((err) => {
-		ramapi.executeconsole(err, true, false);
-	});
-
-ramapi
-	.tired(apiv, apikey)
-	.then((data) => {
-		console.log(data.url); //url
-	})
-	.catch((err) => {
-		ramapi.executeconsole(err, true, false);
-	});
-
-ramapi
-	.sick(apiv, apikey)
-	.then((data) => {
-		console.log(data.url); //url
-	})
-	.catch((err) => {
-		ramapi.executeconsole(err, true, false);
-	});
-
-ramapi
-	.anime(apiv, apikey)
-	.then((data) => {
-		const {
-			url,
-			title,
-			author,
-			nsfw,
-			postlink,
-			subreddit,
-			spoiler,
-			preview,
-			ups,
-		} = data;
-
-		ramapi.consoleinfo(
-			`${url} \n ${title} \n ${author} \n ${nsfw} \n ${postlink} \n ${subreddit} \n ${spoiler} \n ${preview} \n ${ups}`
-		);
-	})
-	.catch((err) => ramapi.consoleerror(err));
-
-ramapi
-	.meme(apiv, apikey)
-	.then((data) => {
-		let url = data.url;
-		let title = data.title;
-		let author = data.author;
-		let nsfw = data.nsfw;
-		let postlink = data.postLink;
-		let subreddit = data.subreddit;
-		let spoiler = data.spoiler;
-		let preview = data.preview;
-		let ups = data.ups;
-		console.log(
-			`${url} \n ${title} \n ${author} \n ${nsfw} \n ${postlink} \n ${subreddit} \n ${spoiler} \n ${preview} \n ${ups}`
-		);
-	})
-	.catch((err) => {
-		ramapi.executeconsole(err, true, false);
-	});
-
-ramapi
-	.cats(apiv, apikey)
-	.then((data) => {
-		const {
-			url,
-			title,
-			author,
-			nsfw,
-			postlink,
-			subreddit,
-			spoiler,
-			preview,
-			ups,
-		} = data;
-
-		ramapi.consoleinfo(
-			`${url} \n ${title} \n ${author} \n ${nsfw} \n ${postlink} \n ${subreddit} \n ${spoiler} \n ${preview} \n ${ups}`
-		);
-	})
-	.catch((err) => ramapi.consoleerror(err));
-
-ramapi
-	.cry(apiv, apikey, lang)
-	.then((data) => {
-		console.log(data.url); //url
-		console.log(data.text); //text
-	})
-	.catch((err) => {
-		ramapi.executeconsole(err, true, false);
-	});
-
-ramapi
-	.lol(apiv, apikey)
-	.then((data) => {
-		console.log(data.url); //url
-	})
-	.catch((err) => {
-		ramapi.executeconsole(err, true, false);
-	});
-
-ramapi
-	.bday(apiv, apikey, lang)
-	.then((data) => {
-		let text = data.text;
-		let url = data.url;
-
-		console.log(text + "\n" + url);
-	})
-	.catch((err) => {
-		ramapi.executeconsole(err, true, false);
-	});
-
-ramapi
-	.ramimage(apiv, apikey)
+ram_api_get
+	._8ball(apiv, apikey)
 	.then((data) => console.log(data))
-	.catch((err) => ramapi.executeconsole(err, true, false));
-ramapi
-	.getinfo(apikey)
-	.then((data) => {
-		let { supported, outdated, version, name, package } = data;
+	.catch((err) => console.log(err));
 
-		let arraysup = [
-			supported.api,
-			supported.v6,
-			supported.v5,
-			supported.v4,
-			supported.v3,
-			supported.v2,
-			supported.v1,
-		];
+// V code for custom msgs adding or create should not be used by production use get endpoints in production builds (MAKE SURE ONLY YOU OR TRUSTED DEVS CAN USE THE POST, PUT, OR DELETE ENDPOINTS)
 
-		let arrayout = [
-			outdated.api,
-			outdated.v6,
-			outdated.v5,
-			outdated.v4,
-			outdated.v3,
-			outdated.v2,
-			outdated.v1,
-		];
+ram_api_post
+	.custom_hello_create(apiv, apikey, "hello") //.then can be used but isnt needed as it logs the id to console
+	.catch((err) => console.log(err));
 
-		console.log(name);
-		console.log(version);
-		console.log(package); // this package  is what it links
-		let mappedsup = arraysup.map((m) => `- ${m}`).join("\n");
-		console.log(mappedsup);
-		let mappedout = arrayout.map((m) => `- ${m}`).join("\n");
-		console.log(mappedout);
-	})
+ram_api_put
+	.custom_hello_add(apiv, apikey, "hi", helloid)
+	.then((data) => console.log(data))
+	.catch((err) => console.log(err));
+
+ram_api_delete
+	.custom_hello_remove(apiv, apikey, "hi", helloid)
+	.then((data) => console.log(data))
 	.catch((err) => {
-		ramapi.executeconsole(err, true, false);
+		console.log(err); // you may get the special error response
 	});
 ```
 
