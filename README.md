@@ -77,6 +77,84 @@ ram_api_get
 	.kiss(apiv, apikey)
 	.then((data) => console.log(data))
 	.catch((err) => ram_api_error(err));
+
+ram_api_get
+	.slap(apiv, apikey)
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
+
+ram_api_get
+	.sick(apiv, apikey)
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
+
+ram_api_get
+	.tired(apiv, apikey)
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
+
+ram_api_get
+	.cry(apiv, apikey, lang)
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
+
+ram_api_get
+	.laugh(apiv, apikey)
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
+
+ram_api_get
+	.birthday(apiv, apikey, lang)
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
+
+ram_api_get.version_check(apiv); //the version checker no longer returns errors or data as it now logs it to console from the api
+
+ram_api_get
+	.apiinfo(apikey)
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
+
+ram_api_get
+	.meme(apiv, apikey)
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
+
+ram_api_get
+	.cats(apiv, apikey)
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
+
+ram_api_get
+	.anime(apiv, apikey)
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
+
+ram_api_get
+	.ram_image(apiv, apikey)
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
+
+//new stuff
+
+ram_api_get
+	.custom_hello(apiv, apikey, helloid)
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
+
+// this is all stuff to edit custom entries not recomended to public bots unless restricted to your id
+
+ram_api_put
+	.custom_hello_add(apiv, apikey, helloid, "hi how are you") //.then isnt needed as it logs to console how ever data return is completed
+	.catch((err) => ram_api_error(err));
+
+ram_api_delete
+	.custom_hello_remove(apiv, apikey, helloid, "hi how are you") //just like put .then isn't needed
+	.catch((err) => ram_api_error(err));
+
+ram_api_post
+	.custom_hello_create(apiv, apikey, "hello") //.then isnt need it only returns check console
+	.catch((err) => ram_api_error(err)); //the id this outputs plz save it you wont be able to get it back if lost
 ```
 
 ## Checks

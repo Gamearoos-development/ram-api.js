@@ -395,13 +395,11 @@ exports.apign = async function (version, apikey) {
 	return p3;
 };
 
-exports.slap = async function (version, apikey, lang) {
+exports.slap = async function (version, apikey) {
 	let p3 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) return reject(`This version is outdated!`);
 		if (!apikey) return reject("A api key is required!");
-
-		if (!lang) lang = "english";
 
 		let version2 = version.replace(/v/g, "");
 
@@ -409,7 +407,7 @@ exports.slap = async function (version, apikey, lang) {
 
 		if (version2 >= 7) {
 			await axios
-				.get(`/slap/${lang}`, {
+				.get(`/slap`, {
 					headers: {
 						"Content-Type": "application/json",
 						"api-key": apikey,
