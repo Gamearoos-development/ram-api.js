@@ -12,17 +12,11 @@ We understand using ram api can be hard as it has alot this package calls the ap
 
 ## Update to 6.0.0
 
-remove the code for any custom connections
-
-# change apiversion check
-
 ```javascript
-//look at example
-
-add get  in front as such
-
-hug to get.hug and kiss to get.kiss
+//look at example for updates
 ```
+
+## api key
 
 for a api key join the discord and go to #request-api-keys https://discord.gamearoodev.com
 
@@ -62,6 +56,26 @@ ram_api_get
 	.then((data) => {
 		console.log(data);
 	})
+	.catch((err) => ram_api_error(err));
+
+ram_api_get
+	.goodmorning(apiv, apikey, lang)
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
+
+ram_api_get
+	.goodnight(apiv, apikey, lang)
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
+
+ram_api_get
+	.hello(apiv, apikey, lang)
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
+
+ram_api_get
+	.kiss(apiv, apikey)
+	.then((data) => console.log(data))
 	.catch((err) => ram_api_error(err));
 ```
 

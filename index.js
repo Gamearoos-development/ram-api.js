@@ -3,7 +3,7 @@ const axios = require("axios");
 const { Logger } = require("simply-logger");
 const outdated = ["v0", "v1", "v2", "v3", "v4", "v5", "v6"];
 const latest = "v9";
-const url = `http://localhost`;
+const url = `https://api.rambot.xyz`;
 
 const apilogger = new Logger("Ram Api", "America/New_York");
 const logger = new Logger(`ram-api.js`, "America/New_York");
@@ -128,10 +128,155 @@ async function cuddle(version, apikey) {
 	return p2;
 }
 
+async function goodmorning(version, apikey, lang = "english") {
+	let p2 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) {
+			apilogger.error(`${version} is no longer supported latest is ${latest}`);
+			return reject("Check Console");
+		}
+
+		let version2 = version.replace(/v/g, "");
+
+		if (version2 <= 8) {
+			logger.warn(
+				"Your using a older version of ram api reverting to old code"
+			);
+			oldcode
+				.gm(version, apikey, lang)
+				.then((data) => resolve(data))
+				.catch((err) => reject(err));
+		} else {
+			axios
+				.get(`${url}/${version}/public/gm/${lang}`, {
+					headers: {
+						"Content-Type": "application/json",
+						"api-key": apikey,
+					},
+				})
+				.then((data) => resolve(data.data))
+				.catch((error) => {
+					errors(version, apikey, error, reject, resolve, goodmorning, lang);
+				});
+		}
+	});
+	return p2;
+}
+
+async function goodnight(version, apikey, lang = "english") {
+	let p2 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) {
+			apilogger.error(`${version} is no longer supported latest is ${latest}`);
+			return reject("Check Console");
+		}
+
+		let version2 = version.replace(/v/g, "");
+
+		if (version2 <= 8) {
+			logger.warn(
+				"Your using a older version of ram api reverting to old code"
+			);
+			oldcode
+				.gn(version, apikey, lang)
+				.then((data) => resolve(data))
+				.catch((err) => reject(err));
+		} else {
+			axios
+				.get(`${url}/${version}/public/gn/${lang}`, {
+					headers: {
+						"Content-Type": "application/json",
+						"api-key": apikey,
+					},
+				})
+				.then((data) => resolve(data.data))
+				.catch((error) => {
+					errors(version, apikey, error, reject, resolve, goodnight, lang);
+				});
+		}
+	});
+	return p2;
+}
+
+async function hello(version, apikey, lang = "english") {
+	let p2 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) {
+			apilogger.error(`${version} is no longer supported latest is ${latest}`);
+			return reject("Check Console");
+		}
+		let version2 = version.replace(/v/g, "");
+
+		if (version2 <= 8) {
+			logger.warn(
+				"Your using a older version of ram api reverting to old code"
+			);
+
+			oldcode
+				.hello(version, apikey, lang)
+				.then((data) => resolve(data))
+				.catch((err) => reject(err));
+		} else {
+			await axios
+				.get(`${url}/${version}/public/hello/${lang}`, {
+					headers: {
+						"Content-Type": "application/json",
+						"api-key": apikey,
+					},
+				})
+				.then((data) => resolve(data.data))
+				.catch((error) => {
+					errors(version, apikey, error, reject, resolve, hello, lang);
+				});
+		}
+	});
+	return p2;
+}
+
+async function kiss(version, apikey) {
+	let p2 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) {
+			apilogger.error(`${version} is no longer supported latest is ${latest}`);
+			return reject("Check Console");
+		}
+
+		let version2 = version.replace(/v/g, "");
+
+		if (version2 <= 8) {
+			logger.warn(
+				"Your using a older version of ram api reverting to old code"
+			);
+
+			oldcode
+				.kiss(version, apikey)
+				.then((data) => resolve(data))
+				.catch((err) => reject(err));
+		} else {
+			axios
+				.get(`${url}/${version}/public/kiss`, {
+					headers: {
+						"Content-Type": "application/json",
+						"api-key": apikey,
+					},
+				})
+				.then((data) => resolve(data.data))
+				.catch((error) =>
+					errors(version, apikey, error, reject, resolve, kiss)
+				);
+		}
+	});
+	return p2;
+}
+
 exports.get = {
 	hug,
 	_8ball,
 	cuddle,
+	goodmorning,
+	goodnight,
+	hello,
+	kiss,
 };
 
 async function errors(
