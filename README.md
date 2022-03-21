@@ -26,7 +26,7 @@ hug to get.hug and kiss to get.kiss
 
 for a api key join the discord and go to #request-api-keys https://discord.gamearoodev.com
 
-### Example
+## Example
 
 NOTE: typescript look at typescripts example
 
