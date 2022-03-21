@@ -5,8 +5,8 @@ const outdated = ["v0", "v1", "v2", "v3", "v4", "v5", "v6"];
 const latest = "v9";
 const url = `https://api.rambot.xyz`;
 
-const apilogger = new Logger("Ram Api", "America/New_York");
-const logger = new Logger(`ram-api.js`, "America/New_York");
+const apilogger = new Logger("Ram Api", "America/New_York", 12);
+const logger = new Logger(`ram-api.js`, "America/New_York", 12);
 
 var tryagain = false;
 const oldcode = require("./oldcode");
