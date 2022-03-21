@@ -1,6 +1,6 @@
 {
 	"name": "ram-api.js",
-	"version": "6.0.0",
+	"version": "6.1.0",
 	"description": "a npm module to connect to ram api for you",
 	"main": "index.js",
 	"scripts": {
@@ -18,7 +18,7 @@
 	"homepage": "https://github.com/Gamearoos-development/ram-api.js#readme",
 	"dependencies": {
 		"axios": "^0.24.0",
-		"simply-logger": "^0.1.23",
+		"simply-logger": "^0.2.25",
 		"winston": "^3.3.3",
 		"winston-console-format": "^1.0.8"
 	}
