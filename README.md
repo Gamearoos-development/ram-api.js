@@ -101,26 +101,11 @@ const lang = "english"; // english and spanish is the choices atm
 const apikey = "apikey"; //ask for a key by contacting support
 const helloid = "id to custom hello"; //use the post method to receive the id
 //! note ram api has a 8 calls per 8 seconds  if using v9 or higher the package will attempt a retry
-ram_api_err("error");
 
-ram_api_get
-	.hug(apiv, apikey)
-	.then((data) => {
-		console.log(data);
-	})
-	.catch((error) => ram_api_error(error);
 
-ram_api_get
-	._8ball(apiv, apikey, lang)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
+//the rest in the example is the same
 
-ram_api_get
-	.cuddle(apiv, apikey)
-	.then((data) => {
-		console.log(data);
-	})
-	.catch((err) => ram_api_error(err));
+
 
 ```
 
