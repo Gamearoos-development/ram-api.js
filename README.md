@@ -28,67 +28,105 @@ for a api key join the discord and go to #request-api-keys https://discord.gamea
 
 ### Example
 
+NOTE: typescript look at typescripts example
+
 ```javascript
 const {
 	get: ram_api_get,
 	post: ram_api_post,
 	put: ram_api_put,
 	delete: ram_api_delete,
+	error: ram_api_error, // error masks a error in console as the package
 } = require("ram-api.js"); // Ram api get endpoints
 const apiv = "v9";
 const lang = "english"; // english and spanish is the choices atm
 const apikey = "apikey"; //ask for a key by contacting support
 const helloid = "id to custom hello"; //use the post method to receive the id
-//! note ram api has a 5 calls per 5 seconds
-
-ramapi.consoleerror("test error");
-
-ramapi.consoleinfo("test info");
-ramapi.consolewarn("test warn");
+//! note ram api has a 8 calls per 8 seconds  if using v9 or higher the package will attempt a retry
+ram_api_err("error");
 
 ram_api_get
 	.hug(apiv, apikey)
 	.then((data) => {
 		console.log(data);
 	})
-	.catch((err) => {
-		console.log(err);
-	});
+	.catch((error) => ram_api_error(error);
 
 ram_api_get
-	.apiinfo(apikey)
+	._8ball(apiv, apikey, lang)
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
+
+ram_api_get
+	.cuddle(apiv, apikey)
 	.then((data) => {
 		console.log(data);
 	})
-	.catch((err) => console.log(data));
+	.catch((err) => ram_api_error(err));
+```
+
+## Checks
+
+Our new advanced error checker works well and will attempt to retry a connection if the rate limit was reached
+New logs
+NOTE: v8 and under will use old code from past ram-api.js packages so unless your using v9 or higher these checkers wont run
+
+## use old code instead of new
+
+To use the old code if not using v9 you can access it by
+NOTE: all though you can do this its suggested to use the ones in example as it will pull from these
+
+```javascript
+const ramapi = require("ram-api.js/oldcode");
+
+let version = "v8"; // for version 9 or higher use the codes in example
+
+let key = "key";
+
+//code here
+```
+
+## typescript examples
+
+```typescript
+import {
+	get: ram_api_get,
+	post: ram_api_post,
+	put: ram_api_put,
+	delete: ram_api_delete,
+	error: ram_api_error, // error masks a error in console as the package
+} from ("ram-api.js"); // Ram api get endpoints
+const apiv = "v9";
+const lang = "english"; // english and spanish is the choices atm
+const apikey = "apikey"; //ask for a key by contacting support
+const helloid = "id to custom hello"; //use the post method to receive the id
+//! note ram api has a 8 calls per 8 seconds  if using v9 or higher the package will attempt a retry
+ram_api_err("error");
 
 ram_api_get
-	._8ball(apiv, apikey)
+	.hug(apiv, apikey)
+	.then((data) => {
+		console.log(data);
+	})
+	.catch((error) => ram_api_error(error);
+
+ram_api_get
+	._8ball(apiv, apikey, lang)
 	.then((data) => console.log(data))
-	.catch((err) => console.log(err));
+	.catch((err) => ram_api_error(err));
 
-// V code for custom msgs adding or create should not be used by production use get endpoints in production builds (MAKE SURE ONLY YOU OR TRUSTED DEVS CAN USE THE POST, PUT, OR DELETE ENDPOINTS)
+ram_api_get
+	.cuddle(apiv, apikey)
+	.then((data) => {
+		console.log(data);
+	})
+	.catch((err) => ram_api_error(err));
 
-ram_api_post
-	.custom_hello_create(apiv, apikey, "hello") //.then can be used but isnt needed as it logs the id to console
-	.catch((err) => console.log(err));
-
-ram_api_put
-	.custom_hello_add(apiv, apikey, "hi", helloid)
-	.then((data) => console.log(data))
-	.catch((err) => console.log(err));
-
-ram_api_delete
-	.custom_hello_remove(apiv, apikey, "hi", helloid)
-	.then((data) => console.log(data))
-	.catch((err) => {
-		console.log(err); // you may get the special error response
-	});
 ```
 
 ## Missing endpoint
 
-current api version is v7 if v8 is out then contact support
+current api version is v9 if v10 is out then contact support
 
 ram api endpoints can be found at https://api.rambot.xyz/docs
 
