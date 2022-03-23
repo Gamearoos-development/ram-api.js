@@ -36,7 +36,7 @@ async function hug(version, apikey) {
 				.hug(version, apikey)
 				.then((data) => resolve(data))
 				.catch((error) => reject(error));
-		} else if (version2 === 9) {
+		} else if (version2 >= 9) {
 			await axios
 				.get(`/hug`, {
 					headers: {
