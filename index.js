@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { date } = require("better-date.js");
 
 const { Logger } = require("simply-logger");
 const outdated = ["v0", "v1", "v2", "v3", "v4", "v5", "v6"];
@@ -13,6 +14,35 @@ const oldcode = require("./oldcode");
 
 exports.error = async function (error) {
 	logger.error(error);
+};
+
+const time = new date("America/New_York", 12).date;
+
+exports.ping = async function ping() {
+	let dat = Date.now();
+
+	let p2 = new Promise(async (resolve, reject) => {
+		await axios
+			.get(`/version/v9`, {
+				headers: {
+					"Content-Type": "application/json",
+				},
+				baseURL: `${url}/public`,
+			})
+			.then(async function (response) {
+				let data = {
+					ping: `${Date.now() - dat}ms`,
+					time: time,
+				};
+
+				resolve(data);
+			})
+			.catch((error) => {
+				errors(version, apikey, error, reject, resolve, hug);
+			});
+	});
+
+	return p2;
 };
 
 async function hug(version, apikey) {

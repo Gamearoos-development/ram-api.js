@@ -10,10 +10,13 @@ We understand using ram api can be hard as it has alot this package calls the ap
 
 `npm i ram-api.js` or `yarn add ram-api.js`
 
-## Update to 6.0.0
+## Update to 6.2.0
 
 ```javascript
-//look at example for updates
+added;
+ram_api_ping()
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
 ```
 
 ## api key
@@ -38,6 +41,10 @@ const apikey = "apikey"; //ask for a key by contacting support
 const helloid = "id to custom hello"; //use the post method to receive the id
 //! note ram api has a 8 calls per 8 seconds  if using v9 or higher the package will attempt a retry
 ram_api_err("error");
+
+ram_api_ping()
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
 
 ram_api_get
 	.hug(apiv, apikey)
