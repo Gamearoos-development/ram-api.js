@@ -2,7 +2,7 @@ name: Tests
 on: [push, pull_request]
 jobs:
   lint:
-    name: Lint
+    name: discord.js
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
