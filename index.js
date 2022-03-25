@@ -727,9 +727,13 @@ async function custom_hello(version, apikey, id) {
 	return p2;
 }
 
-exports.get = {
-	hug,
+exports.games = {
 	_8ball,
+}
+
+exports.fun = {
+	hug,
+	
 	cuddle,
 	goodmorning,
 	goodnight,
@@ -741,14 +745,33 @@ exports.get = {
 	cry,
 	laugh,
 	birthday,
+	
+	
+	
+	
+};
+
+exports.info = {
 	version_check,
 	apiinfo,
+}
+
+exports.custom = {
+	custom_hello,
+	custom_hello_create,
+	custom_hello_add,
+	custom_hello_remove
+}
+
+exports.images = {
+	ram_image,
+}
+
+exports.reddit = {
 	meme,
 	cats,
 	anime,
-	ram_image,
-	custom_hello,
-};
+}
 
 async function custom_hello_add(version, apikey, id, text) {
 	let p2 = new Promise(async (resolve, reject) => {
@@ -784,9 +807,7 @@ async function custom_hello_add(version, apikey, id, text) {
 	return p2;
 }
 
-exports.put = {
-	custom_hello_add,
-};
+
 
 async function custom_hello_remove(version, apikey, id, text) {
 	let p2 = new Promise(async (resolve, reject) => {
@@ -818,9 +839,7 @@ async function custom_hello_remove(version, apikey, id, text) {
 	return p2;
 }
 
-exports.delete = {
-	custom_hello_remove,
-};
+
 
 async function custom_hello_create(version, apikey, text) {
 	let p2 = new Promise(async (resolve, reject) => {
@@ -857,9 +876,7 @@ async function custom_hello_create(version, apikey, text) {
 	return p2;
 }
 
-exports.post = {
-	custom_hello_create,
-};
+
 
 async function errors(
 	version,
