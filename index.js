@@ -807,9 +807,7 @@ async function custom_hello_add(version, apikey, id, text) {
 	return p2;
 }
 
-exports.put = {
-	custom_hello_add,
-};
+
 
 async function custom_hello_remove(version, apikey, id, text) {
 	let p2 = new Promise(async (resolve, reject) => {
@@ -841,9 +839,7 @@ async function custom_hello_remove(version, apikey, id, text) {
 	return p2;
 }
 
-exports.delete = {
-	custom_hello_remove,
-};
+
 
 async function custom_hello_create(version, apikey, text) {
 	let p2 = new Promise(async (resolve, reject) => {
@@ -880,9 +876,7 @@ async function custom_hello_create(version, apikey, text) {
 	return p2;
 }
 
-exports.post = {
-	
-};
+
 
 async function errors(
 	version,
