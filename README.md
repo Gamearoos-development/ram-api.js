@@ -1,220 +1,51 @@
-# ram-api.js
+## ram-api.js
 
 a npm module to connect to ram api easier
 
-## About this package
+> About this package
 
 We understand using ram api can be hard as it has alot this package calls the api for you however this wont bypass the ratelimit youll still see the ratelimit error
 
-## Install
+> Install
 
 `npm i ram-api.js` or `yarn add ram-api.js`
 
-## Update to 6.2.0
+> Update to 6.3.0
 
 ```javascript
 added;
 ram_api_ping()
 	.then((data) => console.log(data))
 	.catch((err) => ram_api_error(err));
+
+ram_api_custom(version, apikey, lang);
 ```
 
-## api key
+> api key
 
 for a api key join the discord and go to #request-api-keys https://discord.gamearoodev.com
 
-## Example
+> Example
 
-NOTE: typescript look at typescripts example
+read https://api.rambot.xyz/package/docs
 
-```javascript
-const {
-	get: ram_api_get,
-	post: ram_api_post,
-	put: ram_api_put,
-	delete: ram_api_delete,
-	error: ram_api_error, // error masks a error in console as the package
-} = require("ram-api.js"); // Ram api get endpoints
-const apiv = "v9";
-const lang = "english"; // english and spanish is the choices atm
-const apikey = "apikey"; //ask for a key by contacting support
-const helloid = "id to custom hello"; //use the post method to receive the id
-//! note ram api has a 8 calls per 8 seconds  if using v9 or higher the package will attempt a retry
-ram_api_err("error");
-
-ram_api_ping()
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ram_api_get
-	.hug(apiv, apikey)
-	.then((data) => {
-		console.log(data);
-	})
-	.catch((error) => ram_api_error(error);
-
-ram_api_get
-	._8ball(apiv, apikey, lang)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ram_api_get
-	.cuddle(apiv, apikey)
-	.then((data) => {
-		console.log(data);
-	})
-	.catch((err) => ram_api_error(err));
-
-ram_api_get
-	.goodmorning(apiv, apikey, lang)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ram_api_get
-	.goodnight(apiv, apikey, lang)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ram_api_get
-	.hello(apiv, apikey, lang)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ram_api_get
-	.kiss(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ram_api_get
-	.slap(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ram_api_get
-	.sick(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ram_api_get
-	.tired(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ram_api_get
-	.cry(apiv, apikey, lang)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ram_api_get
-	.laugh(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ram_api_get
-	.birthday(apiv, apikey, lang)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ram_api_get.version_check(apiv); //the version checker no longer returns errors or data as it now logs it to console from the api
-
-ram_api_get
-	.apiinfo(apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ram_api_get
-	.meme(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ram_api_get
-	.cats(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ram_api_get
-	.anime(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ram_api_get
-	.ram_image(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-//new stuff
-
-ram_api_get
-	.custom_hello(apiv, apikey, helloid)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-// this is all stuff to edit custom entries not recomended to public bots unless restricted to your id
-
-ram_api_put
-	.custom_hello_add(apiv, apikey, helloid, "hi how are you") //.then isnt needed as it logs to console how ever data return is completed
-	.catch((err) => ram_api_error(err));
-
-ram_api_delete
-	.custom_hello_remove(apiv, apikey, helloid, "hi how are you") //just like put .then isn't needed
-	.catch((err) => ram_api_error(err));
-
-ram_api_post
-	.custom_hello_create(apiv, apikey, "hello") //.then isnt need it only returns check console
-	.catch((err) => ram_api_error(err)); //the id this outputs plz save it you wont be able to get it back if lost
-```
-
-## Checks
+> Checks
 
 Our new advanced error checker works well and will attempt to retry a connection if the rate limit was reached
 New logs
 NOTE: v8 and under will use old code from past ram-api.js packages so unless your using v9 or higher these checkers wont run
 
-## use old code instead of new
-
-To use the old code if not using v9 you can access it by
-NOTE: all though you can do this its suggested to use the ones in example as it will pull from these
-
-```javascript
-const ramapi = require("ram-api.js/oldcode");
-
-let version = "v8"; // for version 9 or higher use the codes in example
-
-let key = "key";
-
-//code here
-```
-
-## typescript examples
-
-```typescript
-import {
-	get: ram_api_get,
-	post: ram_api_post,
-	put: ram_api_put,
-	delete: ram_api_delete,
-	error: ram_api_error, // error masks a error in console as the package
-} from ("ram-api.js"); // Ram api get endpoints
-const apiv = "v9";
-const lang = "english"; // english and spanish is the choices atm
-const apikey = "apikey"; //ask for a key by contacting support
-const helloid = "id to custom hello"; //use the post method to receive the id
-//! note ram api has a 8 calls per 8 seconds  if using v9 or higher the package will attempt a retry
-
-
-//the rest in the example is the same
-
-
-
-```
-
-## Missing endpoint
+> Missing endpoint
 
 current api version is v9 if v10 is out then contact support
 
+or use our new custom endpoint function
+
+custom(endpoint, key, lang) //dosn't work with the new ramapi custom response system and only works for v9 or higher
+
 ram api endpoints can be found at https://api.rambot.xyz/docs
 
-## Support
+> Support
 
 email : support@gamearoodev.com
 
