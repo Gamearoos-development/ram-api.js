@@ -10,6 +10,8 @@ We understand using ram api can be hard as it has alot this package calls the ap
 
 `npm i ram-api.js` or `yarn add ram-api.js`
 
+to install dev build `npm i ram-api.js@dev``
+
 > Update to 6.3.0
 
 ```javascript

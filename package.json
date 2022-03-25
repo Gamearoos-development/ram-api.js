@@ -26,4 +26,5 @@
 	"devDependencies": {
 		"jsdoc-to-markdown": "^7.1.1"
 	}
+	
 }

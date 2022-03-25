@@ -56,3 +56,19 @@ body {
 .type {
 	color: rgb(145, 99, 99);
 }
+
+.get {
+	color: aqua;
+}
+
+.post {
+	color: rgb(94, 255, 129);
+}
+
+.put {
+	color: rgb(252, 255, 94);
+}
+
+.delete {
+	color: rgb(255, 0, 0);
+}
