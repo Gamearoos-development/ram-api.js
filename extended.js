@@ -4,7 +4,7 @@ const { date } = require("better-date.js"); // better date lol
 const { Logger } = require("simply-logger");
 const outdated = ["v0", "v1", "v2", "v3", "v4", "v5", "v6"];
 const latest = "v9";
-const url = `https://api.rambot.xyz`;
+const url = `https://api.rambot.xyz/extended`;
 
 const apilogger = new Logger("Ram Api", "America/New_York", 12);
 const logger = new Logger(`ram-api.js`, "America/New_York", 12);
@@ -38,14 +38,14 @@ exports.ping = async function ping() {
 				resolve(data);
 			})
 			.catch((error) => {
-				errors(version, apikey, error, reject, resolve, hug);
+				errors(version, error, reject, resolve, hug);
 			});
 	});
 
 	return p2;
 };
 
-async function hug(version, apikey) {
+async function hug(version) {
 	let p = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) {
@@ -63,7 +63,7 @@ async function hug(version, apikey) {
 			);
 
 			oldcode
-				.hug(version, apikey)
+				.hug(version)
 				.then((data) => resolve(data))
 				.catch((error) => reject(error));
 		} else if (version2 >= 9) {
@@ -71,7 +71,6 @@ async function hug(version, apikey) {
 				.get(`/hug`, {
 					headers: {
 						"Content-Type": "application/json",
-						"api-key": apikey,
 					},
 					baseURL: `${url}/${version}/public`,
 				})
@@ -79,7 +78,7 @@ async function hug(version, apikey) {
 					resolve(response.data);
 				})
 				.catch((error) => {
-					errors(version, apikey, error, reject, resolve, hug);
+					errors(version, error, reject, resolve, hug);
 				});
 		}
 	});
@@ -87,7 +86,7 @@ async function hug(version, apikey) {
 	return p;
 }
 
-async function _8ball(version, apikey, lang = "english") {
+async function _8ball(version, lang = "english") {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) {
@@ -101,7 +100,7 @@ async function _8ball(version, apikey, lang = "english") {
 			);
 
 			oldcode
-				._8ball(version, apikey, lang)
+				._8ball(version, lang)
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));
 		} else {
@@ -109,19 +108,18 @@ async function _8ball(version, apikey, lang = "english") {
 				.get(`${url}/${version}/public/8ball/${lang}`, {
 					headers: {
 						"Content-Type": "application/json",
-						"api-key": apikey,
 					},
 				})
 				.then((response) => resolve(response.data))
 				.catch((error) => {
-					errors(version, apikey, error, reject, resolve, _8ball, lang);
+					errors(version, error, reject, resolve, _8ball, lang);
 				});
 		}
 	});
 	return p2;
 }
 
-async function cuddle(version, apikey) {
+async function cuddle(version) {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) {
@@ -138,7 +136,7 @@ async function cuddle(version, apikey) {
 			);
 
 			oldcode
-				.cuddle(version, apikey)
+				.cuddle(version)
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));
 		} else {
@@ -146,19 +144,18 @@ async function cuddle(version, apikey) {
 				.get(`${url}/${version}/public/cuddle`, {
 					headers: {
 						"Content-Type": "application/json",
-						"api-key": apikey,
 					},
 				})
 				.then((response) => resolve(response.data))
 				.catch((error) => {
-					errors(version, apikey, error, reject, resolve, cuddle);
+					errors(version, error, reject, resolve, cuddle);
 				});
 		}
 	});
 	return p2;
 }
 
-async function goodmorning(version, apikey, lang = "english") {
+async function goodmorning(version, lang = "english") {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) {
@@ -173,7 +170,7 @@ async function goodmorning(version, apikey, lang = "english") {
 				"Your using a older version of ram api reverting to old code"
 			);
 			oldcode
-				.gm(version, apikey, lang)
+				.gm(version, lang)
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));
 		} else {
@@ -181,19 +178,18 @@ async function goodmorning(version, apikey, lang = "english") {
 				.get(`${url}/${version}/public/gm/${lang}`, {
 					headers: {
 						"Content-Type": "application/json",
-						"api-key": apikey,
 					},
 				})
 				.then((data) => resolve(data.data))
 				.catch((error) => {
-					errors(version, apikey, error, reject, resolve, goodmorning, lang);
+					errors(version, error, reject, resolve, goodmorning, lang);
 				});
 		}
 	});
 	return p2;
 }
 
-async function goodnight(version, apikey, lang = "english") {
+async function goodnight(version, lang = "english") {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) {
@@ -208,7 +204,7 @@ async function goodnight(version, apikey, lang = "english") {
 				"Your using a older version of ram api reverting to old code"
 			);
 			oldcode
-				.gn(version, apikey, lang)
+				.gn(version, lang)
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));
 		} else {
@@ -216,19 +212,18 @@ async function goodnight(version, apikey, lang = "english") {
 				.get(`${url}/${version}/public/gn/${lang}`, {
 					headers: {
 						"Content-Type": "application/json",
-						"api-key": apikey,
 					},
 				})
 				.then((data) => resolve(data.data))
 				.catch((error) => {
-					errors(version, apikey, error, reject, resolve, goodnight, lang);
+					errors(version, error, reject, resolve, goodnight, lang);
 				});
 		}
 	});
 	return p2;
 }
 
-async function hello(version, apikey, lang = "english") {
+async function hello(version, lang = "english") {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) {
@@ -243,7 +238,7 @@ async function hello(version, apikey, lang = "english") {
 			);
 
 			oldcode
-				.hello(version, apikey, lang)
+				.hello(version, lang)
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));
 		} else {
@@ -251,19 +246,18 @@ async function hello(version, apikey, lang = "english") {
 				.get(`${url}/${version}/public/hello/${lang}`, {
 					headers: {
 						"Content-Type": "application/json",
-						"api-key": apikey,
 					},
 				})
 				.then((data) => resolve(data.data))
 				.catch((error) => {
-					errors(version, apikey, error, reject, resolve, hello, lang);
+					errors(version, error, reject, resolve, hello, lang);
 				});
 		}
 	});
 	return p2;
 }
 
-async function kiss(version, apikey) {
+async function kiss(version) {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) {
@@ -279,7 +273,7 @@ async function kiss(version, apikey) {
 			);
 
 			oldcode
-				.kiss(version, apikey)
+				.kiss(version)
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));
 		} else {
@@ -287,19 +281,16 @@ async function kiss(version, apikey) {
 				.get(`${url}/${version}/public/kiss`, {
 					headers: {
 						"Content-Type": "application/json",
-						"api-key": apikey,
 					},
 				})
 				.then((data) => resolve(data.data))
-				.catch((error) =>
-					errors(version, apikey, error, reject, resolve, kiss)
-				);
+				.catch((error) => errors(version, error, reject, resolve, kiss));
 		}
 	});
 	return p2;
 }
 
-async function slap(version, apikey) {
+async function slap(version) {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) {
@@ -314,7 +305,7 @@ async function slap(version, apikey) {
 			);
 
 			oldcode
-				.slap(version, apikey)
+				.slap(version)
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));
 		} else {
@@ -322,19 +313,16 @@ async function slap(version, apikey) {
 				.get(`${url}/${version}/public/slap`, {
 					headers: {
 						"Content-Type": "application/json",
-						"api-key": apikey,
 					},
 				})
 				.then((data) => resolve(data.data))
-				.catch((error) =>
-					errors(version, apikey, error, reject, resolve, slap)
-				);
+				.catch((error) => errors(version, error, reject, resolve, slap));
 		}
 	});
 	return p2;
 }
 
-async function sick(version, apikey) {
+async function sick(version) {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) {
@@ -349,7 +337,7 @@ async function sick(version, apikey) {
 			);
 
 			oldcode
-				.sick(version, apikey)
+				.sick(version)
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));
 		} else {
@@ -357,19 +345,16 @@ async function sick(version, apikey) {
 				.get(`${url}/${version}/public/sick`, {
 					headers: {
 						"Content-Type": "application/json",
-						"api-key": apikey,
 					},
 				})
 				.then((data) => resolve(data.data))
-				.catch((error) =>
-					errors(version, apikey, error, reject, resolve, sick)
-				);
+				.catch((error) => errors(version, error, reject, resolve, sick));
 		}
 	});
 	return p2;
 }
 
-async function tired(version, apikey) {
+async function tired(version) {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) {
@@ -385,7 +370,7 @@ async function tired(version, apikey) {
 			);
 
 			oldcode
-				.tired(version, apikey)
+				.tired(version)
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));
 		} else {
@@ -393,19 +378,16 @@ async function tired(version, apikey) {
 				.get(`${url}/${version}/public/tired`, {
 					headers: {
 						"Content-Type": "application/json",
-						"api-key": apikey,
 					},
 				})
 				.then((data) => resolve(data.data))
-				.catch((error) =>
-					errors(version, apikey, error, reject, resolve, tired)
-				);
+				.catch((error) => errors(version, error, reject, resolve, tired));
 		}
 	});
 	return p2;
 }
 
-async function cry(version, apikey, lang = "english") {
+async function cry(version, lang = "english") {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) {
@@ -420,7 +402,7 @@ async function cry(version, apikey, lang = "english") {
 			);
 
 			oldcode
-				.cry(version, apikey, lang)
+				.cry(version, lang)
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));
 		} else {
@@ -428,17 +410,16 @@ async function cry(version, apikey, lang = "english") {
 				.get(`${url}/${version}/public/cry/${lang}`, {
 					headers: {
 						"Content-Type": "application/json",
-						"api-key": apikey,
 					},
 				})
 				.then((data) => resolve(data.data))
-				.catch((error) => errors(version, apikey, error, reject, resolve, cry));
+				.catch((error) => errors(version, error, reject, resolve, cry));
 		}
 	});
 	return p2;
 }
 
-async function laugh(version, apikey) {
+async function laugh(version) {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) {
@@ -453,7 +434,7 @@ async function laugh(version, apikey) {
 			);
 
 			oldcode
-				.lol(version, apikey)
+				.lol(version)
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));
 		} else {
@@ -461,19 +442,16 @@ async function laugh(version, apikey) {
 				.get(`${url}/${version}/public/laugh`, {
 					headers: {
 						"Content-Type": "application/json",
-						"api-key": apikey,
 					},
 				})
 				.then((data) => resolve(data.data))
-				.catch((error) =>
-					errors(version, apikey, error, reject, resolve, laugh)
-				);
+				.catch((error) => errors(version, error, reject, resolve, laugh));
 		}
 	});
 	return p2;
 }
 
-async function birthday(version, apikey, lang = "english") {
+async function birthday(version, lang = "english") {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) {
@@ -489,7 +467,7 @@ async function birthday(version, apikey, lang = "english") {
 			);
 
 			oldcode
-				.bday(version, apikey, lang)
+				.bday(version, lang)
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));
 		} else {
@@ -497,13 +475,10 @@ async function birthday(version, apikey, lang = "english") {
 				.get(`${url}/${version}/public/bday/${lang}`, {
 					headers: {
 						"Content-Type": "application/json",
-						"api-key": apikey,
 					},
 				})
 				.then((data) => resolve(data.data))
-				.catch((error) =>
-					errors(version, apikey, error, reject, resolve, birthday)
-				);
+				.catch((error) => errors(version, error, reject, resolve, birthday));
 		}
 	});
 	return p2;
@@ -511,7 +486,7 @@ async function birthday(version, apikey, lang = "english") {
 
 async function version_check(version) {
 	axios
-		.get(`${url}/public/version/${version}`)
+		.get(`${url}/version/${version}`)
 		.then((data) => {
 			let ifSupported = data.data.supported;
 			let ifOutdated = data.data.outdated;
@@ -540,22 +515,21 @@ async function version_check(version) {
 		});
 }
 
-async function apiinfo(apikey) {
+async function apiinfo() {
 	let p2 = new Promise(async (resolve, reject) => {
 		axios
-			.get(`${url}/public/apiinfo`, {
+			.get(`${url}/apiinfo`, {
 				headers: {
 					"Content-Type": "application/json",
-					"api-key": apikey,
 				},
 			})
 			.then((data) => resolve(data.data))
-			.catch((error) => errors(false, apikey, error, reject, resolve, false));
+			.catch((error) => errors(false, error, reject, resolve, false));
 	});
 	return p2;
 }
 
-async function meme(version, apikey) {
+async function meme(version) {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) {
@@ -571,7 +545,7 @@ async function meme(version, apikey) {
 			);
 
 			oldcode
-				.meme(version, apikey)
+				.meme(version)
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));
 		} else {
@@ -579,19 +553,16 @@ async function meme(version, apikey) {
 				.get(`${url}/${version}/public/meme`, {
 					headers: {
 						"Content-Type": "application/json",
-						"api-key": apikey,
 					},
 				})
 				.then((data) => resolve(data.data))
-				.catch((error) =>
-					errors(version, apikey, error, reject, resolve, meme)
-				);
+				.catch((error) => errors(version, error, reject, resolve, meme));
 		}
 	});
 	return p2;
 }
 
-async function cats(version, apikey) {
+async function cats(version) {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) {
@@ -607,7 +578,7 @@ async function cats(version, apikey) {
 			);
 
 			oldcode
-				.cats(version, apikey)
+				.cats(version)
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));
 		} else {
@@ -615,21 +586,18 @@ async function cats(version, apikey) {
 				.get(`${url}/${version}/public/cats`, {
 					headers: {
 						"Content-Type": "application/json",
-						"api-key": apikey,
 					},
 				})
 				.then((data) => {
 					resolve(data.data);
 				})
-				.catch((error) =>
-					errors(version, apikey, error, reject, resolve, cats)
-				);
+				.catch((error) => errors(version, error, reject, resolve, cats));
 		}
 	});
 	return p2;
 }
 
-async function anime(version, apikey) {
+async function anime(version) {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) {
@@ -645,7 +613,7 @@ async function anime(version, apikey) {
 			);
 
 			oldcode
-				.anime(version, apikey)
+				.anime(version)
 				.then((data) => resolve(data))
 				.catch((error) => reject(error));
 		} else {
@@ -653,19 +621,16 @@ async function anime(version, apikey) {
 				.get(`${url}/${version}/public/anime`, {
 					headers: {
 						"Content-Type": "application/json",
-						"api-key": apikey,
 					},
 				})
 				.then((data) => resolve(data.data))
-				.catch((error) =>
-					errors(version, apikey, error, reject, resolve, anime)
-				);
+				.catch((error) => errors(version, error, reject, resolve, anime));
 		}
 	});
 	return p2;
 }
 
-async function ram_image(version, apikey) {
+async function ram_image(version) {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
 		if (outdated.includes(version)) {
@@ -680,7 +645,7 @@ async function ram_image(version, apikey) {
 			);
 
 			oldcode
-				.ramimage(version, apikey)
+				.ramimage(version)
 				.then((data) => resolve(data))
 				.catch((err) => reject(err));
 		} else {
@@ -688,41 +653,11 @@ async function ram_image(version, apikey) {
 				.get(`${url}/${version}/public/ram`, {
 					headers: {
 						"Content-Type": "application/json",
-						"api-key": apikey,
 					},
 				})
 				.then((data) => resolve(data.data))
-				.catch((error) =>
-					errors(version, apikey, error, reject, resolve, ram_image)
-				);
+				.catch((error) => errors(version, error, reject, resolve, ram_image));
 		}
-	});
-	return p2;
-}
-
-async function custom_hello(version, apikey, id) {
-	let p2 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) {
-			apilogger.error(`${version} is no longer supported latest is ${latest}`);
-			return reject("Check Console");
-		}
-
-		let version2 = version.replace(/v/g, "");
-
-		if (version2 <= 8) return reject(`this is for v9 or higher`);
-
-		if (!id) return reject("ERROR: please provide a id");
-
-		axios
-			.get(`${url}/${version}/custom/hello/${id}`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-			})
-			.then((data) => resolve(data.data))
-			.catch((error) => errors(version, apikey, error, reject, resolve, false));
 	});
 	return p2;
 }
@@ -752,13 +687,6 @@ exports.info = {
 	apiinfo,
 };
 
-exports.custom = {
-	custom_hello,
-	custom_hello_create,
-	custom_hello_add,
-	custom_hello_remove,
-};
-
 exports.images = {
 	ram_image,
 };
@@ -768,105 +696,6 @@ exports.reddit = {
 	cats,
 	anime,
 };
-
-async function custom_hello_add(version, apikey, id, text) {
-	let p2 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) {
-			apilogger.error(`${version} is no longer supported latest is ${latest}`);
-			return reject("Check Console");
-		}
-
-		let version2 = version.replace(/v/g, "");
-
-		if (version2 <= 8) return reject(`this is for v9 or higher`);
-
-		if (!id) return reject("ERROR: please provide a id");
-
-		axios
-			.put(
-				`${url}/${version}/custom/hello/${text}/${id}`,
-				{},
-				{
-					headers: {
-						"Content-Type": "application/json",
-						"api-key": apikey,
-					},
-				}
-			)
-			.then((data) => {
-				resolve("Completed");
-				apilogger.info(`${text} has been added to this ids list`);
-			})
-			.catch((error) => errors(version, apikey, error, reject, resolve, false));
-	});
-	return p2;
-}
-
-async function custom_hello_remove(version, apikey, id, text) {
-	let p2 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) {
-			apilogger.error(`${version} is no longer supported latest is ${latest}`);
-			return reject("Check Console");
-		}
-
-		let version2 = version.replace(/v/g, "");
-
-		if (version2 <= 8) return reject(`this is for v9 or higher`);
-
-		if (!id) return reject("ERROR: please provide a id");
-
-		axios
-			.delete(`${url}/${version}/custom/hello/${text}/${id}`, {
-				headers: {
-					"Content-Type": "application/json",
-					"api-key": apikey,
-				},
-			})
-			.then((data) => {
-				resolve("Completed");
-				apilogger.info(`${text} has been removed to this ids list`);
-			})
-			.catch((error) => errors(version, apikey, error, reject, resolve, false));
-	});
-	return p2;
-}
-
-async function custom_hello_create(version, apikey, text) {
-	let p2 = new Promise(async (resolve, reject) => {
-		if (!version.startsWith("v")) version = `v${version}`;
-		if (outdated.includes(version)) {
-			apilogger.error(`${version} is no longer supported latest is ${latest}`);
-			return reject("Check Console");
-		}
-
-		let version2 = version.replace(/v/g, "");
-
-		if (version2 <= 8) return reject(`this is for v9 or higher`);
-
-		axios
-			.post(
-				`${url}/${version}/custom/hello/${text}`,
-				{},
-				{
-					headers: {
-						"Content-Type": "application/json",
-						"api-key": apikey,
-					},
-				}
-			)
-			.then((data) => {
-				resolve("Check Console");
-				apilogger.info(
-					data.data.id +
-						` \n Do Not share this id it can be used to remove or add entries`
-				);
-			})
-			.catch((error) => errors(version, apikey, error, reject, resolve, false));
-	});
-	return p2;
-}
 
 async function errors(
 	version,
