@@ -1,6 +1,6 @@
 {
 	"name": "ram-api.js",
-	"version": "7.0.0-dev.1",
+	"version": "7.0.0-dev.2",
 	"description": "a npm module to connect to ram api for you",
 	"main": "index.js",
 	"scripts": {
@@ -19,7 +19,9 @@
 	"dependencies": {
 		"axios": "^0.24.0",
 		"better-date.js": "^1.0.1",
-		"simply-logger": "^0.2.25",
+		"chalk": "^4.1.0",
+		"package-json": "^7.0.0",
+		"simply-logger": "^1.3.38",
 		"winston": "^3.3.3",
 		"winston-console-format": "^1.0.8"
 	},

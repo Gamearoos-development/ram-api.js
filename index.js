@@ -5,12 +5,19 @@ const { Logger } = require("simply-logger");
 const outdated = ["v0", "v1", "v2", "v3", "v4", "v5", "v6"];
 const latest = "v9";
 const url = `https://api.rambot.xyz`;
+const curVer = require("./package.json").version;
+var dev = false;
+
+if (curVer.includes("-dev")) dev = true;
 
 const apilogger = new Logger("Ram Api", "America/New_York", 12);
 const logger = new Logger(`ram-api.js`, "America/New_York", 12);
 
 var tryagain = false;
 const oldcode = require("./oldcode");
+
+const packageJson = require("package-json");
+const chalk = require("chalk");
 
 exports.error = async function (error) {
 	logger.error(error);
@@ -768,6 +775,41 @@ exports.reddit = {
 	cats,
 	anime,
 };
+
+let ran = false;
+
+if (dev) {
+	logger.warn("Warning this is a dev build use at your own risk");
+	setInterval(async () => {
+		let version = await packageJson("ram-api.js", { version: "dev" });
+
+		if (ran) return;
+		if (curVer !== version.version) {
+			logger.warn(
+				`Dev Package is out of date to update run ${chalk.magenta(
+					`npm i ram-api.js@dev`
+				)} to update latest version is ${chalk.magenta(version.version)}`
+			);
+			ran = true;
+		}
+	}, 60000);
+}
+
+if (!dev) {
+	setInterval(async () => {
+		let version = await packageJson("ram-api.js", { version: "latest" });
+
+		if (ran) return;
+		if (curVer !== version.version) {
+			logger.warn(
+				`Package is out of date to update run ${chalk.magenta(
+					`npm i ram-api.js@latest`
+				)} to update latest version is ${chalk.magenta(version.version)}`
+			);
+			ran = true;
+		}
+	}, 60000);
+}
 
 async function custom_hello_add(version, apikey, id, text) {
 	let p2 = new Promise(async (resolve, reject) => {
