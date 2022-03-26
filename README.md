@@ -43,6 +43,8 @@ NOTE: typescript look at typescripts example
 
 ```javascript
 const ramapi = require("ram-api.js"); // Ram api get endpoints
+// V use this for extended and ^ this for normal
+const ramapi = require("ram-api.js/extended"); // remember these don't need a apikey
 const apiv = "v9";
 const lang = "english"; // english and spanish is the choices atm
 const apikey = "apikey"; //ask for a key by contacting support
@@ -196,18 +198,14 @@ let key = "key";
 > typescript examples
 
 ```typescript
-import ramapi from "ram-api.js"
+import ramapi from "ram-api.js";
 const apiv = "v9";
 const lang = "english"; // english and spanish is the choices atm
 const apikey = "apikey"; //ask for a key by contacting support
 const helloid = "id to custom hello"; //use the post method to receive the id
 //! note ram api has a 8 calls per 8 seconds  if using v9 or higher the package will attempt a retry
 
-
 //the rest in the example is the same
-
-
-
 ```
 
 > Missing endpoint
