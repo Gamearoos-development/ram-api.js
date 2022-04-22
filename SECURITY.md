@@ -10,7 +10,7 @@ currently being supported with security updates.
 | 6.x   | :white_check_mark: |
 | 5.x   | :white_check_mark:                |
 | 4.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| < 3.x   | :x:                |
 
 ## Reporting a Vulnerability
 
