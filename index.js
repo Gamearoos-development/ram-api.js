@@ -1,23 +1,40 @@
 const axios = require("axios");
 const { date } = require("better-date.js"); // better date lol
 
-const { Logger } = require("simply-logger");
+
 const outdated = ["v0", "v1", "v2", "v3", "v4", "v5", "v6", "v7"];
 const latest = "v10";
 const url = `https://api.rambot.xyz`;
 const curVer = require("./package.json").version;
 var dev = false;
+const slogger = require("@classycrafter/super-logger");
+const { Logger } = require("simply-logger");
 
 if (curVer.includes("-dev")) dev = true;
 
-const apilogger = new Logger("Ram Api", "America/New_York", 12);
+const clogger = new slogger.Logger({name: "ram-api.js", timezone: "America/New_York", tzformat: 12, custom: {
+	character: ' - ',
+	gray: "#bbbbbb",
+        namecolor: "#ff0000",
+        processcolor: "#ff6400",
+        titlecolor: "#00ff78",
+        textcolor: "#FFC0CB",
+        datecolor: "#00FFFF"
+}}) //new Logger("Ram Api", "America/New_York", 12);
 const logger = new Logger(`ram-api.js`, "America/New_York", 12);
+
+const apilogger = new Logger("Ram Api", "America/New_York", 12);
+
+
 
 var tryagain = false;
 const oldcode = require("./oldcode");
 
 const packageJson = require("package-json");
 const chalk = require("chalk");
+
+
+
 
 exports.error = async function (error) {
 	logger.error(error);
