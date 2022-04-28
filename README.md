@@ -5,8 +5,8 @@
   </p>
   <br />
   <p>
-    <a href="https://discord.com/invite/a3vBXUJadY"><img src="https://img.shields.io/discord/605900262581993472?color=5865F2&logo=discord&logoColor=white" alt="Discord server" /></a>
-    <a href="https://www.npmjs.com/package/ram-api.js"><img src="https://img.shields.io/npm/v/ram-api.js.svg?maxAge=3600" alt="npm version" /></a>
+    <a href="https://discord.gg/5a93U2xYjZ"><img src="https://img.shields.io/discord/605900262581993472?color=5865F2&logo=discord&logoColor=white" alt="Discord server" /></a>
+    <a href="https://www.npmjs.com/package/ram-api.js"><img src="https://img.shields.io/npm/v/ram-api.js.svg" alt="npm version" /></a>
     <a href="https://www.npmjs.com/package/ram-api.js"><img src="https://img.shields.io/npm/dt/ram-api.js.svg?maxAge=3600" alt="npm downloads" /></a>
     <a href="https://github.com/Gamearoos-development/ram-api.js/actions"><img src="https://github.com/Gamearoos-development/ram-api.js/actions/workflows/text.yml/badge.svg" alt="Tests status" /></a>
   </p>
@@ -20,13 +20,13 @@ We understand using ram api can be hard as it has alot this package calls the ap
 
 `npm i ram-api.js` or `yarn add ram-api.js`
 
-> Update to 6.2.0
+> Update to 7.x
 
 ```javascript
 added;
 ram_api_ping()
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
+  .then((data) => console.log(data))
+  .catch((err) => ram_api_error(err));
 ```
 
 > docs
@@ -149,6 +149,11 @@ ramapi.reddit
 
 ramapi.images
 	.ram_image(apiv, apikey)
+	.then((data) => console.log(data))
+	.catch((err) => ram_api_error(err));
+
+	ramapi.images
+	.nekopara(apiv, apikey)
 	.then((data) => console.log(data))
 	.catch((err) => ram_api_error(err));
 

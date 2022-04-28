@@ -2,8 +2,8 @@ const axios = require("axios");
 const { date } = require("better-date.js"); // better date lol
 
 const { Logger } = require("simply-logger");
-const outdated = ["v0", "v1", "v2", "v3", "v4", "v5", "v6"];
-const latest = "v9";
+const outdated = ["v0", "v1", "v2", "v3", "v4", "v5", "v6", "v7"];
+const latest = "v10";
 const url = `https://api.rambot.xyz/extended`;
 
 const apilogger = new Logger("Ram Api", "America/New_York", 12);
@@ -23,7 +23,7 @@ exports.ping = async function ping() {
 
 	let p2 = new Promise(async (resolve, reject) => {
 		await axios
-			.get(`/version/v9`, {
+			.get(`/version/v10`, {
 				headers: {
 					"Content-Type": "application/json",
 				},
@@ -662,6 +662,38 @@ async function ram_image(version) {
 	return p2;
 }
 
+async function nekopara(version) {
+	let p2 = new Promise(async (resolve, reject) => {
+		if (!version.startsWith("v")) version = `v${version}`;
+		if (outdated.includes(version)) {
+			apilogger.error(`${version} is no longer supported latest is ${latest}`);
+			return reject("Check Console");
+		}
+
+		let version2 = version.replace(/v/g, "");
+		if (version2 <= 8) {
+			logger.warn(
+				"Your using a older version of ram api reverting to old code"
+			);
+
+			oldcode
+				.ramimage(version)
+				.then((data) => resolve(data))
+				.catch((err) => reject(err));
+		} else {
+			axios
+				.get(`${url}/${version}/public/ram`, {
+					headers: {
+						"Content-Type": "application/json",
+					},
+				})
+				.then((data) => resolve(data.data))
+				.catch((error) => errors(version, error, reject, resolve, ram_image));
+		}
+	});
+	return p2;
+}
+
 exports.games = {
 	_8ball,
 };
@@ -689,6 +721,7 @@ exports.info = {
 
 exports.images = {
 	ram_image,
+	nekopara,
 };
 
 exports.reddit = {
