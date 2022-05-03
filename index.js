@@ -12,15 +12,7 @@ const { Logger } = require("simply-logger");
 
 if (curVer.includes("-dev")) dev = true;
 
-const clogger = new slogger.Logger({name: "ram-api.js", timezone: "America/New_York", tzformat: 12, custom: {
-	character: ' - ',
-	gray: "#bbbbbb",
-        namecolor: "#ff0000",
-        processcolor: "#ff6400",
-        titlecolor: "#00ff78",
-        textcolor: "#FFC0CB",
-        datecolor: "#00FFFF"
-}}) //new Logger("Ram Api", "America/New_York", 12);
+
 const logger = new Logger(`ram-api.js`, "America/New_York", 12);
 
 const apilogger = new Logger("Ram Api", "America/New_York", 12);
