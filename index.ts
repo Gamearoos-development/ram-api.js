@@ -26,25 +26,13 @@ var tryagain = false;
 
 import packageJson from "package-json";
 import chalk from "chalk";
-import { fun } from '.';
 
-/**
- * 
- * @param name string
- * @param apikey string
- * @param version string
- * @param type string
- * @param lang string
- * @returns data
- */
+
+
 
 logger.error(`Typescript support was removed it was just a failure if you with to connect manually check out https://api.rambot.xyz for docs and more info`)
 
-fun
-
-export default {
-	fun
-}
+export default logger.error(`Typescript support was removed it was just a failure if you with to connect manually check out https://api.rambot.xyz for docs and more info`);
 
 let ran = false;
 
