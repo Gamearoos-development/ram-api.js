@@ -681,6 +681,10 @@ async function anime(version, apikey) {
 	return p2;
 }
 
+async function api(name, version, apikey, lang = "english") {
+	return logger.info(`Custom api endpoint entry's are coming soon!`)
+}
+
 async function ram_image(version, apikey) {
 	let p2 = new Promise(async (resolve, reject) => {
 		if (!version.startsWith("v")) version = `v${version}`;
