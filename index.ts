@@ -29,13 +29,17 @@ import chalk from "chalk";
 
 /**
  * 
- * @param options {name, apikey, lang, version, type}
- * @returns 
+ * @param name string
+ * @param apikey string
+ * @param version string
+ * @param type string
+ * @param lang string
+ * @returns data
  */
-export async function api(name, apikey, version, type = 'get', lang = 'english'){
+const api = async (name, apikey, version, type, lang = 'english') => {
 
 	
-if(!name) return apilogger.error(`the name ${name} is not in my api register please check the docs do not include / or url`)
+	if(!name) return apilogger.error(`the name ${name} is not in my api register please check the docs do not include / or url`)
 	
 
 	if(!type ) type = 'get';
@@ -57,9 +61,9 @@ if(!name) return apilogger.error(`the name ${name} is not in my api register ple
 
 } 
 
-
-
-
+export default {
+	api
+}
 
 let ran = false;
 
