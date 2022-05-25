@@ -739,7 +739,7 @@ const reddit = {
 	cats,
 	anime,
 };
-
+ 
 export default {
 	games,
 	fun,
