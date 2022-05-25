@@ -36,7 +36,7 @@ import chalk from "chalk";
  * @param lang string
  * @returns data
  */
-const api = async (name, apikey, version, type, lang = 'english') => {
+async function api(name, apikey, version, type, lang = 'english') {
 
 	
 	if(!name) return apilogger.error(`the name ${name} is not in my api register please check the docs do not include / or url`)
