@@ -32,9 +32,11 @@ import chalk from "chalk";
  * @param options {name, apikey, lang, version, type}
  * @returns 
  */
-export async function api(options){
+export async function api(name, apikey, version, type = 'get', lang = 'english'){
 
-	let {name, apikey, lang, version, type} = options;
+	
+if(!name) return apilogger.error(`the name ${name} is not in my api register please check the docs do not include / or url`)
+	
 
 	if(!type ) type = 'get';
 
@@ -45,7 +47,9 @@ export async function api(options){
 
 	switch (type) {
 		case "get":
-			let response = await fetch(`https://api.rambot.xyz/${version}/public/${name}${lang}`).then(res => res.json());
+			let response = await fetch(`https://api.rambot.xyz/${version}/public/${name}${lang}`).then(res => res.json()).catch(err => {
+				return err
+			});
 
 			console.log(response);
 		break;
