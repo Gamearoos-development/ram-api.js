@@ -3,6 +3,7 @@
 	"version": "7.1.2",
 	"description": "a npm module to connect to ram api for you",
 	"main": "index.js",
+	"types": "index.ts",
 	"scripts": {
 		"test": "node test.js"
 	},
