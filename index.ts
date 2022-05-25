@@ -30,17 +30,15 @@ import chalk from "chalk";
 
 
 
-export const error = async function (error) {
+const error = async function (error) {
 	logger.error(error);
 };
 
 const time = new date("America/New_York", 12).date;
 
-export default () => {
-	return 'ready!'
-}
 
-export const ping = async function ping() {
+
+const ping = async function ping() {
 	let dat = Date.now();
 
 	let p2 = new Promise(async (resolve, reject) => {
@@ -696,11 +694,14 @@ async function custom_hello(version, apikey, id) {
 	return p2;
 }
 
-export const games = {
+const games = {
 	_8ball,
 };
 
-export const fun = {
+
+
+
+const fun = {
 	hug,
 
 	cuddle,
@@ -716,27 +717,38 @@ export const fun = {
 	birthday,
 };
 
-export const info = {
+const info = {
 	version_check,
 	apiinfo,
 };
 
-export const custom = {
+const custom = {
 	custom_hello,
 	custom_hello_create,
 	custom_hello_add,
 	custom_hello_remove,
 };
 
-export const images = {
+const images = {
 	ram_image,
 	nekopara
 };
 
-export const reddit = {
+const reddit = {
 	meme,
 	cats,
 	anime,
+};
+
+export default {
+	games,
+	fun,
+	info,
+	custom,
+	images,
+	reddit,
+	error,
+	ping
 };
 
 let ran = false;
