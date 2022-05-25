@@ -27,8 +27,14 @@ var tryagain = false;
 import packageJson from "package-json";
 import chalk from "chalk";
 
+/**
+ * 
+ * @param options {name, apikey, lang, version, type}
+ * @returns 
+ */
+export async function api(options){
 
-export async function api({name, apikey, lang, version, type}){
+	let {name, apikey, lang, version, type} = options;
 
 	if(!type ) type = 'get';
 
@@ -45,7 +51,7 @@ export async function api({name, apikey, lang, version, type}){
 		break;
 	}
 
-}
+} 
 
 
 
