@@ -26,6 +26,7 @@ var tryagain = false;
 
 import packageJson from "package-json";
 import chalk from "chalk";
+import { fun } from '.';
 
 /**
  * 
@@ -36,33 +37,13 @@ import chalk from "chalk";
  * @param lang string
  * @returns data
  */
-async function api(name, apikey, version, type, lang = 'english') {
 
-	
-	if(!name) return apilogger.error(`the name ${name} is not in my api register please check the docs do not include / or url`)
-	
+logger.error(`Typescript support was removed it was just a failure if you with to connect manually check out https://api.rambot.xyz for docs and more info`)
 
-	if(!type ) type = 'get';
-
-	if(!apikey) return apilogger.error('A api key is required')
-
-	if(!lang) lang = " ";
-	else lang = `/${lang}`
-
-	switch (type) {
-		case "get":
-			let response = await fetch(`https://api.rambot.xyz/${version}/public/${name}${lang}`).then(res => res.json()).catch(err => {
-				return err
-			});
-
-			console.log(response);
-		break;
-	}
-
-} 
+fun
 
 export default {
-	api
+	fun
 }
 
 let ran = false;
