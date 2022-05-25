@@ -186,7 +186,7 @@ async function goodmorning(version, apikey, lang = "english") {
 						"api-key": apikey,
 					},
 				})
-				.then((data) => resolve(data.data))
+				.then((data) => resolve(data?.data))
 				.catch((error) => {
 					errors(version, apikey, error, reject, resolve, goodmorning, lang);
 				});
@@ -217,7 +217,7 @@ async function goodnight(version, apikey, lang = "english") {
 						"api-key": apikey,
 					},
 				})
-				.then((data) => resolve(data.data))
+				.then((data) => resolve(data?.data))
 				.catch((error) => {
 					errors(version, apikey, error, reject, resolve, goodnight, lang);
 				});
@@ -247,7 +247,7 @@ async function hello(version, apikey, lang = "english") {
 						"api-key": apikey,
 					},
 				})
-				.then((data) => resolve(data.data))
+				.then((data) => resolve(data?.data))
 				.catch((error) => {
 					errors(version, apikey, error, reject, resolve, hello, lang);
 				});
@@ -278,7 +278,7 @@ async function kiss(version, apikey) {
 						"api-key": apikey,
 					},
 				})
-				.then((data) => resolve(data.data))
+				.then((data) => resolve(data?.data))
 				.catch((error) =>
 					errors(version, apikey, error, reject, resolve, kiss)
 				);
@@ -308,7 +308,7 @@ async function slap(version, apikey) {
 						"api-key": apikey,
 					},
 				})
-				.then((data) => resolve(data.data))
+				.then((data) => resolve(data?.data))
 				.catch((error) =>
 					errors(version, apikey, error, reject, resolve, slap)
 				);
@@ -338,7 +338,7 @@ async function sick(version, apikey) {
 						"api-key": apikey,
 					},
 				})
-				.then((data) => resolve(data.data))
+				.then((data) => resolve(data?.data))
 				.catch((error) =>
 					errors(version, apikey, error, reject, resolve, sick)
 				);
@@ -369,7 +369,7 @@ async function tired(version, apikey) {
 						"api-key": apikey,
 					},
 				})
-				.then((data) => resolve(data.data))
+				.then((data) => resolve(data?.data))
 				.catch((error) =>
 					errors(version, apikey, error, reject, resolve, tired)
 				);
@@ -399,7 +399,7 @@ async function cry(version, apikey, lang = "english") {
 						"api-key": apikey,
 					},
 				})
-				.then((data) => resolve(data.data))
+				.then((data) => resolve(data?.data))
 				.catch((error) => errors(version, apikey, error, reject, resolve, cry));
 		}
 	});
@@ -427,7 +427,7 @@ async function laugh(version, apikey) {
 						"api-key": apikey,
 					},
 				})
-				.then((data) => resolve(data.data))
+				.then((data) => resolve(data?.data))
 				.catch((error) =>
 					errors(version, apikey, error, reject, resolve, laugh)
 				);
@@ -458,7 +458,7 @@ async function birthday(version, apikey, lang = "english") {
 						"api-key": apikey,
 					},
 				})
-				.then((data) => resolve(data.data))
+				.then((data) => resolve(data?.data))
 				.catch((error) =>
 					errors(version, apikey, error, reject, resolve, birthday)
 				);
@@ -471,9 +471,9 @@ async function version_check(version) {
 	axios
 		.get(`${url}/public/version/${version}`)
 		.then((data) => {
-			let ifSupported = data.data.supported;
-			let ifOutdated = data.data.outdated;
-			let latest = data.data.latest;
+			let ifSupported = data?.data?.supported;
+			let ifOutdated = data?.data?.outdated;
+			let latest = data?.data?.latest;
 
 			if (ifOutdated) {
 				if (!ifSupported) {
@@ -507,7 +507,7 @@ async function apiinfo(apikey) {
 					"api-key": apikey,
 				},
 			})
-			.then((data) => resolve(data.data))
+			.then((data) => resolve(data?.data))
 			.catch((error) => errors(false, apikey, error, reject, resolve, false));
 	});
 	return p2;
@@ -535,7 +535,7 @@ async function meme(version, apikey) {
 						"api-key": apikey,
 					},
 				})
-				.then((data) => resolve(data.data))
+				.then((data) => resolve(data?.data))
 				.catch((error) =>
 					errors(version, apikey, error, reject, resolve, meme)
 				);
@@ -567,7 +567,7 @@ async function cats(version, apikey) {
 					},
 				})
 				.then((data) => {
-					resolve(data.data);
+					resolve(data?.data);
 				})
 				.catch((error) =>
 					errors(version, apikey, error, reject, resolve, cats)
@@ -599,7 +599,7 @@ async function anime(version, apikey) {
 						"api-key": apikey,
 					},
 				})
-				.then((data) => resolve(data.data))
+				.then((data) => resolve(data?.data))
 				.catch((error) =>
 					errors(version, apikey, error, reject, resolve, anime)
 				);
@@ -629,7 +629,7 @@ async function ram_image(version, apikey) {
 						"api-key": apikey,
 					},
 				})
-				.then((data) => resolve(data.data))
+				.then((data) => resolve(data?.data))
 				.catch((error) =>
 					errors(version, apikey, error, reject, resolve, ram_image)
 				);
@@ -658,7 +658,7 @@ async function nekopara(version, apikey) {
 						"api-key": apikey,
 					},
 				})
-				.then((data) => resolve(data.data))
+				.then((data) => resolve(data?.data))
 				.catch((error) =>
 					errors(version, apikey, error, reject, resolve, ram_image)
 				);
@@ -688,21 +688,27 @@ async function custom_hello(version, apikey, id) {
 					"api-key": apikey,
 				},
 			})
-			.then((data) => resolve(data.data))
+			.then((data) => {
+				let final = data?.data
+				
+				resolve(final);
+			})
 			.catch((error) => errors(version, apikey, error, reject, resolve, false));
 	});
 	return p2;
 }
 
-const games = {
-	_8ball,
-};
 
 
 
 
-const fun = {
-	hug,
+
+
+
+	
+
+export interface games {_8ball}
+export interface fun {hug,
 
 	cuddle,
 	goodmorning,
@@ -714,42 +720,35 @@ const fun = {
 	tired,
 	cry,
 	laugh,
-	birthday,
-};
-
-const info = {
+	birthday,}
+export interface info{
 	version_check,
 	apiinfo,
-};
-
-const custom = {
+}
+export interface custom{
 	custom_hello,
 	custom_hello_create,
 	custom_hello_add,
 	custom_hello_remove,
-};
-
-const images = {
+}
+export interface images{
 	ram_image,
 	nekopara
-};
-
-const reddit = {
+}
+export interface reddit{
 	meme,
 	cats,
 	anime,
-};
+
+}
  
-export default {
-	games,
-	fun,
-	info,
-	custom,
-	images,
-	reddit,
+export interface all {
+	
 	error,
 	ping
 };
+
+
 
 let ran = false;
 
@@ -876,7 +875,7 @@ async function custom_hello_create(version, apikey, text) {
 			.then((data) => {
 				resolve("Check Console");
 				apilogger.info(
-					data.data.id +
+					data?.data?.id +
 						` \n Do Not share this id it can be used to remove or add entries`
 				);
 			})
