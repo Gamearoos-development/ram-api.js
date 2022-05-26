@@ -681,7 +681,7 @@ async function anime(version, apikey) {
 	return p2;
 }
 
-async function api(name, version, apikey, lang = "english") {
+async function api_get(name, version, apikey, lang = "english") {
 	return logger.info(`Custom api endpoint entry's are coming soon!`)
 }
 

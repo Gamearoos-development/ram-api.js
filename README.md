@@ -21,13 +21,16 @@ We understand using ram api can be hard as it has alot this package calls the ap
 
 `npm i ram-api.js` or `yarn add ram-api.js`
 
-> Update to 7.x
+> Update to 8.x
 
 ```javascript
 added;
-ram_api_ping()
-  .then((data) => console.log(data))
-  .catch((err) => ram_api_error(err));
+ramapi
+  .api(name, version, apikey, lang)
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((err) => ram_api_error(err)); // makes it easier to call endpoints that are not built in
 ```
 
 > docs
@@ -105,6 +108,11 @@ ramapi.fun
 	.sick(apiv, apikey)
 	.then((data) => console.log(data))
 	.catch((err) => ram_api_error(err));
+
+ramapi.api(name, version, apikey, lang).then(data => {
+	console.log(data);
+
+}).catch(err => ram_api_error(err))
 
 ramapi.fun
 	.tired(apiv, apikey)
@@ -203,22 +211,13 @@ let key = "key";
 
 > typescript examples
 
-```typescript
-import ramapi from "ram-api.js";
-const apiv = "v9";
-const lang = "english"; // english and spanish is the choices atm
-const apikey = "apikey"; //ask for a key by contacting support
-const helloid = "id to custom hello"; //use the post method to receive the id
-//! note ram api has a 8 calls per 8 seconds  if using v9 or higher the package will attempt a retry
-
-//the rest in the example is the same
-```
+typescript is currently not available at this time
 
 > Missing endpoint
 
-current api version is v9 if v10 is out then contact support
+current api version is v10 if v11 is out then contact support
 
-ram api endpoints can be found at https://api.rambot.xyz/docs
+ram api endpoints can be found at https://api.rambot.xyz
 
 > Support
 
