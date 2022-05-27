@@ -28,13 +28,13 @@ const chalk = require("chalk");
 
 
 
-exports.error = async function (error) {
+async function error(error) {
 	logger.error(error);
 };
 
 const time = new date("America/New_York", 12).date;
 
-exports.ping = async function ping() {
+async function ping() {
 	let dat = Date.now();
 
 	let p2 = new Promise(async (resolve, reject) => {
@@ -682,7 +682,40 @@ async function anime(version, apikey) {
 }
 
 async function api_get(name, version, apikey, lang = "english") {
-	return logger.info(`Custom api endpoint entry's are coming soon!`)
+	let p2 = new Promise(async (resolve, reject) => {
+		let listlang = ["gm", 'gn', 'hello', 'cry', 'bday']
+
+		if(!name) return logger.error('Error: a name is required!')
+
+		if(!version) version = latest;
+		if (!version.startsWith("v")) version = `v${version}`;
+		let version2 = version.replace(/v/g, "");
+		
+
+		if(!apikey) return logger.error('api_get is not available for the extended endpoints please provide a api key or add /extended after ram-api.js in the import');
+
+		let url = `https://api.rambot.xyz/${version}/public/${name}`
+		if(listlang.includes(name)) url = `${url}/${lang}`
+		if(name === 'version') url = `${url}/${version}`
+
+		axios
+		.get(url, {
+			headers: {
+				"Content-Type": "application/json",
+				"api-key": apikey,
+			},
+		})
+		.then((data) => resolve(data.data))
+		.catch((error) =>
+			errors(version, apikey, error, reject, resolve, api_get, lang)
+		);
+
+
+	})
+
+	return p2;
+
+
 }
 
 async function ram_image(version, apikey) {
@@ -823,6 +856,14 @@ exports.reddit = {
 	cats,
 	anime,
 };
+
+
+exports.utils = {
+	api_get,
+	error,
+	ping
+	
+}
 
 let ran = false;
 
