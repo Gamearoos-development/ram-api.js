@@ -762,17 +762,13 @@ async function nekopara(version, apikey) {
 
 		let version2 = version.replace(/v/g, "");
 		if (version2 <= 8) {
-			logger.warn(
-				"Your using a older version of ram api reverting to old code"
+			logger.error(
+				"sorry v8 dosnt have nekopara"
 			);
 
-			oldcode
-				.ramimage(version, apikey)
-				.then((data) => resolve(data))
-				.catch((err) => reject(err));
 		} else {
 			axios
-				.get(`${url}/${version}/public/ram`, {
+				.get(`${url}/${version}/public/nekopara`, {
 					headers: {
 						"Content-Type": "application/json",
 						"api-key": apikey,
