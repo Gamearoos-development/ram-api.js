@@ -21,21 +21,14 @@ We understand using ram api can be hard as it has alot this package calls the ap
 
 `npm i ram-api.js` or `yarn add ram-api.js`
 
-> Update to 8.x
+> Update to 9.x
 
-```javascript
-added;
-ramapi
-  .api(name, version, apikey, lang)
-  .then((data) => {
-    console.log(data);
-  })
-  .catch((err) => ram_api_error(err)); // makes it easier to call endpoints that are not built in
+```text
+new way is classes however you can add /code3 and use the older code format
 ```
 
 > docs
-
-https://api.rambot.xyz/packages/docs
+> ** Outdated ** > https://api.rambot.xyz/packages/docs
 
 > api key
 
@@ -43,149 +36,16 @@ for a api key join the discord and go to #request-api-keys https://discord.gamea
 
 > Example
 
-NOTE: typescript look at typescripts example
-
 ```javascript
-const ramapi = require("ram-api.js"); // Ram api get endpoints
-// V use this for extended and ^ this for normal
-const ramapi = require("ram-api.js/extended"); // remember these don't need a apikey
-const apiv = "v9";
-const lang = "english"; // english and spanish is the choices atm
-const apikey = "apikey"; //ask for a key by contacting support
-const helloid = "id to custom hello"; //use the post method to receive the id
-//! note ram api has a 8 calls per 8 seconds  if using v9 or higher the package will attempt a retry
-ramapi.error("error");
+const { APiClient, Logs } = require("ram-api.js");
 
-rama.ping()
+let apiclient = new APiClient("api key here", "v10");
+let logger = new Logs("test bot");
+
+apiclient
+	.ping()
 	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ramapi.fun
-	.hug(apiv, apikey)
-	.then((data) => {
-		console.log(data);
-	})
-	.catch((error) => ram_api_error(error);
-
-ramapi.games
-	._8ball(apiv, apikey, lang)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ramapi.fun
-	.cuddle(apiv, apikey)
-	.then((data) => {
-		console.log(data);
-	})
-	.catch((err) => ram_api_error(err));
-
-ramapi.fun
-	.goodmorning(apiv, apikey, lang)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ramapi.fun
-	.goodnight(apiv, apikey, lang)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ramapi.fun
-	.hello(apiv, apikey, lang)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ramapi.fun
-	.kiss(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ramapi.fun
-	.slap(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ramapi.fun
-	.sick(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ramapi.api(name, version, apikey, lang).then(data => {
-	console.log(data);
-
-}).catch(err => ram_api_error(err))
-
-ramapi.fun
-	.tired(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ramapi.fun
-	.cry(apiv, apikey, lang)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ramapi.fun
-	.laugh(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ramapi.fun
-	.birthday(apiv, apikey, lang)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ramapi.info.version_check(apiv); //the version checker no longer returns errors or data as it now logs it to console from the api
-
-ramapi.info
-	.apiinfo(apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ramapi.reddit
-	.meme(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ramapi.reddit
-	.cats(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ramapi.reddit
-	.anime(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-ramapi.images
-	.ram_image(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-	ramapi.images
-	.nekopara(apiv, apikey)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-//new stuff
-
-ramapi.custom
-	.custom_hello(apiv, apikey, helloid)
-	.then((data) => console.log(data))
-	.catch((err) => ram_api_error(err));
-
-// this is all stuff to edit custom entries not recomended to public bots unless restricted to your id
-
-ramapi.custom
-	.custom_hello_add(apiv, apikey, helloid, "hi how are you") //.then isnt needed as it logs to console how ever data return is completed
-	.catch((err) => ram_api_error(err));
-
-ramapi.custom
-	.custom_hello_remove(apiv, apikey, helloid, "hi how are you") //just like put .then isn't needed
-	.catch((err) => ram_api_error(err));
-
-ramapi.custom
-	.custom_hello_create(apiv, apikey, "hello") //.then isnt need it only returns check console
-	.catch((err) => ram_api_error(err)); //the id this outputs plz save it you wont be able to get it back if lost
+	.catch((err) => logger.error(err));
 ```
 
 > Checks
