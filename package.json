@@ -8,14 +8,14 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Gamearoos-development/ram-api.js.git"
+		"url": "git+https://github.com/anime-development/ram-api.js.git"
 	},
 	"author": "Gamearoo_Codes",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/Gamearoos-development/ram-api.js/issues"
+		"url": "https://github.com/anime-development/ram-api.js/issues"
 	},
-	"homepage": "https://github.com/Gamearoos-development/ram-api.js#readme",
+	"homepage": "https://github.com/anime-development/ram-api.js#readme",
 	"dependencies": {
 		"@classycrafter/super-logger": "^1.2.34",
 		"axios": "^0.24.0",
