@@ -11,14 +11,14 @@ class APiClient {
 	 * 
 	 * @param {String} apikey 
 	 * @param {String} version 
-	 * @param {String} lang
+	 * 
 	 */
-	constructor(apikey, version, lang = 'english') {
+	constructor(apikey, version) {
 		if (!apikey) return
 		if (!version.startsWith("v")) version = `v${version}`;
 		this.apikey = apikey;
 		this.version = version;
-		this.lang = lang;
+
 	}
 	/**
 	 * 
@@ -27,6 +27,28 @@ class APiClient {
 	async ping() {
 		return await utils.ping().catch(err => { });
 	}
+	async bday(lang = "english") {
+		return await fun.birthday(this.version, this.apikey, lang);
+	}
+	async cry(lang = "english") {
+		return await fun.cry(this.version, this.apikey, lang);
+	}
+	async cuddle() {
+		return await fun.cuddle(this.version, this.apikey);
+	}
+	async gm(lang = "english") {
+		return await fun.goodmorning(this.version, this.apikey, lang);
+	}
+	async gn(lang = "english") {
+		return await fun.goodnight(this.version, this.apikey, lang);
+	}
+	async hello(lang = "english") {
+		return await fun.hello(this.version, this.apikey, lang)
+	}
+	async hug() {
+		return await fun.hug(this.version, this.apikey);
+	}
+
 
 }
 

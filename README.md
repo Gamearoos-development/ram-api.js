@@ -41,9 +41,45 @@ const { APiClient, Logs } = require("ram-api.js");
 
 let apiclient = new APiClient("api key here", "v10");
 let logger = new Logs("test bot");
+let lang = "english"; //can be spanish or english
 
 apiclient
 	.ping()
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.bday(lang)
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.cry(lang)
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.cuddle()
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.gm(lang)
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.gn(lang)
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.hello(lang)
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.hug()
 	.then((data) => console.log(data))
 	.catch((err) => logger.error(err));
 ```
