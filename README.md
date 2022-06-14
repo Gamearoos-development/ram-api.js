@@ -114,6 +114,70 @@ apiclient
 	.api_info()
 	.then((data) => console.log(data))
 	.catch((err) => logger.error(err));
+
+apiclient
+	._8ball(lang)
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.nekopara()
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.ram_image()
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.anime()
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.cats()
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.meme()
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+```
+
+> Custom Client Examples
+
+Use this for custom items such as the custom hello in the api note add, remove or post should be a one time run type thing if all possible;
+
+```javascript
+const { APiClient, Logs, CustomClient } = require("ram-api.js");
+
+let apiclient = new CustomClient("api key here", "v10");
+let logger = new Logs("test bot");
+let lang = "english";
+let text = " hello";
+let id = "id here";
+
+apiclient
+	.hello_add(id, text)
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.hello_get(id)
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.hello_post(text)
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.hello_delete(id, text)
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
 ```
 
 > Checks
