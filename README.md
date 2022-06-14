@@ -82,6 +82,38 @@ apiclient
 	.hug()
 	.then((data) => console.log(data))
 	.catch((err) => logger.error(err));
+
+apiclient
+	.kiss()
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.laugh()
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.sick()
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.slap()
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient
+	.tired()
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
+
+apiclient.version_check();
+
+apiclient
+	.api_info()
+	.then((data) => console.log(data))
+	.catch((err) => logger.error(err));
 ```
 
 > Checks

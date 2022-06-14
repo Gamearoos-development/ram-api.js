@@ -533,12 +533,15 @@ async function version_check(version) {
             let ifOutdated = data.data.outdated;
             let latest = data.data.latest;
 
+
+
             if (ifOutdated) {
-                if (!ifSupported) {
+                if (ifSupported == false) {
                     return apilogger.error(
                         `${version} is no longer supported latest is ${latest}`
                     );
-                } else {
+                }
+                if (ifSupported == true) {
                     return apilogger.warn(
                         `${version} is outdated but still supported! Latest is ${latest}`
                     );

@@ -1,5 +1,5 @@
 const { Logger } = require('simply-logger');
-const { utils, fun } = require('./code3');
+const { utils, fun, info } = require('./oldcode2');
 const { ping } = require('./items/ping');
 
 const logger = new Logger(`ram-api.js`, "America/New_York", 12);
@@ -48,7 +48,29 @@ class APiClient {
 	async hug() {
 		return await fun.hug(this.version, this.apikey);
 	}
+	async kiss() {
+		return await fun.kiss(this.version, this.apikey)
+	}
+	async laugh() {
+		return await fun.laugh(this.version, this.apikey)
+	}
+	async sick() {
+		return await fun.sick(this.version, this.apikey);
+	}
+	async slap() {
+		return await fun.slap(this.version, this.apikey);
+	}
+	async tired() {
+		return await fun.tired(this.version, this.apikey);
+	}
+	async version_check() {
+		await info.version_check(this.version).catch(err => logger.error(err));
 
+		return;
+	}
+	async api_info() {
+		return await info.apiinfo(this.apikey);
+	}
 
 }
 
