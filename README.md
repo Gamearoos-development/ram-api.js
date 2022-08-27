@@ -21,198 +21,162 @@ We understand using ram api can be hard as it has alot this package calls the ap
 
 `npm i ram-api.js` or `yarn add ram-api.js`
 
-> Update to 9.x
+> Update to 10.x
 
 ```text
-new way is classes however you can add /code3 and use the older code format
+changed classes to use old one add /oldclasscode
 ```
-
-> docs
-> ** Outdated ** > https://api.rambot.xyz/packages/docs
 
 > api key
 
-for a api key join the discord and go to #request-api-keys https://discord.gamearoodev.com
+for a api key join the discord and go to #request-api-keys https://discord.gg/JeDGnxsZGS
 
-> Example
-
-```javascript
-const { APiClient, Logs } = require("ram-api.js");
-
-let apiclient = new APiClient("api key here", "v10");
-let logger = new Logs("test bot");
-let lang = "english"; //can be spanish or english
-
-apiclient
-	.ping()
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	.bday(lang)
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	.cry(lang)
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	.cuddle()
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	.gm(lang)
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	.gn(lang)
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	.hello(lang)
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	.hug()
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	.kiss()
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	.laugh()
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	.sick()
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	.slap()
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	.tired()
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient.version_check();
-
-apiclient
-	.api_info()
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	._8ball(lang)
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	.nekopara()
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	.ram_image()
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	.anime()
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	.cats()
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-
-apiclient
-	.meme()
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
-```
-
-> Custom Client Examples
-
-Use this for custom items such as the custom hello in the api note add, remove or post should be a one time run type thing if all possible;
+> Examples
 
 ```javascript
-const { APiClient, Logs, CustomClient } = require("ram-api.js");
-
-let apiclient = new CustomClient("api key here", "v10");
-let logger = new Logs("test bot");
-let lang = "english";
-let text = " hello";
-let id = "id here";
-
-apiclient
-	.hello_add(id, text)
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
+const ramapi = require("ram-api.js");
+const key = "apikey here";
+//normal
+const apiclient = new ramapi.RamApi(key, "v11");
+//pro
+const apiclient = new ramapi.RamApiPro(key, "v11");
+//basic
+const apiclient = new ramapi.RamApiBasic("v11");
+const logger = new ramapi.Logs("Name Here");
+const lang = "english";
 
 apiclient
-	.hello_get(id)
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
+	.helloAsync(lang)
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional;
 
 apiclient
-	.hello_post(text)
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
+	._8ballAsync(lang)
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
 
 apiclient
-	.hello_delete(id, text)
-	.then((data) => console.log(data))
-	.catch((err) => logger.error(err));
+	.cuddleAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+
+apiclient
+	.goodmorningAsync(lang)
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+apiclient
+	.goodnightAsync(lang)
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+apiclient
+	.hugAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+apiclient
+	.kissAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+apiclient
+	.slapAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+apiclient
+	.sickAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+apiclient
+	.tiredAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+apiclient
+	.cryAsync(lang)
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+apiclient
+	.laughAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+apiclient
+	.birthdayAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+apiclient
+	.version_infoAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+
+apiclient
+	.ratelimitAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+apiclient
+	.memeAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+apiclient
+	.catsAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+apiclient
+	.animeAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+apiclient
+	.ramAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+apiclient
+	.nekoparaAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+
+apiclient.version_checkAsync();
+// Basic only endpoints
+
+// No Basic only endpoints atm
+
+// Normal only endpoints
+apiclient
+	.apiinfoAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
+// Pro only endpoints
+apiclient
+	.rpsAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
 ```
-
-> Checks
-
-Our new advanced error checker works well and will attempt to retry a connection if the rate limit was reached
-New logs
-NOTE: v8 and under will use old code from past ram-api.js packages so unless your using v9 or higher these checkers wont run
-
-> use old code instead of new
-
-To use the old code if not using v9 you can access it by
-NOTE: all though you can do this its suggested to use the ones in example as it will pull from these
-
-```javascript
-const ramapi = require("ram-api.js/oldcode");
-
-let version = "v8"; // for version 9 or higher use the codes in example
-
-let key = "key";
-
-//code here
-```
-
-> typescript examples
-
-typescript is currently not available at this time
 
 > Missing endpoint
 
-current api version is v10 if v11 is out then contact support
+current api version is v11 if v12 is out then contact support
 
 ram api endpoints can be found at https://api.rambot.xyz
 
 > Support
 
-email : support@gamearoodev.com
+email : support@animedev.top
 
-discord: https://discord.gamearoodev.com
+discord: https://discord.gg/5a93U2xYjZ
