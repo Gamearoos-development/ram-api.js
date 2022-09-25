@@ -271,7 +271,7 @@ class RamApiPro {
      */
     birthdayAsync(lang = "english") {
         let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/lbday/${lang}`, {
+            await axios.get(`/bday/${lang}`, {
                 headers: {
                     "Content-Type": "application/json",
                     "api-key": this.apikey,
