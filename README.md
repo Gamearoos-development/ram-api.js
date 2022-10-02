@@ -44,6 +44,7 @@ const apiclient = new ramapi.RamApiPro(key, "v11");
 const apiclient = new ramapi.RamApiBasic("v11");
 const logger = new ramapi.Logs("Name Here");
 const lang = "english";
+const utils = new ramapi.Utils("Name Here");
 
 apiclient
 	.helloAsync(lang)
@@ -167,6 +168,18 @@ apiclient
 	.then((data) => console.log(data)) //then is optional with a await
 	.catch((error) => logger.error(error)) //catch is required
 	.finally(() => logger.info("Completed!")); //finally is optional
+
+utils
+	.pingAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!"));
+
+utils
+	.customAsync(endpoint, version, { Options }) // options include pro: true or false, basic: true or false, or api_key: String, lang: String
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!"));
 ```
 
 > Missing endpoint
