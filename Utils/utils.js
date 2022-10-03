@@ -1,16 +1,20 @@
-const { Logs } = require('../index');
-const { ping } = require('../items/ping');
+const { Logger } = require('simply-logger');
+
+
+
+const logger = new Logger(`ram-api.js`, "America/New_York", 12);
+
+const apilogger = new Logger("Ram Api", "America/New_York", 12);
 
 class Utils {
-    /**
-     * Creates an instance of Utils.
-     * @param {String} [name="ram-api.js"]
-     * @memberof Utils
-     */
-    constructor(name = "ram-api.js") {
-        this.log = new Logs(name);
-        this.apilogs = new Logs("Ram Api");
+
+    constructor() {
+
     }
+    /**
+     * 
+     * @returns 
+     */
     async pingAsync() {
         let dat = Date.now();
         let p = new Promise(async (resolve, reject) => {
@@ -34,13 +38,11 @@ class Utils {
         return p;
     }
     /**
-     *
-     *
-     * @param {String} endpoint
-     * @param {String} version
-     * @param {Object} [Options={ pro: false, basic: true, api_key: "NULL", lang: "english" }]
-     * @return {*} 
-     * @memberof Utils
+     * 
+     * @param {String} endpoint 
+     * @param {String} version 
+     * @param {Object} Options 
+     * @returns 
      */
     async customAsync(endpoint, version, Options = { pro: false, basic: true, api_key: "NULL", lang: "english" }) {
         let p = new Promise(async (resolve, reject) => {
@@ -73,4 +75,16 @@ class Utils {
     }
 }
 
-module.exports = { Utils }; 
+async function errors(name, error) {
+    if (error.response) {
+        let err = `Status: ${error.response.status} | Error: ${error.response.statusText}`;
+        apilogger.error(err);
+        if (error.response.data.error.message) logger.error(`Ram Api Ran into a error while running ${name}. The problem is: ${error.response.data.error.message}.`)
+    }
+    else {
+        console.log(error)
+        logger.error(`error running ${name}. Please report to the developers the error logged into your console!`)
+    }
+}
+
+module.exports = { Utils };
