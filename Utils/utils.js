@@ -70,3 +70,5 @@ class Utils {
         return p;
     }
 }
+
+module.exports = Utils
