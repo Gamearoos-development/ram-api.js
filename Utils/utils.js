@@ -24,7 +24,7 @@ class Utils {
                     "Content-Type": "application/json",
 
                 },
-                baseURL: `https://api.rambot.xyz/basic/v11`
+                baseURL: `https://api.rambot.xyz/basic/v11/public`
             }).then(async function (res) {
                 let data = {
                     ping: `${Date.now() - dat}ms`,
