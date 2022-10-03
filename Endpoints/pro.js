@@ -290,10 +290,7 @@ class RamApiPro {
 
     version_infoAsync() {
         let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/version/${this.version}`, {
-
-                baseURL: `${url}/public`
-            }).then(async function (res) {
+            await axios.get(`${url}/public/version/${this.version}`).then(async function (res) {
                 resolve(res.data);
             }).catch(async (error) => {
 
