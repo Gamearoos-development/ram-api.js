@@ -3,6 +3,7 @@
 	"version": "11.1.3",
 	"description": "a npm module to connect to ram api for you",
 	"main": "index.js",
+	"typings": ".d.ts",
 	"scripts": {
 		"test": "node test.js"
 	},
@@ -12,6 +13,13 @@
 	},
 	"author": "Gamearoo_Codes",
 	"license": "ISC",
+	"keywords": [
+		"discord",
+		"discord.js",
+		"discordjs",
+		"logger",
+		"ramapi"
+	],
 	"bugs": {
 		"url": "https://github.com/anime-development/ram-api.js/issues"
 	},
