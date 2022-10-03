@@ -50,7 +50,7 @@ class Utils {
 
 
 
-            let url = `/${version}/${endpoint}/`
+            let url = `/${version}/public/${endpoint}/`
 
             if (Options.pro) url = `/pro${url}`;
             if (Options.basic) url = `/basic${url}`
