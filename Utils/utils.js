@@ -1,3 +1,4 @@
+const { Logs } = require('../index');
 const { ping } = require('../items/ping');
 
 class Utils {
@@ -7,7 +8,8 @@ class Utils {
      * @memberof Utils
      */
     constructor(name = "ram-api.js") {
-
+        this.log = new Logs(name);
+        this.apilogs = new Logs("Ram Api");
     }
     async pingAsync() {
         let dat = Date.now();
@@ -71,4 +73,4 @@ class Utils {
     }
 }
 
-module.exports = Utils
+module.exports = { Utils }; 

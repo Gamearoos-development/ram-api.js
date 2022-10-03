@@ -1,9 +1,10 @@
 const { Logger } = require('simply-logger');
-const { utils, fun, info, games, images, reddit, custom } = require('./oldcode2');
+
 const { ping } = require('./items/ping');
 const { RamApiPro } = require('./Endpoints/pro');
 const { RamApiBasic } = require('./Endpoints/basic');
 const { RamApi } = require('./Endpoints/normal')
+const { Utils } = require('./Utils/utils')
 
 const logger = new Logger(`ram-api.js`, "America/New_York", 12);
 
@@ -24,6 +25,7 @@ class Logs {
     warn(msg) {
         this.log.warn(msg);
     }
+
 }
 
 
@@ -31,5 +33,6 @@ module.exports = {
     RamApiPro,
     Logs,
     RamApiBasic,
-    RamApi
+    RamApi,
+    Utils
 };
