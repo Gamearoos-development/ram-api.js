@@ -55,7 +55,7 @@ class Utils {
             if (Options.pro) url = `/pro${url}`;
             if (Options.basic) url = `/basic${url}`
 
-            if (Options.lang !== "NULL") url = `${url}/${lang}`
+            if (Options.lang !== "NULL") url = `${url}/${Options.lang}`
 
             await axios.get(url, {
                 headers: {
