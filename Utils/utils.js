@@ -41,7 +41,7 @@ class Utils {
      * 
      * @param {String} endpoint 
      * @param {String} version 
-     * @param {Object} Options 
+     * @param {Object} Options = { pro: false, basic: true, api_key: "NULL", lang: "english" }
      * @returns 
      */
     async customAsync(endpoint, version, Options = { pro: false, basic: true, api_key: "NULL", lang: "english" }) {
