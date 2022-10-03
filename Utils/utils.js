@@ -45,7 +45,7 @@ class Utils {
      * @param {Object} Options = { pro: false, basic: true, api_key: "NULL", lang: "english" }
      * @returns 
      */
-    async customAsync(endpoint, version, Options = { pro: false, basic: false, api_key: "NULL", lang: "english" }) {
+    async customAsync(endpoint, version, Options = { pro: false, basic: false, api_key: "NULL", lang: "NULL" }) {
         let p = new Promise(async (resolve, reject) => {
 
 
@@ -55,7 +55,7 @@ class Utils {
             if (Options.pro) url = `/pro${url}`;
             if (Options.basic) url = `/basic${url}`
 
-            if (Options.lang) url = `${url}/${lang}`
+            if (Options.lang !== "NULL") url = `${url}/${lang}`
 
             await axios.get(url, {
                 headers: {
