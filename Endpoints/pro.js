@@ -1,6 +1,6 @@
 const { Logger } = require('simply-logger');
 
-const { ping } = require('../items/ping');
+
 
 const logger = new Logger(`ram-api.js`, "America/New_York", 12);
 
