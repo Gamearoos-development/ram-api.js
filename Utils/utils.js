@@ -45,7 +45,7 @@ class Utils {
      * @param {Object} Options = { pro: false, basic: true, api_key: "NULL", lang: "english" }
      * @returns 
      */
-    async customAsync(endpoint, version, Options = { pro: false, basic: true, api_key: "NULL", lang: "english" }) {
+    async customAsync(endpoint, version, Options = { pro: false, basic: false, api_key: "NULL", lang: "english" }) {
         let p = new Promise(async (resolve, reject) => {
 
 
