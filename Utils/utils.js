@@ -19,7 +19,7 @@ class Utils {
     async pingAsync() {
         let dat = Date.now();
         let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/hello/${lang}`, {
+            await axios.get(`/hello/english`, {
                 headers: {
                     "Content-Type": "application/json",
 
