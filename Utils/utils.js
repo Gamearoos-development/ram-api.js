@@ -1,4 +1,5 @@
 const { Logger } = require('simply-logger');
+const {exec} = require('child_process');
 
 
 
@@ -14,8 +15,69 @@ class Utils {
     }
     /**
      * 
+     * @param {String} version 
+     */
+    async updatePackageAsync(version = "latest") {
+        
+        let cmd = `npm i ram-api.js@${version}`;
+        () => exec(cmd).catch(err => logger.error(err));
+
+    }
+    /**
+     * 
      * @returns 
      */
+    async packageVersionCheckAsync() {
+        let p = new Promise(async (resolve, reject) => {
+            var dev = false;
+            let ran = false;
+            if (dev) {
+                try {
+                logger.warn("Warning this is a dev build use at your own risk");
+                
+                    let version = await packageJson("ram-api.js", { version: "dev" });
+            
+                    if (ran) return;
+                    if (curVer !== version.version) {
+                        resolve(
+                            `Dev Package is out of date to update run ${chalk.magenta(
+                                `npm i ram-api.js@dev`
+                            )} to update latest version is ${chalk.magenta(version.version)}`
+                        );
+                        ran = true;
+                    } else{
+                        resolve('Package Up to date')
+                    }
+                } catch (error) {
+                    reject(error)
+                }
+               
+            }
+            
+            if (!dev) {
+                try {
+                
+                    let version = await packageJson("ram-api.js", { version: "latest" });
+            
+                    if (ran) return;
+                    if (curVer !== version.version) {
+                        resolve(
+                            `Package is out of date to update run ${chalk.magenta(
+                                `npm i ram-api.js@latest`
+                            )} to update latest version is ${chalk.magenta(version.version)}`
+                        );
+                        ran = true;
+                    } else{
+                        resolve('Package Up to date')
+                    }
+                } catch (error) {
+                    reject(error)
+                }
+              
+            }
+        })
+        return p;
+    }
     async pingAsync() {
         let dat = Date.now();
 
