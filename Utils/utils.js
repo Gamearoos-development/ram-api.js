@@ -18,6 +18,7 @@ class Utils {
      */
     async pingAsync() {
         let dat = Date.now();
+
         let p = new Promise(async (resolve, reject) => {
             await axios.get(`/hello/english`, {
                 headers: {
@@ -28,7 +29,7 @@ class Utils {
             }).then(async function (res) {
                 let data = {
                     ping: `${Date.now() - dat}ms`,
-                    time: time,
+
                 };
 
                 resolve(data);
