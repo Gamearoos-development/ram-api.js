@@ -84,8 +84,9 @@ declare class RamApiPro {
 
 declare class Utils {
 	constructor();
+	
 
-	custom: (
+	customAsync: (
 		endpoint: string,
 		version: string,
 		Options?: object,
@@ -95,7 +96,11 @@ declare class Utils {
 		Options?: object | null;
 	};
 
-	ping: () => {};
+	pingAsync: () => {};
+	packageVersionCheckAsync: () => {};
+	updatePackageAsync: (version: sting) => {
+		version?: string | "latest"
+	}
 }
 
 declare class RamApiBasic {
