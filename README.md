@@ -38,6 +38,7 @@ const ramapi = require("ram-api.js");
 const key = "apikey here";
 //normal
 const apiclient = new ramapi.RamApi(key, "v11");
+const version = "latest"
 //pro
 const apiclient = new ramapi.RamApiPro(key, "v11");
 //basic
@@ -174,6 +175,13 @@ utils
 	.then((data) => console.log(data)) //then is optional with a await
 	.catch((error) => logger.error(error)) //catch is required
 	.finally(() => logger.info("Completed!"));
+utils
+	.packageVersionCheckAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!"));
+utils
+	.updatePackageAsync(version);
 
 utils
 	.customAsync(endpoint, version, { Options }) // options include pro: true or false, basic: true or false, or api_key: String, lang: String
