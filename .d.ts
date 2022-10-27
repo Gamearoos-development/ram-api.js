@@ -43,6 +43,7 @@ declare class RamApi {
 	nekoparaAsync: () => {};
 	version_checkAsync: () => {};
 	apiinfoAsync: () => {};
+	rpsAsync: () => {};
 }
 declare class RamApiPro {
 	constructor(apikey: sting, version: string);
@@ -138,4 +139,5 @@ declare class RamApiBasic {
 	ramAsync: () => {};
 	nekoparaAsync: () => {};
 	version_checkAsync: () => {};
+	rpsAsync: () => {};
 }

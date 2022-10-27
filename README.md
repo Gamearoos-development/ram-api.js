@@ -153,6 +153,12 @@ apiclient
 	.finally(() => logger.info("Completed!")); //finally is optional
 
 apiclient.version_checkAsync();
+
+apiclient
+	.rpsAsync()
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
 // Basic only endpoints
 
 // No Basic only endpoints atm
@@ -164,17 +170,16 @@ apiclient
 	.catch((error) => logger.error(error)) //catch is required
 	.finally(() => logger.info("Completed!")); //finally is optional
 // Pro only endpoints
-apiclient
-	.rpsAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.error(error)) //catch is required
-	.finally(() => logger.info("Completed!")); //finally is optional
+
+//no pro only endpoints at this time
+
+//utils
 
 utils
-	.pingAsync()
+	.pingAsync()//this runs on the basic endpoint
 	.then((data) => console.log(data)) //then is optional with a await
 	.catch((error) => logger.error(error)) //catch is required
-	.finally(() => logger.info("Completed!"));
+	.finally(() => logger.info("Completed!")); 
 utils
 	.packageVersionCheckAsync()
 	.then((data) => console.log(data)) //then is optional with a await
