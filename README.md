@@ -197,7 +197,7 @@ utils
 
 > Missing endpoint
 
-current api version is v11 if v12 is out then contact support
+current api version is v12 if v13 is out then contact support
 
 ram api endpoints can be found at https://api.rambot.xyz
 
