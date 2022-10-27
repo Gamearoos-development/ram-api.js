@@ -1,11 +1,11 @@
-const { Logger } = require('simply-logger');
+const { Logger } = require("simply-logger");
 
-const { ping } = require('../items/ping');
+const { ping } = require("../items/ping");
 
 const logger = new Logger(`ram-api.js`, "America/New_York", 12);
 
 const apilogger = new Logger("Ram Api", "America/New_York", 12);
-var tryagain = "false"
+var tryagain = "false";
 
 const axios = require("axios");
 const { date } = require("better-date.js"); // better date lol
@@ -13,393 +13,429 @@ const url = `https://api.rambot.xyz`;
 
 const outdated = ["v0", "v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8"];
 class RamApiBasic {
-    /**
-     * 
-     * @param {String} apikey 
-     * @param {String} version 
-     * 
-     */
-    constructor(version) {
+  /**
+   *
+   * @param {String} apikey
+   * @param {String} version
+   *
+   */
+  constructor(version) {
+    if (!version.startsWith("v")) version = `v${version}`;
 
-
-        if (!version.startsWith("v")) version = `v${version}`;
-
-        this.version = version;
-        this.baseURL = `${url}/basic/${this.version}/public`
-
-    }
-    /**
-     * 
-     * @param {String} lang 
-     */
-    helloAsync(lang = "english") {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/hello/${lang}`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('helloAsync', error)
-                reject('Error Check Console for more info!')
-            })
+    this.version = version;
+    this.baseURL = `${url}/basic/${this.version}/public`;
+  }
+  /**
+   *
+   * @param {String} lang
+   */
+  helloAsync(lang = "english") {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/hello/${lang}`, {
+          baseURL: this.baseURL,
         })
-        return p;
-    };
-    /**
-     * 
-     * @param {String} lang 
-     */
-    _8ballAsync(lang = "english") {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/8ball/${lang}`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('_8ballAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .then(async function (res) {
+          resolve(res.data);
         })
-        return p;
-    };
-    cuddleAsync() {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/cuddle`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('cuddleAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .catch(async (error) => {
+          errors("helloAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  /**
+   *
+   * @param {String} lang
+   */
+  _8ballAsync(lang = "english") {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/8ball/${lang}`, {
+          baseURL: this.baseURL,
         })
-        return p;
-    };
-    /**
-     * 
-     * @param {String} lang 
-     */
-    goodmorningAsync(lang = "english") {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/gm/${lang}`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('goodmorningAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .then(async function (res) {
+          resolve(res.data);
         })
-        return p;
-    };
-    /**
-     * 
-     * @param {String} lang 
-     */
-    goodnightAsync(lang = "english") {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/gn/${lang}`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('goodnightAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .catch(async (error) => {
+          errors("_8ballAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  cuddleAsync() {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/cuddle`, {
+          baseURL: this.baseURL,
         })
-        return p;
-    };
-
-    hugAsync() {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/hug`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('hugAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .then(async function (res) {
+          resolve(res.data);
         })
-        return p;
-    };
-    kissAsync() {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/kiss`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('kissAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .catch(async (error) => {
+          errors("cuddleAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  /**
+   *
+   * @param {String} lang
+   */
+  goodmorningAsync(lang = "english") {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/gm/${lang}`, {
+          baseURL: this.baseURL,
         })
-        return p;
-    };
-    slapAsync() {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/slap`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('slapAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .then(async function (res) {
+          resolve(res.data);
         })
-        return p;
-    };
-    sickAsync() {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/sick`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('sickAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .catch(async (error) => {
+          errors("goodmorningAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  /**
+   *
+   * @param {String} lang
+   */
+  goodnightAsync(lang = "english") {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/gn/${lang}`, {
+          baseURL: this.baseURL,
         })
-        return p;
-    };
-    tiredAsync() {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/tired`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('tiredAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .then(async function (res) {
+          resolve(res.data);
         })
-        return p;
-    };
-    /**
-    * 
-    * @param {String} lang 
-    */
-    cryAsync(lang = "english") {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/cry/${lang}`, {
+        .catch(async (error) => {
+          errors("goodnightAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
 
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('cryAsync', error)
-                reject('Error Check Console for more info!')
-            })
+  hugAsync() {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/hug`, {
+          baseURL: this.baseURL,
         })
-        return p;
-    };
-    laughAsync() {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/laugh`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('laughAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .then(async function (res) {
+          resolve(res.data);
         })
-        return p;
-    };
-    /**
-     * 
-     * @param {String} lang 
-     * 
-     */
-    birthdayAsync(lang = "english") {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/lbday/${lang}`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('birthdayAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .catch(async (error) => {
+          errors("hugAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  kissAsync() {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/kiss`, {
+          baseURL: this.baseURL,
         })
-        return p;
-    };
-
-    version_infoAsync() {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`${url}/public/version/${this.version}`).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('version_infoAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .then(async function (res) {
+          resolve(res.data);
         })
-        return p;
-    }
-
-    async version_checkAsync() {
-        axios
-            .get(`${url}/public/version/${this.version}`)
-            .then((data) => {
-                let ifSupported = data.data.supported;
-                let ifOutdated = data.data.outdated;
-                let latest = data.data.latest;
-
-
-
-                if (ifOutdated) {
-                    if (ifSupported == false) {
-                        return apilogger.error(
-                            `${this.version} is no longer supported latest is ${latest}`
-                        );
-                    }
-                    if (ifSupported == true) {
-                        return apilogger.warn(
-                            `${this.version} is outdated but still supported! Latest is ${latest}`
-                        );
-                    }
-                } else {
-                    apilogger.info(
-                        `${this.version} matches ${latest} this version is up to date!`
-                    );
-                }
-            })
-            .catch((err) => {
-                errors('version_checkAsync', err)
-
-            });
-    }
-
-    ratelimitAsync() {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/ratelimit`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('ratelimitAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .catch(async (error) => {
+          errors("kissAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  slapAsync() {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/slap`, {
+          baseURL: this.baseURL,
         })
-        return p;
-    };
-    memeAsync() {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/meme`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('memeAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .then(async function (res) {
+          resolve(res.data);
         })
-        return p;
-    };
-    catsAsync() {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/cats`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('catsAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .catch(async (error) => {
+          errors("slapAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  sickAsync() {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/sick`, {
+          baseURL: this.baseURL,
         })
-        return p;
-    };
-    animeAsync() {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/anime`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('animeAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .then(async function (res) {
+          resolve(res.data);
         })
-        return p;
-    };
-    ramAsync() {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/ram`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('ramAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .catch(async (error) => {
+          errors("sickAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  tiredAsync() {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/tired`, {
+          baseURL: this.baseURL,
         })
-        return p;
-    };
-    nekoparaAsync() {
-        let p = new Promise(async (resolve, reject) => {
-            await axios.get(`/nekopara`, {
-
-                baseURL: this.baseURL
-            }).then(async function (res) {
-                resolve(res.data);
-            }).catch(async (error) => {
-
-                errors('nekoparaAsync', error)
-                reject('Error Check Console for more info!')
-            })
+        .then(async function (res) {
+          resolve(res.data);
         })
-        return p;
-    };
+        .catch(async (error) => {
+          errors("tiredAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  /**
+   *
+   * @param {String} lang
+   */
+  cryAsync(lang = "english") {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/cry/${lang}`, {
+          baseURL: this.baseURL,
+        })
+        .then(async function (res) {
+          resolve(res.data);
+        })
+        .catch(async (error) => {
+          errors("cryAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  laughAsync() {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/laugh`, {
+          baseURL: this.baseURL,
+        })
+        .then(async function (res) {
+          resolve(res.data);
+        })
+        .catch(async (error) => {
+          errors("laughAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  /**
+   *
+   * @param {String} lang
+   *
+   */
+  birthdayAsync(lang = "english") {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/lbday/${lang}`, {
+          baseURL: this.baseURL,
+        })
+        .then(async function (res) {
+          resolve(res.data);
+        })
+        .catch(async (error) => {
+          errors("birthdayAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
 
+  version_infoAsync() {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`${url}/public/version/${this.version}`)
+        .then(async function (res) {
+          resolve(res.data);
+        })
+        .catch(async (error) => {
+          errors("version_infoAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+
+  async version_checkAsync() {
+    axios
+      .get(`${url}/public/version/${this.version}`)
+      .then((data) => {
+        let ifSupported = data.data.supported;
+        let ifOutdated = data.data.outdated;
+        let latest = data.data.latest;
+
+        if (ifOutdated) {
+          if (ifSupported == false) {
+            return apilogger.error(
+              `${this.version} is no longer supported latest is ${latest}`
+            );
+          }
+          if (ifSupported == true) {
+            return apilogger.warn(
+              `${this.version} is outdated but still supported! Latest is ${latest}`
+            );
+          }
+        } else {
+          apilogger.info(
+            `${this.version} matches ${latest} this version is up to date!`
+          );
+        }
+      })
+      .catch((err) => {
+        errors("version_checkAsync", err);
+      });
+  }
+
+  ratelimitAsync() {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/ratelimit`, {
+          baseURL: this.baseURL,
+        })
+        .then(async function (res) {
+          resolve(res.data);
+        })
+        .catch(async (error) => {
+          errors("ratelimitAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  memeAsync() {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/meme`, {
+          baseURL: this.baseURL,
+        })
+        .then(async function (res) {
+          resolve(res.data);
+        })
+        .catch(async (error) => {
+          errors("memeAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  catsAsync() {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/cats`, {
+          baseURL: this.baseURL,
+        })
+        .then(async function (res) {
+          resolve(res.data);
+        })
+        .catch(async (error) => {
+          errors("catsAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  animeAsync() {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/anime`, {
+          baseURL: this.baseURL,
+        })
+        .then(async function (res) {
+          resolve(res.data);
+        })
+        .catch(async (error) => {
+          errors("animeAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  ramAsync() {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/ram`, {
+          baseURL: this.baseURL,
+        })
+        .then(async function (res) {
+          resolve(res.data);
+        })
+        .catch(async (error) => {
+          errors("ramAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  nekoparaAsync() {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/nekopara`, {
+          baseURL: this.baseURL,
+        })
+        .then(async function (res) {
+          resolve(res.data);
+        })
+        .catch(async (error) => {
+          errors("nekoparaAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  rpsAsync() {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/rps`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          baseURL: this.baseURL,
+        })
+        .then(async function (res) {
+          resolve(res.data);
+        })
+        .catch(async (error) => {
+          errors("rpsAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
 }
 
 async function errors(name, error) {
-    if (error.response) {
-        let err = `Status: ${error.response.status} | Error: ${error.response.statusText}`;
-        apilogger.error(err);
-        if (error.response.data.error.message) logger.error(`Ram Api Ran into a error while running ${name}. The problem is: ${error.response.data.error.message}.`)
-    }
-    else {
-        console.log(error)
-        logger.error(`error running ${name}. Please report to the developers the error logged into your console!`)
-    }
+  if (error.response) {
+    let err = `Status: ${error.response.status} | Error: ${error.response.statusText}`;
+    apilogger.error(err);
+    if (error.response.data.error.message)
+      logger.error(
+        `Ram Api Ran into a error while running ${name}. The problem is: ${error.response.data.error.message}.`
+      );
+  } else {
+    console.log(error);
+    logger.error(
+      `error running ${name}. Please report to the developers the error logged into your console!`
+    );
+  }
 }
 
-
-module.exports = { RamApiBasic }; 
+module.exports = { RamApiBasic };
