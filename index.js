@@ -4,6 +4,7 @@ const { ping } = require('./items/ping');
 const { RamApiPro } = require('./Endpoints/pro');
 const { RamApiBasic } = require('./Endpoints/basic');
 const { RamApi } = require('./Endpoints/normal');
+const {RamApiBeta} = require('./Endpoints/beta');
 const { Utils } = require('./Utils/utils');
 
 
