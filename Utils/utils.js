@@ -80,7 +80,7 @@ class Utils {
           headers: {
             "Content-Type": "application/json",
           },
-          baseURL: `https://api.rambot.xyz/basic/v11/utils`,
+          baseURL: `https://api.rambot.xyz/basic/v12/utils`,
         })
         .then(async function (res) {
           resolve(res.data);
