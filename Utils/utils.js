@@ -5,7 +5,9 @@ const logger = new Logger(`ram-api.js`, "America/New_York", 12);
 
 const apilogger = new Logger("Ram Api", "America/New_York", 12);
 const axios = require("axios");
+const curVer = require("../package.json").version;
 const packageJson = require( 'package-json');
+const chalk = require("chalk");
 
 class Utils {
   constructor() {}
@@ -28,22 +30,31 @@ class Utils {
     let p = new Promise(async (resolve, reject) => {
       var dev = false;
       let ran = false;
+      
       if (dev) {
         try {
           logger.warn("Warning this is a dev build use at your own risk");
 
           let version = await packageJson("ram-api.js", { version: "dev" });
+          
 
           if (ran) return;
           if (curVer !== version.version) {
             resolve(
-              `Dev Package is out of date to update run ${chalk.magenta(
-                `npm i ram-api.js@dev`
-              )} to update latest version is ${chalk.magenta(version.version)}`
-            );
+              {
+                log: `Dev Package is out of date to update run ${chalk.magenta(
+                  `npm i ram-api.js@dev`
+                )} to update latest version is ${chalk.magenta(version.version)}`,
+                outdated: true
+              
+              }
+            )
             ran = true;
           } else {
-            resolve("Package Up to date");
+            resolve({
+              log: "Package Up to date",
+              outdated: false
+            });
           }
         } catch (error) {
           reject(error);
@@ -54,16 +65,23 @@ class Utils {
         try {
           let version = await packageJson("ram-api.js", { version: "latest" });
 
+        
+
           if (ran) return;
           if (curVer !== version.version) {
-            resolve(
-              `Package is out of date to update run ${chalk.magenta(
+            resolve( {
+              log: `Package is out of date to update run ${chalk.magenta(
                 `npm i ram-api.js@latest`
-              )} to update latest version is ${chalk.magenta(version.version)}`
+              )} to update latest version is ${chalk.magenta(version.version)}`,
+              outdated: true
+            }
             );
             ran = true;
           } else {
-            resolve("Package Up to date");
+            resolve({
+              log: "Package Up to date",
+              outdated: false
+            });
           }
         } catch (error) {
           reject(error);
