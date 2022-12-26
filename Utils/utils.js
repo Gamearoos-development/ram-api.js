@@ -5,6 +5,7 @@ const logger = new Logger(`ram-api.js`, "America/New_York", 12);
 
 const apilogger = new Logger("Ram Api", "America/New_York", 12);
 const axios = require("axios");
+const packageJson = require( 'package-json');
 
 class Utils {
   constructor() {}
