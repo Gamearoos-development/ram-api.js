@@ -1,6 +1,6 @@
 {
 	"name": "ram-api.js",
-	"version": "12.1.8",
+	"version": "12.1.9",
 	"description": "a npm module to connect to ram api for you",
 	"main": "index.js",
 	"typings": ".d.ts",

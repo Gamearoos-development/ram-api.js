@@ -30,7 +30,7 @@ series([
  () => exec(cmd2),
  
 ]); 
-
+setTimeout(() => console.log('done'),3000)
 let version2 = await packageJson("ram-api.js", { version: version });
           
 
