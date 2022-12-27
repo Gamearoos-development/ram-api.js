@@ -1,5 +1,6 @@
 const { Logger } = require("simply-logger");
-const { exec } = require("child_process");
+import {series} from 'async';
+const {exec} = require('child_process');
 
 const logger = new Logger(`ram-api.js`, "America/New_York", 12);
 
@@ -16,11 +17,26 @@ class Utils {
 
   /**
    *
+   * @param {Boolean} restart
    * @param {String} version
+   * 
    */
-  async updatePackageAsync(version = "latest") {
+  async updatePackageAsync(restart, version = "latest") {
     let cmd = `npm i ram-api.js@${version}`;
-    () => exec(cmd).catch((err) => logger.error(err));
+
+series([
+ () => exec(cmd),
+ 
+]); 
+
+if(restart) {
+  console.log("Restarting.... (If not using pm2 or forever or nodemon this will just stop the program)")
+   // Add the listener
+   process.exit(1);
+}
+
+   
+    async () => await exec(cmd).catch((err) => logger.error(err));
   }
   /**
    *
