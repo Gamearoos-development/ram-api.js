@@ -31,6 +31,16 @@ series([
  
 ]); 
 
+let version2 = await packageJson("ram-api.js", { version: version });
+          
+
+          let success = false;
+          if (curVer === version2.version) {
+            success = true
+          }
+
+          return success;
+
 
 
    
