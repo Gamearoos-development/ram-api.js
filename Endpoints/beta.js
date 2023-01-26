@@ -54,4 +54,4 @@ randomNumberAsync(min, max) {
 
 }
 
-module.exports = RamApiBeta;
+module.exports = { RamApiBeta };

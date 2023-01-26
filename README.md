@@ -43,6 +43,9 @@ const version = "latest"
 const apiclient = new ramapi.RamApiPro(key, "v11");
 //basic
 const apiclient = new ramapi.RamApiBasic("v11");
+
+//beta
+const betaapi = new ramapi.RamApiBeta();
 const logger = new ramapi.Logs("Name Here");
 const lang = "english";
 const utils = new ramapi.Utils("Name Here");
@@ -164,7 +167,7 @@ apiclient
 // No Basic only endpoints atm
 
 // Normal only endpoints
-apiclient
+betaapi
 	.apiinfoAsync()
 	.then((data) => console.log(data)) //then is optional with a await
 	.catch((error) => logger.error(error)) //catch is required
@@ -172,6 +175,14 @@ apiclient
 // Pro only endpoints
 
 //no pro only endpoints at this time
+
+//beta only endpoints
+
+apiclient
+	.randomNumberAsync(min, max)
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.error(error)) //catch is required
+	.finally(() => logger.info("Completed!")); //finally is optional
 
 //utils
 

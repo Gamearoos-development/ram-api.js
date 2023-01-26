@@ -99,13 +99,13 @@ declare class Utils {
 
 	pingAsync: () => {};
 	packageVersionCheckAsync: () => {};
-	updatePackageAsync: (version: sting) => {
+	updatePackageAsync: (version: string) => {
 		version?: string | "latest"
 	}
 }
 
 declare class RamApiBasic {
-	constructor(apikey: sting, version: string);
+	constructor(apikey: string, version: string);
 
 	helloAsync: (lang?: string) => {
 		lang?: sting | null;
@@ -140,4 +140,13 @@ declare class RamApiBasic {
 	nekoparaAsync: () => {};
 	version_checkAsync: () => {};
 	rpsAsync: () => {};
+}
+
+declare class RamApiBeta {
+	constructor(apikey: string, version: string);
+
+	randomNumberAsync: (min: number, max: number) => {
+		lang?: sting | null;
+	};
+	
 }
