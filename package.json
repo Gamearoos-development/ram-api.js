@@ -30,7 +30,7 @@
 		"better-date.js": "^1.0.1",
 		"chalk": "^4.1.0",
 		"node-fetch": "^3.2.4",
-		"package-json": "^7.0.0",
+		"package-json": "^8.1.0",
 		"simply-logger": "^1.4.38",
 		"winston": "^3.3.3",
 		"winston-console-format": "^1.0.8"
