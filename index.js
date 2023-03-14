@@ -27,13 +27,29 @@ class Logs {
      * @param {String} msg 
      */
     error(msg) {
+        logger.warn("error is deprecated use errorAsync(msg) instead!")
         this.log.error(msg);
     }
     /**
      * 
      * @param {String} msg 
      */
+    errorAsync(msg) {
+        this.log.error(msg)
+    }
+    /**
+     * 
+     * @param {String} msg 
+     */
     info(msg) {
+        logger.warn("info is deprecated use infoAsync(msg) instead!")
+        this.log.info(msg)
+    }
+    /**
+     * 
+     * @param {String} msg 
+     */
+    infoAsync(msg) {
         this.log.info(msg)
     }
     /**
@@ -41,7 +57,15 @@ class Logs {
      * @param {String} msg 
      */
     warn(msg) {
+        logger.warn("warn is deprecated use warnAsync(msg) instead!")
         this.log.warn(msg);
+    }
+    /**
+     * 
+     * @param {String} msg 
+     */
+    warnAsync(msg) {
+        this.log.warn(msg)
     }
 
 }
