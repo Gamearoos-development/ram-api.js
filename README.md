@@ -214,6 +214,6 @@ ram api endpoints can be found at https://api.rambot.xyz
 
 > Support
 
-email : support@animedev.top
+email : support@rambot.xyz
 
 discord: https://discord.gg/5a93U2xYjZ
