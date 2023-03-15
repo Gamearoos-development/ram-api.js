@@ -19,38 +19,14 @@ class RamApiBeta {
    * @param {String} version
    *
    */
-  constructor() {
+  constructor(version) {
     if (!version.startsWith("v")) version = `v${version}`;
 
     this.version = version;
     this.baseURL = `${url}/beta/v13/public`;
   }
-  /**
-   * 
-   * @param {Number} min 
-   * @param {Number} max 
-   * @returns 
-   */
-randomNumberAsync(min, max) {
-    let p = new Promise(async (resolve, reject) => {
-        await axios
-          .get(`/randomNumber/${min}/${max}`, {
-            headers: {
-              "Content-Type": "application/json",
-              "api-key": this.apikey,
-            },
-            baseURL: this.baseURL,
-          })
-          .then(async function (res) {
-            resolve(res.data);
-          })
-          .catch(async (error) => {
-            errors("_8ballAsync", error);
-            reject("Error Check Console for more info!");
-          });
-      });
-      return p;
-}
+
+
 
 }
 
