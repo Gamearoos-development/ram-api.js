@@ -89,7 +89,7 @@ apiclient
 	.catch((error) => logger.errorAsync(error)) //catch is required
 	.finally(() => logger.infoAsync("Completed!")); //finally is optional
 apiclient
-	.slapAsync()
+	.slapAsync(user1, user2)
 	.then((data) => console.log(data)) //then is optional with a await
 	.catch((error) => logger.errorAsync(error)) //catch is required
 	.finally(() => logger.infoAsync("Completed!")); //finally is optional
