@@ -129,21 +129,7 @@ apiclient
 	.then((data) => console.log(data)) //then is optional with a await
 	.catch((error) => logger.errorAsync(error)) //catch is required
 	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-apiclient
-	.memeAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-apiclient
-	.catsAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-apiclient
-	.animeAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
+
 apiclient
 	.ramAsync()
 	.then((data) => console.log(data)) //then is optional with a await
@@ -162,27 +148,30 @@ apiclient
 	.then((data) => console.log(data)) //then is optional with a await
 	.catch((error) => logger.errorAsync(error)) //catch is required
 	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-// Basic only endpoints
-
-// No Basic only endpoints atm
-
-// Normal only endpoints
-betaapi
-	.apiinfoAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-// Pro only endpoints
-
-//no pro only endpoints at this time
-
-//beta only endpoints
 
 apiclient
 	.randomNumberAsync(min, max)
 	.then((data) => console.log(data)) //then is optional with a await
 	.catch((error) => logger.errorAsync(error)) //catch is required
 	.finally(() => logger.infoAsync("Completed!")); //finally is optional
+apiclient
+	.suggestionAsync(suggestion, user)
+	.then((data) => console.log(data)) //then is optional with a await
+	.catch((error) => logger.errorAsync(error)) //catch is required
+	.finally(() => logger.infoAsync("Completed!")); //finally is optional
+// Basic only endpoints
+
+// No Basic only endpoints atm
+
+// Normal only endpoints
+
+// Pro only endpoints
+
+//no pro only endpoints at this time
+
+//beta only endpoints
+
+
 
 //utils
 
@@ -200,7 +189,7 @@ utils
 	.updatePackageAsync(version);
 
 utils
-	.customAsync(endpoint, version, { Options }) // options include pro: true or false, basic: true or false, or api_key: String, lang: String
+	.customAsync(endpoint, api_key) // api_key not needed for basic endpoints endpoint Example: /basic/v13/hello?lang=english or /basic/v12/public/hello/english
 	.then((data) => console.log(data)) //then is optional with a await
 	.catch((error) => logger.errorAsync(error)) //catch is required
 	.finally(() => logger.infoAsync("Completed!"));
