@@ -1,4 +1,13 @@
-const { RamApiBasic } = require("./Endpoints/basic");
+const { RamApiAsync, RamApi, Utils } = require("./index");
 
-new RamApiBasic("v11").version_checkAsync();
+let apiclient = new RamApi('COlCbscBPr', "v13")
+let apiutils = new Utils();
+
+
+
+async function test() {
+    console.log(await apiutils.customAsync('/basic/v13/versionCheck').catch(err => console.log(err)))
+}
+
+test()
 
