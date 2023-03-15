@@ -1,20 +1,24 @@
 import { RamApiPro } from "./Endpoints/pro";
+import { RamApiBasic } from "./Endpoints/basic";
+import { RamApi } from "./Endpoints/normal";
+import { Logs } from "./index";
 
 declare module "ram-api.js" {
   const Utils: Utils;
   const RamApi: RamApi;
   const RamApiPro: RamApiPro;
   const RamApiBasic: RamApiBasic;
+  const Logs: Logs;
 }
 
-declare class RamApi {
-  constructor(apikey: sting, version: string);
+export declare class RamApi {
+  constructor(apikey: String, version: string);
 
   helloAsync: (lang?: string) => {
-    lang?: sting | null;
+    lang?: String | null;
   };
-  _8ballAsync: (lang?: sting | null) => {
-    lang?: sting | null;
+  _8ballAsync: (lang?: String | null) => {
+    lang?: String | null;
   };
   cuddleAsync: () => {};
   goodmorningAsync: (lang?: string) => {
@@ -36,23 +40,31 @@ declare class RamApi {
   birthdayAsync: () => {};
   version_infoAsync: () => {};
   ratelimitAsync: () => {};
-  memeAsync: () => {};
-  catsAsync: () => {};
-  animeAsync: () => {};
+
   ramAsync: () => {};
   nekoparaAsync: () => {};
   version_checkAsync: () => {};
-  apiinfoAsync: () => {};
   rpsAsync: () => {};
+  randomNumberAsync: (
+    min: number,
+    max: number
+  ) => {
+    min: number;
+    max: number;
+  };
+  suggestionAsync: (
+    suggestion: string,
+    user?: string
+  ) => { suggestion: string; user?: string };
 }
-declare class RamApiPro {
-  constructor(apikey: sting, version: string);
+export declare class RamApiPro {
+  constructor(apikey: String, version: string);
 
   helloAsync: (lang?: string) => {
-    lang?: sting | null;
+    lang?: String | null;
   };
-  _8ballAsync: (lang?: sting | null) => {
-    lang?: sting | null;
+  _8ballAsync: (lang?: String | null) => {
+    lang?: String | null;
   };
   cuddleAsync: () => {};
   goodmorningAsync: (lang?: string) => {
@@ -74,26 +86,33 @@ declare class RamApiPro {
   birthdayAsync: () => {};
   version_infoAsync: () => {};
   ratelimitAsync: () => {};
-  memeAsync: () => {};
-  catsAsync: () => {};
-  animeAsync: () => {};
+
   ramAsync: () => {};
   nekoparaAsync: () => {};
   version_checkAsync: () => {};
   rpsAsync: () => {};
+  randomNumberAsync: (
+    min: number,
+    max: number
+  ) => {
+    min: number;
+    max: number;
+  };
+  suggestionAsync: (
+    suggestion: string,
+    user?: string
+  ) => { suggestion: string; user?: string };
 }
 
-declare class Utils {
+export declare class Utils {
   constructor();
 
   customAsync: (
     endpoint: string,
-    version: string,
-    Options?: object
+    api_key: string
   ) => {
     endpoint: string;
-    version: string;
-    Options?: object | null;
+    api_key: string;
   };
 
   pingAsync: () => {};
@@ -103,14 +122,14 @@ declare class Utils {
   };
 }
 
-declare class RamApiBasic {
+export declare class RamApiBasic {
   constructor(version: string);
 
   helloAsync: (lang?: string) => {
-    lang?: sting | null;
+    lang?: String | null;
   };
-  _8ballAsync: (lang?: sting | null) => {
-    lang?: sting | null;
+  _8ballAsync: (lang?: String | null) => {
+    lang?: String | null;
   };
   cuddleAsync: () => {};
   goodmorningAsync: (lang?: string) => {
@@ -132,25 +151,32 @@ declare class RamApiBasic {
   birthdayAsync: () => {};
   version_infoAsync: () => {};
   ratelimitAsync: () => {};
-  memeAsync: () => {};
-  catsAsync: () => {};
-  animeAsync: () => {};
+
   ramAsync: () => {};
   nekoparaAsync: () => {};
   version_checkAsync: () => {};
   rpsAsync: () => {};
+  randomNumberAsync: (
+    min: number,
+    max: number
+  ) => {
+    min: number;
+    max: number;
+  };
+  suggestionAsync: (
+    suggestion: string,
+    user?: string
+  ) => { suggestion: string; user?: string };
 }
 
-declare class RamApiBeta {
+export declare class RamApiBeta {
   constructor(version: string);
-
-  randomNumberAsync: (min: number, max: number) => {};
 }
 
-declare class Logs {
+export declare class Logs {
   constructor(name: string);
 
-  errorAsync: (msg: string) => {};
-  infoAsync: (msg: string) => {};
-  warnAsync: (msg: string) => {};
+  errorAsync: (msg: string) => { msg: string };
+  infoAsync: (msg: string) => { msg: string };
+  warnAsync: (msg: string) => { msg: string };
 }

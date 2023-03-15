@@ -12,17 +12,76 @@ const { date } = require("better-date.js"); // better date lol
 const url = `https://api.rambot.xyz`;
 
 const outdated = ["v0", "v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8"];
+const publicCheck = ["v10", "v11", "v12"]
 class RamApiBasic {
   /**
    *
+   * @param {String} apikey
    * @param {String} version
    *
    */
   constructor(version) {
-    if (!version.startsWith("v")) version = `v${version}`;
 
+    if (!version.startsWith("v")) version = `v${version}`;
     this.version = version;
-    this.baseURL = `${url}/basic/${this.version}/public`;
+
+    this.newBase = `${url}/basic/${this.version}`
+
+    if (publicCheck.includes(this.version)) {
+      this.baseURL = `${url}/basic/${this.version}/public`;
+
+    } else {
+      this.baseURL = `${url}/basic/${this.version}`;
+
+    }
+  }
+  /**
+   * 
+   * @param {String} suggestion 
+   * @param {String} user 
+   * @returns 
+   */
+  suggestionAsync(suggestion, user = "anonymous") {
+
+    let p = new Promise(async (resolve, reject) => {
+      if (!suggestion) return reject('Suggestion is needed!')
+      await axios
+        .post(`/suggestion/${suggestion}?requestedBy=${user}`, {}, {
+
+          baseURL: this.baseURL,
+        })
+        .then(async function (res) {
+          resolve(res.data);
+        })
+        .catch(async (error) => {
+          errors("randomNumberAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  /**
+   * 
+   * @param {Number} min 
+   * @param {Number} max 
+   * @returns 
+   */
+  randomNumberAsync(min, max) {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/randomNumber?min=${min}?max=${max}`, {
+
+          baseURL: this.baseURL,
+        })
+        .then(async function (res) {
+          resolve(res.data);
+        })
+        .catch(async (error) => {
+          errors("randomNumberAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
   }
   /**
    *
@@ -30,8 +89,17 @@ class RamApiBasic {
    */
   helloAsync(lang = "english") {
     let p = new Promise(async (resolve, reject) => {
+
+      if (publicCheck.includes(this.version)) {
+        lang = '/${lang}'
+      } else {
+        lang = '?lang=${lang}'
+      }
+
+
       await axios
-        .get(`/hello/${lang}`, {
+        .get(`/hello${lang}`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -41,6 +109,9 @@ class RamApiBasic {
           errors("helloAsync", error);
           reject("Error Check Console for more info!");
         });
+
+
+
     });
     return p;
   }
@@ -50,8 +121,14 @@ class RamApiBasic {
    */
   _8ballAsync(lang = "english") {
     let p = new Promise(async (resolve, reject) => {
+      if (publicCheck.includes(this.version)) {
+        lang = '/${lang}'
+      } else {
+        lang = '?lang=${lang}'
+      }
       await axios
-        .get(`/8ball/${lang}`, {
+        .get(`/8ball${lang}`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -61,6 +138,7 @@ class RamApiBasic {
           errors("_8ballAsync", error);
           reject("Error Check Console for more info!");
         });
+
     });
     return p;
   }
@@ -68,6 +146,7 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/cuddle`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -85,9 +164,18 @@ class RamApiBasic {
    * @param {String} lang
    */
   goodmorningAsync(lang = "english") {
+    let url1 = 'gm'
+    if (publicCheck.includes(this.version)) {
+      lang = '/${lang}'
+    } else {
+      lang = '?lang=${lang}'
+      url1 = 'goodMorning'
+    }
     let p = new Promise(async (resolve, reject) => {
+
       await axios
-        .get(`/gm/${lang}`, {
+        .get(`/${url1}${lang}`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -97,6 +185,8 @@ class RamApiBasic {
           errors("goodmorningAsync", error);
           reject("Error Check Console for more info!");
         });
+
+
     });
     return p;
   }
@@ -105,9 +195,18 @@ class RamApiBasic {
    * @param {String} lang
    */
   goodnightAsync(lang = "english") {
+    let url1 = 'gn'
+    if (publicCheck.includes(this.version)) {
+      lang = '/${lang}'
+    } else {
+      lang = '?lang=${lang}'
+      url1 = 'goodNight'
+    }
     let p = new Promise(async (resolve, reject) => {
+
       await axios
-        .get(`/gn/${lang}`, {
+        .get(`/${url1}${lang}`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -117,14 +216,17 @@ class RamApiBasic {
           errors("goodnightAsync", error);
           reject("Error Check Console for more info!");
         });
-    });
+    })
+
     return p;
   }
+
 
   hugAsync() {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/hug`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -141,6 +243,7 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/kiss`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -157,6 +260,7 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/slap`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -173,6 +277,7 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/sick`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -189,6 +294,7 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/tired`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -206,9 +312,18 @@ class RamApiBasic {
    * @param {String} lang
    */
   cryAsync(lang = "english") {
+
+    if (publicCheck.includes(this.version)) {
+      lang = '/${lang}'
+    } else {
+      lang = '?lang=${lang}'
+    }
+
+
     let p = new Promise(async (resolve, reject) => {
       await axios
-        .get(`/cry/${lang}`, {
+        .get(`/cry${lang}`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -225,6 +340,7 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/laugh`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -243,9 +359,18 @@ class RamApiBasic {
    *
    */
   birthdayAsync(lang = "english") {
+
+    if (publicCheck.includes(this.version)) {
+      lang = '/${lang}'
+    } else {
+      lang = '?lang=${lang}'
+    }
+
+
     let p = new Promise(async (resolve, reject) => {
       await axios
-        .get(`/lbday/${lang}`, {
+        .get(`/bday${lang}`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -260,54 +385,113 @@ class RamApiBasic {
   }
 
   version_infoAsync() {
-    let p = new Promise(async (resolve, reject) => {
-      await axios
-        .get(`${url}/public/version/${this.version}`)
-        .then(async function (res) {
-          resolve(res.data);
-        })
-        .catch(async (error) => {
-          errors("version_infoAsync", error);
-          reject("Error Check Console for more info!");
-        });
-    });
-    return p;
+
+    if (publicCheck.includes(this.version)) {
+
+      let p = new Promise(async (resolve, reject) => {
+        await axios
+          .get(`${url}/public/version/${this.version}`)
+          .then(async function (res) {
+            resolve(res.data);
+          })
+          .catch(async (error) => {
+            errors("version_infoAsync", error);
+            reject("Error Check Console for more info!");
+          });
+      });
+      return p;
+    } else {
+      let p = new Promise(async (resolve, reject) => {
+        await axios
+          .get(`/versionCheck`, {
+            headers: {
+              "Content-Type": "application/json",
+              "api-key": this.apikey,
+            },
+            baseURL: this.baseURL,
+          })
+          .then(async function (res) {
+            resolve(res.data);
+          })
+          .catch(async (error) => {
+            errors("version_infoAsync", error);
+            reject("Error Check Console for more info!");
+          });
+      });
+      return p;
+    }
   }
 
-  async version_checkAsync() {
-    axios
-      .get(`${url}/public/version/${this.version}`)
-      .then((data) => {
-        let ifSupported = data.data.supported;
-        let ifOutdated = data.data.outdated;
-        let latest = data.data.latest;
 
-        if (ifOutdated) {
-          if (ifSupported == false) {
-            return apilogger.error(
-              `${this.version} is no longer supported latest is ${latest}`
+  async version_checkAsync() {
+
+    if (publicCheck.includes(this.version)) {
+      axios
+        .get(`${url}/public/version/${this.version}`)
+        .then((data) => {
+          let ifSupported = data.data.supported;
+          let ifOutdated = data.data.outdated;
+          let latest = data.data.latest;
+
+          if (ifOutdated) {
+            if (ifSupported == false) {
+              return apilogger.error(
+                `${this.version} is no longer supported latest is ${latest} `
+              );
+            }
+            if (ifSupported == true) {
+              return apilogger.warn(
+                `${this.version} is outdated but still supported! Latest is ${latest} `
+              );
+            }
+          } else {
+            apilogger.info(
+              `${this.version} matches ${latest} this version is up to date!`
             );
           }
-          if (ifSupported == true) {
-            return apilogger.warn(
-              `${this.version} is outdated but still supported! Latest is ${latest}`
+        })
+        .catch((err) => {
+          errors("version_checkAsync", err);
+        });
+    } else {
+      axios
+        .get("/versionCheck", {
+
+          baseURL: this.baseURL,
+        })
+        .then((data) => {
+          let ifSupported = data.data.supported;
+          let ifOutdated = data.data.outdated;
+          let latest = data.data.latest;
+
+          if (ifOutdated) {
+            if (ifSupported == false) {
+              return apilogger.error(
+                `${this.version} is no longer supported latest is ${latest} `
+              );
+            }
+            if (ifSupported == true) {
+              return apilogger.warn(
+                `${this.version} is outdated but still supported! Latest is ${latest} `
+              );
+            }
+          } else {
+            apilogger.info(
+              `${this.version} matches ${latest} this version is up to date!`
             );
           }
-        } else {
-          apilogger.info(
-            `${this.version} matches ${latest} this version is up to date!`
-          );
-        }
-      })
-      .catch((err) => {
-        errors("version_checkAsync", err);
-      });
+        })
+        .catch((err) => {
+          errors("version_checkAsync", err);
+        });
+    }
   }
 
   ratelimitAsync() {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/ratelimit`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -320,58 +504,12 @@ class RamApiBasic {
     });
     return p;
   }
-  memeAsync() {
-    let p = new Promise(async (resolve, reject) => {
-      await axios
-        .get(`/meme`, {
-          baseURL: this.baseURL,
-        })
-        .then(async function (res) {
-          resolve(res.data);
-        })
-        .catch(async (error) => {
-          errors("memeAsync", error);
-          reject("Error Check Console for more info!");
-        });
-    });
-    return p;
-  }
-  catsAsync() {
-    let p = new Promise(async (resolve, reject) => {
-      await axios
-        .get(`/cats`, {
-          baseURL: this.baseURL,
-        })
-        .then(async function (res) {
-          resolve(res.data);
-        })
-        .catch(async (error) => {
-          errors("catsAsync", error);
-          reject("Error Check Console for more info!");
-        });
-    });
-    return p;
-  }
-  animeAsync() {
-    let p = new Promise(async (resolve, reject) => {
-      await axios
-        .get(`/anime`, {
-          baseURL: this.baseURL,
-        })
-        .then(async function (res) {
-          resolve(res.data);
-        })
-        .catch(async (error) => {
-          errors("animeAsync", error);
-          reject("Error Check Console for more info!");
-        });
-    });
-    return p;
-  }
+
   ramAsync() {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/ram`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -388,6 +526,7 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/nekopara`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -404,9 +543,7 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/rps`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
