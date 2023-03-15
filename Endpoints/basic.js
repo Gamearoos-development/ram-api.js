@@ -256,11 +256,26 @@ class RamApiBasic {
     });
     return p;
   }
-  slapAsync() {
+  /**
+    * 
+    * @param {String} user1 
+    * @param {String} user2 
+    * @returns 
+    */
+  slapAsync(user1, user2) {
     let p = new Promise(async (resolve, reject) => {
+      let url4;
+      if (publicCheck.includes(this.version)) {
+        url4 = "/slap"
+      } else {
+        url4 = `/slap?user1=${user1}?user2=${user2}`
+      }
       await axios
-        .get(`/slap`, {
-
+        .get(url4, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then(async function (res) {
