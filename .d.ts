@@ -30,7 +30,7 @@ export declare class RamApi {
   };
   hugAsync: () => {};
   kissAsync: () => {};
-  slapAsync: () => {};
+  slapAsync: (user1: string, user2: string) => { user1: string; user2: string };
   sickAsync: () => {};
   tiredAsync: () => {};
   cryAsync: (lang?: string) => {
