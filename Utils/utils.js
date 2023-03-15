@@ -1,19 +1,20 @@
 const { Logger } = require("simply-logger");
-const {series} = require('async');
-const {exec} = require('child_process');
+const { series } = require('async');
+const { exec } = require('child_process');
 
 const logger = new Logger(`ram-api.js`, "America/New_York", 12);
 
 const apilogger = new Logger("Ram Api", "America/New_York", 12);
 const axios = require("axios");
 const curVer = require("../package.json").version;
-const packageJson = require( 'package-json');
+const packageJson = require('package-json');
 const chalk = require("chalk");
+const publicCheck = ["v10", "v11", "v12"]
 
 class Utils {
-  constructor() {}
+  constructor() { }
 
-  
+
 
   /**
    *
@@ -25,26 +26,26 @@ class Utils {
     let cmd = `npm i ram-api.js@${version}`;
     let cmd2 = `echo "Update for ram-api.js to ${version}"`
 
-series([
- () => exec(cmd),
- () => exec(cmd2),
- 
-]); 
-setTimeout(() => console.log('done'),3000)
-let version2 = await packageJson("ram-api.js", { version: version });
-          
+    series([
+      () => exec(cmd),
+      () => exec(cmd2),
 
-          let success = false;
-          if (curVer === version2.version) {
-            success = true
-          }
-
-          return success;
+    ]);
+    setTimeout(() => console.log('done'), 3000)
+    let version2 = await packageJson("ram-api.js", { version: version });
 
 
+    let success = false;
+    if (curVer === version2.version) {
+      success = true
+    }
 
-   
-    
+    return success;
+
+
+
+
+
   }
   /**
    *
@@ -54,13 +55,13 @@ let version2 = await packageJson("ram-api.js", { version: version });
     let p = new Promise(async (resolve, reject) => {
       var dev = false;
       let ran = false;
-      
+
       if (dev) {
         try {
           logger.warn("Warning this is a dev build use at your own risk");
 
           let version = await packageJson("ram-api.js", { version: "dev" });
-          
+
 
           if (ran) return;
           if (curVer !== version.version) {
@@ -70,7 +71,7 @@ let version2 = await packageJson("ram-api.js", { version: version });
                   `npm i ram-api.js@dev`
                 )} to update latest version is ${chalk.magenta(version.version)}`,
                 outdated: true
-              
+
               }
             )
             ran = true;
@@ -89,11 +90,11 @@ let version2 = await packageJson("ram-api.js", { version: version });
         try {
           let version = await packageJson("ram-api.js", { version: "latest" });
 
-        
+
 
           if (ran) return;
           if (curVer !== version.version) {
-            resolve( {
+            resolve({
               log: `Package is out of date to update run ${chalk.magenta(
                 `npm i ram-api.js@latest`
               )} to update latest version is ${chalk.magenta(version.version)}`,
@@ -136,41 +137,51 @@ let version2 = await packageJson("ram-api.js", { version: version });
   }
   /**
    *
-   * @param {String} endpoint
-   * @param {String} version
-   * @param {Object} Options = { pro: false, basic: true, api_key: "NULL", lang: "english" }
+   * @param {String} endpoint = can be found on the api docs EX: /basic/v13/hello?lang=english or /basic/v12/public/hello/english
+   * @param {String} api_key = Leave blank or set to "basic" for basic endpoints
    * @returns
    */
   async customAsync(
-    endpoint,
-    version,
-    Options = { pro: false, basic: false, api_key: "NULL", lang: "NULL" }
+    endpoint, //can be found on the api docs EX: /basic/v13/hello?lang=english or /basic/v12/hello/english
+    api_key = "basic"
   ) {
+
     let p = new Promise(async (resolve, reject) => {
-      let url = `/${version}/public/${endpoint}/`;
+      if (endpoint.startsWith('/basic')) api_key = "basic";
 
-      if (Options.pro) url = `/pro${url}`;
-      if (Options.basic) url = `/basic${url}`;
 
-      if (Options.lang === "NULL") url = `${url}/${Options.lang}`;
+      let url = `https://api.rambot.xyz${endpoint}`
 
-      await axios
-        .get(url, {
-          headers: {
-            "Content-Type": "application/json",
-            "api-key": Options.api_key,
-          },
-          baseURL: `https://api.rambot.xyz/`,
-        })
-        .then(async function (res) {
-          resolve(res.data);
-        })
-        .catch(async (error) => {
-          reject(
-            "Custom Failed **note** if error is related to a invalid endpoint check api.rambot.xyz for endpoint names! " +
+      if (api_key !== "basic") {
+        await axios
+          .get(url, {
+            headers: {
+              "Content-Type": "application/json",
+              "api-key": api_key,
+            },
+          })
+          .then(async function (res) {
+            resolve(res.data);
+          })
+          .catch(async (error) => {
+            reject(
+              "Custom Failed **note** if error is related to a invalid endpoint check api.rambot.xyz for endpoint names! " +
               error
-          );
-        });
+            );
+          });
+      } else {
+        await axios
+          .get(url)
+          .then(async function (res) {
+            resolve(res.data);
+          })
+          .catch(async (error) => {
+            reject(
+              "Custom Failed **note** if error is related to a invalid endpoint check api.rambot.xyz for endpoint names! " +
+              error
+            );
+          });
+      }
     });
     return p;
   }
