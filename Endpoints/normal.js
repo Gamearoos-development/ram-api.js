@@ -242,7 +242,7 @@ class RamApi {
       if (publicCheck.includes(this.version)) {
         url4 = "/slap"
       } else {
-        url4 = `/slap?user1=${user1}?user2=${user2}`
+        url4 = `/slap?user1=${user1}&user2=${user2}`
       }
       await axios
         .get(url4, {
