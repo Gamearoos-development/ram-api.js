@@ -1,42 +1,42 @@
 {
-	"name": "ram-api.js",
-	"version": "13.0.3",
-	"description": "a npm module to connect to ram api for you",
-	"main": "index.js",
-	"typings": ".d.ts",
-	"scripts": {
-		"test": "node test.js"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/anime-development/ram-api.js.git"
-	},
-	"author": "Gamearoo_Codes",
-	"license": "ISC",
-	"keywords": [
-		"discord",
-		"discord.js",
-		"discordjs",
-		"logger",
-		"ramapi"
-	],
-	"bugs": {
-		"url": "https://github.com/anime-development/ram-api.js/issues"
-	},
-	"homepage": "https://github.com/anime-development/ram-api.js#readme",
-	"dependencies": {
-		"@classycrafter/super-logger": "^1.2.34",
-		"@vladfrangu/async_event_emitter": "^2.1.4",
-		"axios": "^0.24.0",
-		"better-date.js": "^1.0.1",
-		"chalk": "^4.1.0",
-		"node-fetch": "^3.2.4",
-		"package-json": "^7.0.0",
-		"simply-logger": "^1.4.38",
-		"winston": "^3.3.3",
-		"winston-console-format": "^1.0.8"
-	},
-	"devDependencies": {
-		"jsdoc-to-markdown": "^7.1.1"
-	}
+  "name": "ram-api.js",
+  "version": "14.0.0-dev.0",
+  "description": "a npm module to connect to ram api for you",
+  "main": "index.js",
+  "typings": ".d.ts",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anime-development/ram-api.js.git"
+  },
+  "author": "Gamearoo_Codes",
+  "license": "ISC",
+  "keywords": [
+    "discord",
+    "discord.js",
+    "discordjs",
+    "logger",
+    "ramapi"
+  ],
+  "bugs": {
+    "url": "https://github.com/anime-development/ram-api.js/issues"
+  },
+  "homepage": "https://github.com/anime-development/ram-api.js#readme",
+  "dependencies": {
+    "@classycrafter/super-logger": "^2.0.0",
+    "@vladfrangu/async_event_emitter": "^2.1.4",
+    "axios": "^0.24.0",
+    "better-date.js": "^1.0.1",
+    "chalk": "^4.1.0",
+    "node-fetch": "^3.2.4",
+    "package-json": "^7.0.0",
+    "simply-logger": "^1.4.38",
+    "winston": "^3.3.3",
+    "winston-console-format": "^1.0.8"
+  },
+  "devDependencies": {
+    "jsdoc-to-markdown": "^7.1.1"
+  }
 }

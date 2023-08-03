@@ -50,6 +50,8 @@ v1-dev.0 is a dev build if you like to use this version run the endpoint without
 
 > ram-api Examples
 
+any options in a {} ex: {name: "halo"} are options that don't need to be provided unless you wish to provide them
+
 ```javascript
 const ramapi = require("ram-api.js");
 
@@ -64,7 +66,20 @@ const apiclient = new ramapi.RamApiBasic("v11");
 
 //beta
 const betaapi = new ramapi.RamApiBeta();
-const logger = new ramapi.Logs("Name Here");
+const logger = new ramapi.ExecuteConsole("Name Here", {
+  timezone: "America/New_York",
+  format: 12,
+  Logcustom: {
+    character: "*",
+    gray: "#bbbbbb",
+    namecolor: "#ff0000",
+    processcolor: "#ff6400",
+    titlecolor: "#00ff78",
+    textcolor: "#00ff8f",
+    datecolor: "#00a6ff",
+  },
+  logDir: "./ram-api-logs",
+}); //the _options object have optional segments any not defined will be defined for you
 const lang = "english";
 const utils = new ramapi.Utils("Name Here");
 
@@ -208,7 +223,7 @@ utils
   .then((data) => console.log(data)) //then is optional with a await
   .catch((error) => logger.errorAsync(error)) //catch is required
   .finally(() => logger.infoAsync("Completed!"));
-```
+
 
 > Ram Api 2 Examples
 
@@ -229,11 +244,12 @@ RamApi2_Fun.birthday(token)
     console.log(data); // {text, imageURL}
   })
   .catch((err) => {});
+
 ```
 
 > Missing endpoint
 
-current api version is v12 if v13 is out then contact support
+current api version is v13 if v14 is out then contact support
 
 current api2 version is v1-dev.0 if v1-dev.1 or v1 is out then contact support
 
