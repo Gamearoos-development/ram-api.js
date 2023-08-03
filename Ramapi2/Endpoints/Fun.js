@@ -1,5 +1,5 @@
 let axios = require("axios");
-const { Logger } = require("simply-logger");
+const { Logger } = require("@classycrafter/super-logger");
 
 const logger = new Logger({
   name: "ram-api.js",

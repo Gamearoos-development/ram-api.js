@@ -223,7 +223,7 @@ utils
   .then((data) => console.log(data)) //then is optional with a await
   .catch((error) => logger.errorAsync(error)) //catch is required
   .finally(() => logger.infoAsync("Completed!"));
-
+```
 
 > Ram Api 2 Examples
 
@@ -244,7 +244,6 @@ RamApi2_Fun.birthday(token)
     console.log(data); // {text, imageURL}
   })
   .catch((err) => {});
-
 ```
 
 > Missing endpoint

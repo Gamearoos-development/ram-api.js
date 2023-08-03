@@ -1,3 +1,4 @@
+const { Logger } = require("@classycrafter/super-logger");
 class ExecuteConsole {
   /**
    *
