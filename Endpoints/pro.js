@@ -6,12 +6,14 @@ const logger = new Logger({
   name: `ram-api.js`,
   timezone: "America/New_York",
   tzformat: 12,
+   writelogs: false,
 });
 
 const apilogger = new Logger({
   name: "Ram Api",
   timezone: "America/New_York",
   tzformat: 12,
+  writelogs: false,
 });
 var tryagain = "false";
 
