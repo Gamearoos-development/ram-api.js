@@ -173,8 +173,8 @@ export declare class RamApiBeta {
   constructor(version: string);
 }
 
-export declare class Logs {
-  constructor(name: string);
+export declare class ExecuteConsole {
+  constructor(name: string, _options: {timezone, format, Logcustom, logDir});
 
   errorAsync: (msg: string) => { msg: string };
   infoAsync: (msg: string) => { msg: string };
