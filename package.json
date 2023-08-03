@@ -1,6 +1,6 @@
 {
   "name": "ram-api.js",
-  "version": "14.0.0-dev.0",
+  "version": "14.0.0-dev.1",
   "description": "a npm module to connect to ram api for you",
   "main": "index.js",
   "typings": ".d.ts",
@@ -29,7 +29,7 @@
     "@vladfrangu/async_event_emitter": "^2.2.2",
     "axios": "^1.4.0",
     "better-date.js": "^1.0.2",
-    "chalk": "^5.3.0",
+    "chalk": "^4.1.0",
     "package-json": "^7.0.0",
     "simply-logger": "^1.5.38",
     "winston": "^3.3.3",
