@@ -1,51 +1,47 @@
-const { Logger } = require("simply-logger");
-const { series } = require('async');
-const { exec } = require('child_process');
+const { Logger } = require("@classycrafter/super-logger");
+const { series } = require("async");
+const { exec } = require("child_process");
 
-const logger = new Logger(`ram-api.js`, "America/New_York", 12);
+const logger = new Logger({
+  name: `ram-api.js`,
+  timezone: "America/New_York",
+  tzformat: 12,
+});
 
-const apilogger = new Logger("Ram Api", "America/New_York", 12);
+const apilogger = new Logger({
+  name: "Ram Api",
+  timezone: "America/New_York",
+  tzformat: 12,
+});
 const axios = require("axios");
 const curVer = require("../package.json").version;
-const packageJson = require('package-json');
+const packageJson = require("package-json");
 const chalk = require("chalk");
-const publicCheck = ["v10", "v11", "v12"]
+const publicCheck = ["v10", "v11", "v12"];
 
 class Utils {
-  constructor() { }
-
-
+  constructor() {}
 
   /**
    *
    * @param {Boolean} restart
    * @param {String} version
-   * 
+   *
    */
   async updatePackageAsync(version = "latest") {
     let cmd = `npm i ram-api.js@${version}`;
-    let cmd2 = `echo "Update for ram-api.js to ${version}"`
+    let cmd2 = `echo "Update for ram-api.js to ${version}"`;
 
-    series([
-      () => exec(cmd),
-      () => exec(cmd2),
-
-    ]);
-    setTimeout(() => console.log('done'), 3000)
+    series([() => exec(cmd), () => exec(cmd2)]);
+    setTimeout(() => console.log("done"), 3000);
     let version2 = await packageJson("ram-api.js", { version: version });
-
 
     let success = false;
     if (curVer === version2.version) {
-      success = true
+      success = true;
     }
 
     return success;
-
-
-
-
-
   }
   /**
    *
@@ -62,23 +58,19 @@ class Utils {
 
           let version = await packageJson("ram-api.js", { version: "dev" });
 
-
           if (ran) return;
           if (curVer !== version.version) {
-            resolve(
-              {
-                log: `Dev Package is out of date to update run ${chalk.magenta(
-                  `npm i ram-api.js@dev`
-                )} to update latest version is ${chalk.magenta(version.version)}`,
-                outdated: true
-
-              }
-            )
+            resolve({
+              log: `Dev Package is out of date to update run ${chalk.magenta(
+                `npm i ram-api.js@dev`
+              )} to update latest version is ${chalk.magenta(version.version)}`,
+              outdated: true,
+            });
             ran = true;
           } else {
             resolve({
               log: "Package Up to date",
-              outdated: false
+              outdated: false,
             });
           }
         } catch (error) {
@@ -90,22 +82,19 @@ class Utils {
         try {
           let version = await packageJson("ram-api.js", { version: "latest" });
 
-
-
           if (ran) return;
           if (curVer !== version.version) {
             resolve({
               log: `Package is out of date to update run ${chalk.magenta(
                 `npm i ram-api.js@latest`
               )} to update latest version is ${chalk.magenta(version.version)}`,
-              outdated: true
-            }
-            );
+              outdated: true,
+            });
             ran = true;
           } else {
             resolve({
               log: "Package Up to date",
-              outdated: false
+              outdated: false,
             });
           }
         } catch (error) {
@@ -145,12 +134,10 @@ class Utils {
     endpoint, //can be found on the api docs EX: /basic/v13/hello?lang=english or /basic/v12/hello/english
     api_key = "basic"
   ) {
-
     let p = new Promise(async (resolve, reject) => {
-      if (endpoint.startsWith('/basic')) api_key = "basic";
+      if (endpoint.startsWith("/basic")) api_key = "basic";
 
-
-      let url = `https://api.rambot.xyz${endpoint}`
+      let url = `https://api.rambot.xyz${endpoint}`;
 
       if (api_key !== "basic") {
         await axios
@@ -166,7 +153,7 @@ class Utils {
           .catch(async (error) => {
             reject(
               "Custom Failed **note** if error is related to a invalid endpoint check api.rambot.xyz for endpoint names! " +
-              error
+                error
             );
           });
       } else {
@@ -178,7 +165,7 @@ class Utils {
           .catch(async (error) => {
             reject(
               "Custom Failed **note** if error is related to a invalid endpoint check api.rambot.xyz for endpoint names! " +
-              error
+                error
             );
           });
       }
