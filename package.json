@@ -32,6 +32,7 @@
     "chalk": "^4.1.0",
     "node-fetch": "^3.2.4",
     "package-json": "^7.0.0",
+    "simply-logger": "^1.5.38",
     "winston": "^3.3.3",
     "winston-console-format": "^1.0.8"
   },
