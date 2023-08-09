@@ -3,19 +3,22 @@ class ExecuteConsole {
   /**
    *
    * @param {String} name
-   * @param {{timezone, format, Logcustom, logDir}} _options
+   * @param {{ timezone,format,Logcustom,logDir}} _options
    */
-  constructor(name, _options) {
-    let logDir = null;
-    let timezone = null;
-    let format = 12;
-    let Logcustom = null;
-    if (_options) {
-      logDir = _options.logDir || null;
-      timezone = _options.timezone || null;
-      format = _options.format || 12;
-      Logcustom = _options.Logcustom || null;
+  constructor(
+    name,
+    _options = {
+      timezone: "America/New_York",
+      format: 12,
+      Logcustom: null,
+      logDir: null,
     }
+  ) {
+    let logDir = _options.logDir;
+    let timezone = _options.timezone;
+    let format = _options.format;
+    let Logcustom = _options.Logcustom;
+
     // if (!logDir) logDir = "./ram-api-logs";
 
     if (!timezone) timezone = "America/New_York";
