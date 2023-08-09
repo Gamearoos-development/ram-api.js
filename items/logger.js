@@ -6,10 +6,16 @@ class ExecuteConsole {
    * @param {{timezone, format, Logcustom, logDir}} _options
    */
   constructor(name, _options) {
-    let logDir = _options.logDir || null;
-    let timezone = _options.timezone || null;
-    let format = _options.format || 12;
-    let Logcustom = _options.Logcustom || null;
+    let logDir = null;
+    let timezone = null;
+    let format = 12;
+    let Logcustom = null;
+    if (_options) {
+      logDir = _options.logDir || null;
+      timezone = _options.timezone || null;
+      format = _options.format || 12;
+      Logcustom = _options.Logcustom || null;
+    }
     // if (!logDir) logDir = "./ram-api-logs";
 
     if (!timezone) timezone = "America/New_York";
