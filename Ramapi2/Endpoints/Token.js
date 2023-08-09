@@ -6,7 +6,7 @@ const logger = new Logger({
   timezone: "America/New_York",
   tzformat: 12,
   dirpath: "./ram-api-js-logs",
-  writelogs: true,
+  writelogs: false,
   colored: true,
 });
 
@@ -15,7 +15,7 @@ const apilogger = new Logger({
   timezone: "America/New_York",
   tzformat: 12,
   dirpath: "./ram-api-two-logs",
-  writelogs: true,
+  writelogs: false,
   colored: true,
 });
 class RamApi2_Token {
