@@ -10,8 +10,8 @@ class ExecuteConsole {
     _options = {
       timezone: "America/New_York",
       format: 12,
-      Logcustom: null,
-      logDir: null,
+      Logcustom: undefined,
+      logDir: "null",
     }
   ) {
     let logDir = _options.logDir;
@@ -36,28 +36,29 @@ class ExecuteConsole {
 
     let writeLogs = true;
 
-    if (!logDir) writeLogs = false;
-
-    let templog = new Logger({
-      name,
-      timezone,
-      tzformat: format,
-      dirpath: logDir,
-      writeLogs: true,
-      colored: true,
-      custom: Logcustom,
-    });
-    this.log = templog;
-
-    let logger = new Logger({
-      name: `ram-api.js`,
-      timezone,
-      tzformat: format,
-      dirpath: logDir,
-      writeLogs: true,
-      colored: true,
-      custom: Logcustom,
-    });
+    if (logDir === "null") writeLogs = false;
+    if (logDir !== "null") {
+      let templog = new Logger({
+        name,
+        timezone,
+        tzformat: format,
+        dirpath: logDir,
+        writeLogs: true,
+        colored: true,
+        custom: Logcustom,
+      });
+      this.log = templog;
+    } else {
+      let templog = new Logger({
+        name,
+        timezone,
+        tzformat: format,
+        writelogs: false,
+        colored: true,
+        custom: Logcustom,
+      });
+      this.log = templog;
+    }
   }
 
   /**
