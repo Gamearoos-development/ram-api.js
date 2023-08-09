@@ -40,7 +40,7 @@ class ExecuteConsole {
     });
     this.log = templog;
 
-    logger = new Logger({
+    let logger = new Logger({
       name: `ram-api.js`,
       timezone,
       tzformat: format,
