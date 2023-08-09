@@ -10,7 +10,7 @@ class ExecuteConsole {
     let timezone = _options.timezone || null;
     let format = _options.format || 12;
     let Logcustom = _options.Logcustom || null;
-    if (!logDir) logDir = "./ram-api-logs";
+    // if (!logDir) logDir = "./ram-api-logs";
 
     if (!timezone) timezone = "America/New_York";
 
