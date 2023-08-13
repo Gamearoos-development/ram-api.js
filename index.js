@@ -9,6 +9,8 @@ const { Utils } = require("./Utils/utils");
 const { ExecuteConsole } = require("./items/logger");
 const publicCheck = ["v10", "v11", "v12"];
 
+let ramapi2 = require("./Ramapi2/index");
+
 module.exports = {
   RamApiPro,
   ExecuteConsole,
@@ -16,4 +18,5 @@ module.exports = {
   RamApi,
   Utils,
   RamApiBeta,
+  ramapi2,
 };

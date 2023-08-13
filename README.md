@@ -36,8 +36,8 @@ for a api key join the discord and go to #request-api-keys https://discord.gg/s5
 To obtain a token run
 
 ```javascript
-const { RamApi2_Token } = require("ram-api.js/Ramapi2");
-const RamApi2_Token = new RamApi2_Token({ version: "v1" });
+const { ramapi2 } = require("ram-api.js");
+const RamApi2_Token = new ramapi2.RamApi2_Token({ version: "v1" });
 
 RamApi2_Token.signup(email, pass); // signup and obtain the first token
 
@@ -229,9 +229,9 @@ utils
 
 ```javascript
 const token = "TOKENHERE";
-const { RamApi2_Fun } = require("ram-api.js/Ramapi2");
+const { ramapi2 } = require("ram-api.js");
 
-const RamApi2_Fun = new RamApi2_Fun({ version: "v1" });
+const RamApi2_Fun = new ramapi2.RamApi2_Fun({ version: "v1" });
 
 RamApi2_Fun.hello(token)
   .then((data) => {
