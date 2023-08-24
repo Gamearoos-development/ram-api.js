@@ -1,20 +1,10 @@
-const { Logger } = require("@classycrafter/super-logger");
+const { Logger } = require("simply-logger");
 
 const { ping } = require("../items/ping");
 
-const logger = new Logger({
-  name: `ram-api.js`,
-  timezone: "America/New_York",
-  tzformat: 12,
-   writelogs: false,
-});
+const logger = new Logger(`ram-api.js`, "America/New_York", 12);
 
-const apilogger = new Logger({
-  name: "Ram Api",
-  timezone: "America/New_York",
-  tzformat: 12,
-  writelogs: false,
-});
+const apilogger = new Logger("Ram Api", "America/New_York", 12);
 var tryagain = "false";
 
 const axios = require("axios");
@@ -35,6 +25,9 @@ class RamApiBeta {
     this.version = version;
     this.baseURL = `${url}/beta/v13/public`;
   }
+
+
+
 }
 
 module.exports = { RamApiBeta };

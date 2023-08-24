@@ -1,20 +1,10 @@
-const { Logger } = require("@classycrafter/super-logger");
+const { Logger } = require("simply-logger");
 
 const { ping } = require("../items/ping");
 
-const logger = new Logger({
-  name: `ram-api.js`,
-  timezone: "America/New_York",
-  tzformat: 12,
-   writelogs: false,
-});
+const logger = new Logger(`ram-api.js`, "America/New_York", 12);
 
-const apilogger = new Logger({
-  name: "Ram Api",
-  timezone: "America/New_York",
-  tzformat: 12,
-  writelogs: false,
-});
+const apilogger = new Logger("Ram Api", "America/New_York", 12);
 var tryagain = "false";
 
 const axios = require("axios");
@@ -22,7 +12,7 @@ const { date } = require("better-date.js"); // better date lol
 const url = `https://api.rambot.xyz`;
 
 const outdated = ["v0", "v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8"];
-const publicCheck = ["v10", "v11", "v12"];
+const publicCheck = ["v10", "v11", "v12"]
 class RamApiBasic {
   /**
    *
@@ -31,34 +21,35 @@ class RamApiBasic {
    *
    */
   constructor(version) {
+
     if (!version.startsWith("v")) version = `v${version}`;
     this.version = version;
 
-    this.newBase = `${url}/basic/${this.version}`;
+    this.newBase = `${url}/basic/${this.version}`
 
     if (publicCheck.includes(this.version)) {
       this.baseURL = `${url}/basic/${this.version}/public`;
+
     } else {
       this.baseURL = `${url}/basic/${this.version}`;
+
     }
   }
   /**
-   *
-   * @param {String} suggestion
-   * @param {String} user
-   * @returns
+   * 
+   * @param {String} suggestion 
+   * @param {String} user 
+   * @returns 
    */
   suggestionAsync(suggestion, user = "anonymous") {
+
     let p = new Promise(async (resolve, reject) => {
-      if (!suggestion) return reject("Suggestion is needed!");
+      if (!suggestion) return reject('Suggestion is needed!')
       await axios
-        .post(
-          `/suggestion/${suggestion}?requestedBy=${user}`,
-          {},
-          {
-            baseURL: this.baseURL,
-          }
-        )
+        .post(`/suggestion/${suggestion}?requestedBy=${user}`, {}, {
+
+          baseURL: this.baseURL,
+        })
         .then(async function (res) {
           resolve(res.data);
         })
@@ -70,15 +61,16 @@ class RamApiBasic {
     return p;
   }
   /**
-   *
-   * @param {Number} min
-   * @param {Number} max
-   * @returns
+   * 
+   * @param {Number} min 
+   * @param {Number} max 
+   * @returns 
    */
   randomNumberAsync(min, max) {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/randomNumber?min=${min}?max=${max}`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -97,14 +89,17 @@ class RamApiBasic {
    */
   helloAsync(lang = "english") {
     let p = new Promise(async (resolve, reject) => {
+
       if (publicCheck.includes(this.version)) {
-        lang = "/${lang}";
+        lang = '/${lang}'
       } else {
-        lang = "?lang=${lang}";
+        lang = '?lang=${lang}'
       }
+
 
       await axios
         .get(`/hello${lang}`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -114,6 +109,9 @@ class RamApiBasic {
           errors("helloAsync", error);
           reject("Error Check Console for more info!");
         });
+
+
+
     });
     return p;
   }
@@ -124,12 +122,13 @@ class RamApiBasic {
   _8ballAsync(lang = "english") {
     let p = new Promise(async (resolve, reject) => {
       if (publicCheck.includes(this.version)) {
-        lang = "/${lang}";
+        lang = '/${lang}'
       } else {
-        lang = "?lang=${lang}";
+        lang = '?lang=${lang}'
       }
       await axios
         .get(`/8ball${lang}`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -139,6 +138,7 @@ class RamApiBasic {
           errors("_8ballAsync", error);
           reject("Error Check Console for more info!");
         });
+
     });
     return p;
   }
@@ -146,6 +146,7 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/cuddle`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -163,16 +164,18 @@ class RamApiBasic {
    * @param {String} lang
    */
   goodmorningAsync(lang = "english") {
-    let url1 = "gm";
+    let url1 = 'gm'
     if (publicCheck.includes(this.version)) {
-      lang = "/${lang}";
+      lang = '/${lang}'
     } else {
-      lang = "?lang=${lang}";
-      url1 = "goodMorning";
+      lang = '?lang=${lang}'
+      url1 = 'goodMorning'
     }
     let p = new Promise(async (resolve, reject) => {
+
       await axios
         .get(`/${url1}${lang}`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -182,6 +185,8 @@ class RamApiBasic {
           errors("goodmorningAsync", error);
           reject("Error Check Console for more info!");
         });
+
+
     });
     return p;
   }
@@ -190,16 +195,18 @@ class RamApiBasic {
    * @param {String} lang
    */
   goodnightAsync(lang = "english") {
-    let url1 = "gn";
+    let url1 = 'gn'
     if (publicCheck.includes(this.version)) {
-      lang = "/${lang}";
+      lang = '/${lang}'
     } else {
-      lang = "?lang=${lang}";
-      url1 = "goodNight";
+      lang = '?lang=${lang}'
+      url1 = 'goodNight'
     }
     let p = new Promise(async (resolve, reject) => {
+
       await axios
         .get(`/${url1}${lang}`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -209,15 +216,17 @@ class RamApiBasic {
           errors("goodnightAsync", error);
           reject("Error Check Console for more info!");
         });
-    });
+    })
 
     return p;
   }
+
 
   hugAsync() {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/hug`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -234,6 +243,7 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/kiss`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -247,18 +257,18 @@ class RamApiBasic {
     return p;
   }
   /**
-   *
-   * @param {String} user1
-   * @param {String} user2
-   * @returns
-   */
+    * 
+    * @param {String} user1 
+    * @param {String} user2 
+    * @returns 
+    */
   slapAsync(user1, user2) {
     let p = new Promise(async (resolve, reject) => {
       let url4;
       if (publicCheck.includes(this.version)) {
-        url4 = "/slap";
+        url4 = "/slap"
       } else {
-        url4 = `/slap?user1=${user1}&user2=${user2}`;
+        url4 = `/slap?user1=${user1}&user2=${user2}`
       }
       await axios
         .get(url4, {
@@ -282,6 +292,7 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/sick`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -298,6 +309,7 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/tired`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -315,15 +327,18 @@ class RamApiBasic {
    * @param {String} lang
    */
   cryAsync(lang = "english") {
+
     if (publicCheck.includes(this.version)) {
-      lang = "/${lang}";
+      lang = '/${lang}'
     } else {
-      lang = "?lang=${lang}";
+      lang = '?lang=${lang}'
     }
+
 
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/cry${lang}`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -340,6 +355,7 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/laugh`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -358,15 +374,18 @@ class RamApiBasic {
    *
    */
   birthdayAsync(lang = "english") {
+
     if (publicCheck.includes(this.version)) {
-      lang = "/${lang}";
+      lang = '/${lang}'
     } else {
-      lang = "?lang=${lang}";
+      lang = '?lang=${lang}'
     }
+
 
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/bday${lang}`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -381,7 +400,9 @@ class RamApiBasic {
   }
 
   version_infoAsync() {
+
     if (publicCheck.includes(this.version)) {
+
       let p = new Promise(async (resolve, reject) => {
         await axios
           .get(`${url}/public/version/${this.version}`)
@@ -416,7 +437,9 @@ class RamApiBasic {
     }
   }
 
+
   async version_checkAsync() {
+
     if (publicCheck.includes(this.version)) {
       axios
         .get(`${url}/public/version/${this.version}`)
@@ -448,6 +471,7 @@ class RamApiBasic {
     } else {
       axios
         .get("/versionCheck", {
+
           baseURL: this.baseURL,
         })
         .then((data) => {
@@ -482,6 +506,7 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/ratelimit`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -499,6 +524,7 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/ram`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -515,6 +541,7 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/nekopara`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -531,6 +558,7 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/rps`, {
+
           baseURL: this.baseURL,
         })
         .then(async function (res) {
