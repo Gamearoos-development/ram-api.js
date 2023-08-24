@@ -27,14 +27,34 @@ We understand using ram api can be hard as it has alot this package calls the ap
 changed classes to use old one add /oldclasscode
 ```
 
-> api key
+> Ram api api-key
 
 for a api key join the discord and go to #request-api-keys https://discord.gg/s5SmhGYTSZ
 
-> Examples
+> Ram Api 2 Auth Token
+
+To obtain a token run
+
+```javascript
+const { RamApi2_Token } = require("ram-api.js/Ramapi2");
+const RamApi2_Token = new RamApi2_Token({ version: "v1" });
+
+RamApi2_Token.signup(email, pass); // signup and obtain the first token
+
+RamApi2_Token.login(email, pass); // login and obtain a new token
+```
+
+> Ram Api 2 Notice
+
+v1-dev.0 is a dev build if you like to use this version run the endpoint without options or override with "v1" Note bugs likely use suggestion endpoint from normal api to achieve bug reports or join the discord
+
+> ram-api Examples
+
+any options in a {} ex: {name: "halo"} are options that don't need to be provided unless you wish to provide them
 
 ```javascript
 const ramapi = require("ram-api.js");
+
 const key = "apikey here";
 //normal
 const apiclient = new ramapi.RamApi(key, "v11");
@@ -46,7 +66,20 @@ const apiclient = new ramapi.RamApiBasic("v11");
 
 //beta
 const betaapi = new ramapi.RamApiBeta();
-const logger = new ramapi.Logs("Name Here");
+const logger = new ramapi.ExecuteConsole("Name Here", {
+  timezone: "America/New_York",
+  format: 12,
+  Logcustom: {
+    character: "*",
+    gray: "#bbbbbb",
+    namecolor: "#ff0000",
+    processcolor: "#ff6400",
+    titlecolor: "#00ff78",
+    textcolor: "#00ff8f",
+    datecolor: "#00a6ff",
+  },
+  logDir: "./ram-api-logs",
+}); //the _options object have optional segments any not defined will be defined for you
 const lang = "english";
 const utils = new ramapi.Utils("Name Here");
 
@@ -192,9 +225,32 @@ utils
   .finally(() => logger.infoAsync("Completed!"));
 ```
 
+> Ram Api 2 Examples
+
+```javascript
+const token = "TOKENHERE";
+const { RamApi2_Fun } = require("ram-api.js/Ramapi2");
+
+const RamApi2_Fun = new RamApi2_Fun({ version: "v1" });
+
+RamApi2_Fun.hello(token)
+  .then((data) => {
+    console.log(data); // {text, imageURL}
+  })
+  .catch((err) => {});
+
+RamApi2_Fun.birthday(token)
+  .then((data) => {
+    console.log(data); // {text, imageURL}
+  })
+  .catch((err) => {});
+```
+
 > Missing endpoint
 
-current api version is v12 if v13 is out then contact support
+current api version is v13 if v14 is out then contact support
+
+current api2 version is v1-dev.0 if v1-dev.1 or v1 is out then contact support
 
 ram api endpoints can be found at https://api.rambot.xyz
 

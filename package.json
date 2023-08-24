@@ -1,6 +1,6 @@
 {
   "name": "ram-api.js",
-  "version": "13.0.3",
+  "version": "14.0.0-dev.6",
   "description": "a npm module to connect to ram api for you",
   "main": "index.js",
   "typings": ".d.ts",
@@ -25,14 +25,13 @@
   },
   "homepage": "https://github.com/anime-development/ram-api.js#readme",
   "dependencies": {
-    "@classycrafter/super-logger": "^1.2.34",
-    "@vladfrangu/async_event_emitter": "^2.1.4",
-    "axios": "^0.24.0",
-    "better-date.js": "^1.0.1",
+    "@classycrafter/super-logger": "^2.0.0",
+    "@vladfrangu/async_event_emitter": "^2.2.2",
+    "axios": "^1.4.0",
+    "better-date.js": "^1.0.2",
     "chalk": "^4.1.0",
-    "node-fetch": "^3.2.4",
     "package-json": "^7.0.0",
-    "simply-logger": "^1.4.38",
+    "simply-logger": "^1.5.38",
     "winston": "^3.3.3",
     "winston-console-format": "^1.0.8"
   },
