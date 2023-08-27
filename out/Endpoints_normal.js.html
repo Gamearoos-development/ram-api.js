@@ -1,4 +1,32 @@
-const { Logger } = require("simply-logger");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Endpoints/normal.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Endpoints/normal.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { Logger } = require("simply-logger");
 
 const { ping } = require("../items/ping");
 
@@ -12,85 +40,29 @@ const { date } = require("better-date.js"); // better date lol
 const url = `https://api.rambot.xyz`;
 
 const outdated = ["v0", "v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8"];
-const publicCheck = ["v10", "v11", "v12"];
-class RamApiBasic {
+const publicCheck = ["v10", "v11", "v12"]
+class RamApi {
   /**
    *
    * @param {String} apikey
    * @param {String} version
    *
    */
-  constructor(version) {
+  constructor(apikey, version) {
+    if (!apikey) return;
     if (!version.startsWith("v")) version = `v${version}`;
-    let numberVersion = version.replace("v", "");
-
-    numberVersion = Number(numberVersion);
-
-    if (numberVersion >= 14)
-      return logger.error("Basic Doesn't work in v14 and up");
-
-    logger.warn(
-      "RamApiBasic is depreciated and will stop working 2/8/24 in response to ram api removing the endpoints!"
-    );
-
+    this.apikey = apikey;
     this.version = version;
 
-    this.newBase = `${url}/basic/${this.version}`;
+    this.newBase = `${url}/${this.version}`
 
     if (publicCheck.includes(this.version)) {
-      this.baseURL = `${url}/basic/${this.version}/public`;
+      this.baseURL = `${url}/${this.version}/public`;
+
     } else {
-      this.baseURL = `${url}/basic/${this.version}`;
+      this.baseURL = `${url}/${this.version}`;
+
     }
-  }
-  /**
-   *
-   * @param {String} suggestion
-   * @param {String} user
-   * @returns
-   */
-  suggestionAsync(suggestion, user = "anonymous") {
-    let p = new Promise(async (resolve, reject) => {
-      if (!suggestion) return reject("Suggestion is needed!");
-      await axios
-        .post(
-          `/suggestion/${suggestion}?requestedBy=${user}`,
-          {},
-          {
-            baseURL: this.baseURL,
-          }
-        )
-        .then(async function (res) {
-          resolve(res.data);
-        })
-        .catch(async (error) => {
-          errors("randomNumberAsync", error);
-          reject("Error Check Console for more info!");
-        });
-    });
-    return p;
-  }
-  /**
-   *
-   * @param {Number} min
-   * @param {Number} max
-   * @returns
-   */
-  randomNumberAsync(min, max) {
-    let p = new Promise(async (resolve, reject) => {
-      await axios
-        .get(`/randomNumber?min=${min}?max=${max}`, {
-          baseURL: this.baseURL,
-        })
-        .then(async function (res) {
-          resolve(res.data);
-        })
-        .catch(async (error) => {
-          errors("randomNumberAsync", error);
-          reject("Error Check Console for more info!");
-        });
-    });
-    return p;
   }
   /**
    *
@@ -98,14 +70,20 @@ class RamApiBasic {
    */
   helloAsync(lang = "english") {
     let p = new Promise(async (resolve, reject) => {
+
       if (publicCheck.includes(this.version)) {
-        lang = "/${lang}";
+        lang = '/${lang}'
       } else {
-        lang = "?lang=${lang}";
+        lang = '?lang=${lang}'
       }
+
 
       await axios
         .get(`/hello${lang}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -115,6 +93,9 @@ class RamApiBasic {
           errors("helloAsync", error);
           reject("Error Check Console for more info!");
         });
+
+
+
     });
     return p;
   }
@@ -125,12 +106,16 @@ class RamApiBasic {
   _8ballAsync(lang = "english") {
     let p = new Promise(async (resolve, reject) => {
       if (publicCheck.includes(this.version)) {
-        lang = "/${lang}";
+        lang = '/${lang}'
       } else {
-        lang = "?lang=${lang}";
+        lang = '?lang=${lang}'
       }
       await axios
         .get(`/8ball${lang}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -140,6 +125,7 @@ class RamApiBasic {
           errors("_8ballAsync", error);
           reject("Error Check Console for more info!");
         });
+
     });
     return p;
   }
@@ -147,6 +133,10 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/cuddle`, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -164,16 +154,21 @@ class RamApiBasic {
    * @param {String} lang
    */
   goodmorningAsync(lang = "english") {
-    let url1 = "gm";
+    let url1 = 'gm'
     if (publicCheck.includes(this.version)) {
-      lang = "/${lang}";
+      lang = '/${lang}'
     } else {
-      lang = "?lang=${lang}";
-      url1 = "goodMorning";
+      lang = '?lang=${lang}'
+      url1 = 'goodMorning'
     }
     let p = new Promise(async (resolve, reject) => {
+
       await axios
         .get(`/${url1}${lang}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -183,6 +178,8 @@ class RamApiBasic {
           errors("goodmorningAsync", error);
           reject("Error Check Console for more info!");
         });
+
+
     });
     return p;
   }
@@ -191,16 +188,21 @@ class RamApiBasic {
    * @param {String} lang
    */
   goodnightAsync(lang = "english") {
-    let url1 = "gn";
+    let url1 = 'gn'
     if (publicCheck.includes(this.version)) {
-      lang = "/${lang}";
+      lang = '/${lang}'
     } else {
-      lang = "?lang=${lang}";
-      url1 = "goodNight";
+      lang = '?lang=${lang}'
+      url1 = 'goodNight'
     }
     let p = new Promise(async (resolve, reject) => {
+
       await axios
         .get(`/${url1}${lang}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -210,15 +212,20 @@ class RamApiBasic {
           errors("goodnightAsync", error);
           reject("Error Check Console for more info!");
         });
-    });
+    })
 
     return p;
   }
+
 
   hugAsync() {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/hug`, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -235,6 +242,10 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/kiss`, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -248,18 +259,18 @@ class RamApiBasic {
     return p;
   }
   /**
-   *
-   * @param {String} user1
-   * @param {String} user2
-   * @returns
+   * 
+   * @param {String} user1 
+   * @param {String} user2 
+   * @returns 
    */
   slapAsync(user1, user2) {
     let p = new Promise(async (resolve, reject) => {
       let url4;
       if (publicCheck.includes(this.version)) {
-        url4 = "/slap";
+        url4 = "/slap"
       } else {
-        url4 = `/slap?user1=${user1}&user2=${user2}`;
+        url4 = `/slap?user1=${user1}&amp;user2=${user2}`
       }
       await axios
         .get(url4, {
@@ -283,6 +294,10 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/sick`, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -299,6 +314,10 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/tired`, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -316,15 +335,21 @@ class RamApiBasic {
    * @param {String} lang
    */
   cryAsync(lang = "english") {
+
     if (publicCheck.includes(this.version)) {
-      lang = "/${lang}";
+      lang = '/${lang}'
     } else {
-      lang = "?lang=${lang}";
+      lang = '?lang=${lang}'
     }
+
 
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/cry${lang}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -341,6 +366,10 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/laugh`, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -359,15 +388,21 @@ class RamApiBasic {
    *
    */
   birthdayAsync(lang = "english") {
+
     if (publicCheck.includes(this.version)) {
-      lang = "/${lang}";
+      lang = '/${lang}'
     } else {
-      lang = "?lang=${lang}";
+      lang = '?lang=${lang}'
     }
+
 
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/bday${lang}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -382,7 +417,9 @@ class RamApiBasic {
   }
 
   version_infoAsync() {
+
     if (publicCheck.includes(this.version)) {
+
       let p = new Promise(async (resolve, reject) => {
         await axios
           .get(`${url}/public/version/${this.version}`)
@@ -417,7 +454,9 @@ class RamApiBasic {
     }
   }
 
+
   async version_checkAsync() {
+
     if (publicCheck.includes(this.version)) {
       axios
         .get(`${url}/public/version/${this.version}`)
@@ -449,6 +488,10 @@ class RamApiBasic {
     } else {
       axios
         .get("/versionCheck", {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then((data) => {
@@ -483,6 +526,10 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/ratelimit`, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -500,6 +547,10 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/ram`, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -516,6 +567,10 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/nekopara`, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -532,6 +587,10 @@ class RamApiBasic {
     let p = new Promise(async (resolve, reject) => {
       await axios
         .get(`/rps`, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
           baseURL: this.baseURL,
         })
         .then(async function (res) {
@@ -539,6 +598,61 @@ class RamApiBasic {
         })
         .catch(async (error) => {
           errors("rpsAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+
+  /**
+   * 
+   * @param {Number} min 
+   * @param {Number} max 
+   * @returns 
+   */
+  randomNumberAsync(min, max) {
+    let p = new Promise(async (resolve, reject) => {
+      await axios
+        .get(`/randomNumber?min=${min}?max=${max}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
+          baseURL: this.baseURL,
+        })
+        .then(async function (res) {
+          resolve(res.data);
+        })
+        .catch(async (error) => {
+          errors("randomNumberAsync", error);
+          reject("Error Check Console for more info!");
+        });
+    });
+    return p;
+  }
+  /**
+   * 
+   * @param {String} suggestion 
+   * @param {String} user 
+   * @returns 
+   */
+  suggestionAsync(suggestion, user = "anonymous") {
+
+    let p = new Promise(async (resolve, reject) => {
+      if (!suggestion) return reject('Suggestion is needed!')
+      await axios
+        .post(`/suggestion/${suggestion}?requestedBy=${user}`, {}, {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": this.apikey,
+          },
+          baseURL: this.baseURL,
+        })
+        .then(async function (res) {
+          resolve(res.data);
+        })
+        .catch(async (error) => {
+          errors("randomNumberAsync", error);
           reject("Error Check Console for more info!");
         });
     });
@@ -562,4 +676,27 @@ async function errors(name, error) {
   }
 }
 
-module.exports = { RamApiBasic };
+module.exports = { RamApi };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="RamApi.html">RamApi</a></li><li><a href="RamApiBeta.html">RamApiBeta</a></li><li><a href="RamApiDemo.html">RamApiDemo</a></li><li><a href="RamApiPro.html">RamApiPro</a></li><li><a href="Utils.html">Utils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#apilogger">apilogger</a></li><li><a href="global.html#baseURL">baseURL</a></li><li><a href="global.html#logger">logger</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Aug 27 2023 11:37:29 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
