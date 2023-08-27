@@ -1,51 +1,39 @@
 const { Logger } = require("simply-logger");
-const { series } = require('async');
-const { exec } = require('child_process');
+const { series } = require("async");
+const { exec } = require("child_process");
 
 const logger = new Logger(`ram-api.js`, "America/New_York", 12);
 
 const apilogger = new Logger("Ram Api", "America/New_York", 12);
 const axios = require("axios");
 const curVer = require("../package.json").version;
-const packageJson = require('package-json');
+const packageJson = require("package-json");
 const chalk = require("chalk");
-const publicCheck = ["v10", "v11", "v12"]
+const publicCheck = ["v10", "v11", "v12"];
 
 class Utils {
-  constructor() { }
-
-
+  constructor() {}
 
   /**
    *
    * @param {Boolean} restart
    * @param {String} version
-   * 
+   *
    */
   async updatePackageAsync(version = "latest") {
     let cmd = `npm i ram-api.js@${version}`;
-    let cmd2 = `echo "Update for ram-api.js to ${version}"`
+    let cmd2 = `echo "Update for ram-api.js to ${version}"`;
 
-    series([
-      () => exec(cmd),
-      () => exec(cmd2),
-
-    ]);
-    setTimeout(() => console.log('done'), 3000)
+    series([() => exec(cmd), () => exec(cmd2)]);
+    setTimeout(() => console.log("done"), 3000);
     let version2 = await packageJson("ram-api.js", { version: version });
-
 
     let success = false;
     if (curVer === version2.version) {
-      success = true
+      success = true;
     }
 
     return success;
-
-
-
-
-
   }
   /**
    *
@@ -62,23 +50,19 @@ class Utils {
 
           let version = await packageJson("ram-api.js", { version: "dev" });
 
-
           if (ran) return;
           if (curVer !== version.version) {
-            resolve(
-              {
-                log: `Dev Package is out of date to update run ${chalk.magenta(
-                  `npm i ram-api.js@dev`
-                )} to update latest version is ${chalk.magenta(version.version)}`,
-                outdated: true
-
-              }
-            )
+            resolve({
+              log: `Dev Package is out of date to update run ${chalk.magenta(
+                `npm i ram-api.js@dev`
+              )} to update latest version is ${chalk.magenta(version.version)}`,
+              outdated: true,
+            });
             ran = true;
           } else {
             resolve({
               log: "Package Up to date",
-              outdated: false
+              outdated: false,
             });
           }
         } catch (error) {
@@ -90,22 +74,19 @@ class Utils {
         try {
           let version = await packageJson("ram-api.js", { version: "latest" });
 
-
-
           if (ran) return;
           if (curVer !== version.version) {
             resolve({
               log: `Package is out of date to update run ${chalk.magenta(
                 `npm i ram-api.js@latest`
               )} to update latest version is ${chalk.magenta(version.version)}`,
-              outdated: true
-            }
-            );
+              outdated: true,
+            });
             ran = true;
           } else {
             resolve({
               log: "Package Up to date",
-              outdated: false
+              outdated: false,
             });
           }
         } catch (error) {
@@ -136,54 +117,75 @@ class Utils {
     return p;
   }
   /**
-   *
-   * @param {String} endpoint = can be found on the api docs EX: /basic/v13/hello?lang=english or /basic/v12/public/hello/english
-   * @param {String} api_key = Leave blank or set to "basic" for basic endpoints
-   * @returns
+   * Fetches data from the specified API endpoint based on the provided access level.
+   * @param {string} endpoint - The API endpoint to request data from.
+   * @param {string} accessLevel - The access level for the request ("normal", "extended", "demo", "pro").
+   * @param {Object} _options - Options object containing version, params, and headers.
+   * @param {string} _options.version - The version to use (latest is v14).
+   * @param {Object} _options.params - Query parameters for the request.
+   * @param {Object} _options.headers - Custom headers for the request. If not demo, {"api-key": "key goes here"}.
+   * @returns {Promise} A promise that resolves with the fetched data or rejects with an error message.
    */
   async customAsync(
-    endpoint, //can be found on the api docs EX: /basic/v13/hello?lang=english or /basic/v12/hello/english
-    api_key = "basic"
+    endpoint, // something like /hello or /ram
+    accessLevel = "normal", // the type to use
+    _options = {} // options object containing version, params, and headers
   ) {
+    return new Promise(async (resolve, reject) => {
+      const supportedVersions = ["v14"];
+      const outdatedVersions = ["v11", "v12", "v13"];
+      const notsupported = [
+        "v0",
+        "v1",
+        "v2",
+        "v3",
+        "v4",
+        "v5",
+        "v6",
+        "v7",
+        "v8",
+        "v9",
+        "v10",
+      ];
+      const requestedVersion = _options.version || "v14";
 
-    let p = new Promise(async (resolve, reject) => {
-      if (endpoint.startsWith('/basic')) api_key = "basic";
+      if (supportedVersions.includes(requestedVersion)) {
+      } else if (outdatedVersions.includes(requestedVersion)) {
+        logger.warn(
+          `${requestedVersion} is outdated please update to the latest ${supportedVersions[0]}`
+        );
+      } else if (notsupported.includes(requestedVersion)) {
+        logger.error(`${requestedVersion} is no longer supported`);
+        return reject("Check console");
+      }
 
+      let baseURL = "NULL";
 
-      let url = `https://api.rambot.xyz${endpoint}`
+      if (accessLevel === "normal") {
+        baseURL = `https://api.rambot.xyz/${requestedVersion}`;
+      } else if (accessLevel === "extended") {
+        baseURL = `https://api.rambot.xyz/extended/${requestedVersion}`;
+      } else if (accessLevel === "demo") {
+        baseURL = "https://api.rambot.xyz/demo";
+      } else if (accessLevel === "pro") {
+        baseURL = `https://api.rambot.xyz/pro/${requestedVersion}`;
+      }
 
-      if (api_key !== "basic") {
-        await axios
-          .get(url, {
-            headers: {
-              "Content-Type": "application/json",
-              "api-key": api_key,
-            },
-          })
-          .then(async function (res) {
-            resolve(res.data);
-          })
-          .catch(async (error) => {
-            reject(
-              "Custom Failed **note** if error is related to a invalid endpoint check api.rambot.xyz for endpoint names! " +
-              error
-            );
-          });
-      } else {
-        await axios
-          .get(url)
-          .then(async function (res) {
-            resolve(res.data);
-          })
-          .catch(async (error) => {
-            reject(
-              "Custom Failed **note** if error is related to a invalid endpoint check api.rambot.xyz for endpoint names! " +
-              error
-            );
-          });
+      try {
+        const response = await axios({
+          method: "get",
+          url: endpoint,
+          params: _options.params || {},
+          baseURL: baseURL,
+          headers: _options.headers || {},
+        });
+
+        resolve(response.data);
+      } catch (error) {
+        logger.error(error);
+        reject(error);
       }
     });
-    return p;
   }
 }
 
