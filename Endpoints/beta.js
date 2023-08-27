@@ -21,13 +21,15 @@ class RamApiBeta {
    */
   constructor(version) {
     if (!version.startsWith("v")) version = `v${version}`;
-
+    /**
+     * @private
+     */
     this.version = version;
+    /**
+     * @private
+     */
     this.baseURL = `${url}/beta/v13/public`;
   }
-
-
-
 }
 
 module.exports = { RamApiBeta };

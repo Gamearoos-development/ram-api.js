@@ -1,49 +1,52 @@
 const { Logger } = require("simply-logger");
 const { series } = require("async");
 const { exec } = require("child_process");
-
-const logger = new Logger(`ram-api.js`, "America/New_York", 12);
-
-const apilogger = new Logger("Ram Api", "America/New_York", 12);
 const axios = require("axios");
-const curVer = require("../package.json").version;
 const packageJson = require("package-json");
 const chalk = require("chalk");
+
+const logger = new Logger("ram-api.js", "America/New_York", 12);
+const apilogger = new Logger("Ram Api", "America/New_York", 12);
+const curVer = require("../package.json").version;
 const publicCheck = ["v10", "v11", "v12"];
 
+/**
+ * Utility class for various helper functions.
+ */
 class Utils {
   /**
-   *
+   * Creates an instance of Utils.
    */
   constructor() {}
 
   /**
+   * Updates the package asynchronously.
    *
-   * @param {Boolean} restart
-   * @param {String} version
-   *
+   * @param {string} version - The version to update to (default is "latest").
+   * @returns {Promise<boolean>} - A promise that resolves with true if the update is successful, otherwise false.
    */
   async updatePackageAsync(version = "latest") {
+    // Update package using npm and echo the update
     let cmd = `npm i ram-api.js@${version}`;
     let cmd2 = `echo "Update for ram-api.js to ${version}"`;
-
     series([() => exec(cmd), () => exec(cmd2)]);
     setTimeout(() => console.log("done"), 3000);
-    let version2 = await packageJson("ram-api.js", { version: version });
 
-    let success = false;
-    if (curVer === version2.version) {
-      success = true;
+    try {
+      let version2 = await packageJson("ram-api.js", { version: version });
+      return curVer === version2.version;
+    } catch (error) {
+      return false;
     }
-
-    return success;
   }
+
   /**
+   * Checks the package version asynchronously.
    *
-   * @returns - A promise that resolves with the fetched data or rejects with an error message.
+   * @returns {Promise<Object>} - A promise that resolves with version information and outdated status.
    */
   async packageVersionCheckAsync() {
-    let p = new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       var dev = false;
       let ran = false;
 
@@ -97,8 +100,13 @@ class Utils {
         }
       }
     });
-    return p;
   }
+
+  /**
+   * Performs a ping request asynchronously.
+   *
+   * @returns {Promise<any>} - A promise that resolves with the ping response data.
+   */
   async pingAsync() {
     let dat = Date.now();
 
@@ -117,23 +125,24 @@ class Utils {
           reject("Ping Failed! " + error);
         });
     });
-    return p;
   }
+
   /**
    * Fetches data from the specified API endpoint based on the provided access level.
+   *
    * @param {string} endpoint - The API endpoint to request data from.
    * @param {string} accessLevel - The access level for the request ("normal", "extended", "demo", "pro").
    * @param {Object} _options - Options object containing version, params, and headers.
    * @param {string} _options.version - The version to use (latest is v14).
    * @param {Object} _options.params - Query parameters for the request.
    * @param {Object} _options.headers - Custom headers for the request. If not demo, {"api-key": "key goes here"}.
-   * @returns {Promise} - A promise that resolves with the fetched data or rejects with an error message.
+   * @returns {Promise<any>} - A promise that resolves with the fetched data or rejects with an error message.
    */
-  async customAsync(
+  async customAsync(endpoint, accessLevel = "normal", _options = {}) {
     endpoint, // something like /hello or /ram
-    accessLevel = "normal", // the type to use
-    _options = {} // options object containing version, params, and headers
-  ) {
+      (accessLevel = "normal"), // the type to use
+      (_options = {}); // options object containing version, params, and headers
+
     return new Promise(async (resolve, reject) => {
       const supportedVersions = ["v14"];
       const outdatedVersions = ["v11", "v12", "v13"];
@@ -189,22 +198,6 @@ class Utils {
         reject(error);
       }
     });
-  }
-}
-
-async function errors(name, error) {
-  if (error.response) {
-    let err = `Status: ${error.response.status} | Error: ${error.response.statusText}`;
-    apilogger.error(err);
-    if (error.response.data.error.message)
-      logger.error(
-        `Ram Api Ran into a error while running ${name}. The problem is: ${error.response.data.error.message}.`
-      );
-  } else {
-    console.log(error);
-    logger.error(
-      `error running ${name}. Please report to the developers the error logged into your console!`
-    );
   }
 }
 

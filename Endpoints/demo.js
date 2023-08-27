@@ -4,18 +4,21 @@ const url = `https://api.rambot.xyz`;
 
 /**
  * The logger instance for general logging.
+ * @private
  * @type {Logger}
  */
 const logger = new Logger(`ram-api.js`, "America/New_York", 12);
 
 /**
  * The logger instance for API-related logging.
+ * @private
  * @type {Logger}
  */
 const apilogger = new Logger("Ram Api", "America/New_York", 12);
 
 /**
  * The base URL of the API.
+ * @private
  * @type {string}
  */
 const baseURL = `${url}/demo`;

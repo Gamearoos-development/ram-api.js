@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: Endpoints/beta.js</title>
+    <title>JSDoc: Source: Utils/logger.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: Endpoints/beta.js</h1>
+    <h1 class="page-title">Source: Utils/logger.js</h1>
 
     
 
@@ -28,39 +28,53 @@
         <article>
             <pre class="prettyprint source linenums"><code>const { Logger } = require("simply-logger");
 
-const { ping } = require("../items/ping");
-
-const logger = new Logger(`ram-api.js`, "America/New_York", 12);
-
-const apilogger = new Logger("Ram Api", "America/New_York", 12);
-var tryagain = "false";
-
-const axios = require("axios");
-const { date } = require("better-date.js"); // better date lol
-const url = `https://api.rambot.xyz`;
-
-const outdated = ["v0", "v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8"];
-class RamApiBeta {
+/**
+ * Represents a console execution utility with logging capabilities.
+ */
+class ExecuteConsole {
   /**
+   * Creates an instance of ExecuteConsole.
    *
-   * @param {String} apikey
-   * @param {String} version
-   *
+   * @param {string} name - The name for the logger.
    */
-  constructor(version) {
-    if (!version.startsWith("v")) version = `v${version}`;
+  constructor(name) {
     /**
+     * The logger instance for logging messages.
      * @private
+     * @type {Logger}
      */
-    this.version = version;
-    /**
-     * @private
-     */
-    this.baseURL = `${url}/beta/v13/public`;
+    this.log = new Logger(name, "America/New_York", 12);
+  }
+
+  /**
+   * Logs an error message asynchronously.
+   *
+   * @param {string} msg - The error message to log.
+   */
+  async errorAsync(msg) {
+    this.log.error(msg);
+  }
+
+  /**
+   * Logs an informational message asynchronously.
+   *
+   * @param {string} msg - The information message to log.
+   */
+  async infoAsync(msg) {
+    this.log.info(msg);
+  }
+
+  /**
+   * Logs a warning message asynchronously.
+   *
+   * @param {string} msg - The warning message to log.
+   */
+  async warnAsync(msg) {
+    this.log.warn(msg);
   }
 }
 
-module.exports = { RamApiBeta };
+module.exports = { ExecuteConsole };
 </code></pre>
         </article>
     </section>

@@ -1,8 +1,6 @@
-const { Logger } = require("simply-logger");
-
 const { ping } = require("./items/ping");
 const { RamApiPro } = require("./Endpoints/pro");
-const { RamApiBasic } = require("./Endpoints/basic");
+const { RamApiBasic } = require("./items/outdated/basic");
 const { RamApi } = require("./Endpoints/normal");
 const { RamApiBeta } = require("./Endpoints/beta");
 const { Utils } = require("./Utils/utils");
@@ -13,43 +11,8 @@ const logger = new Logger(`ram-api.js`, "America/New_York", 12);
 
 const apilogger = new Logger("Ram Api", "America/New_York", 12);
 
-class Logs {
-  /**
-   *
-   * @param {String} name
-   */
-  constructor(name) {
-    let templog = new Logger(name, "America/New_York", 12);
-
-    this.log = templog;
-  }
-
-  /**
-   *
-   * @param {String} msg
-   */
-  errorAsync(msg) {
-    this.log.error(msg);
-  }
-
-  /**
-   *
-   * @param {String} msg
-   */
-  infoAsync(msg) {
-    this.log.info(msg);
-  }
-
-  /**
-   *
-   * @param {String} msg
-   */
-  warnAsync(msg) {
-    this.log.warn(msg);
-  }
-}
-
 const fetch = require("npm-registry-fetch");
+const { ExecuteConsole } = require("./Utils/logger");
 
 const packageName = "ram-api.js";
 const currentVersion = require("./package.json").version;
@@ -81,4 +44,5 @@ module.exports = {
   Utils,
   RamApiBeta,
   RamApiDemo,
+  ExecuteConsole,
 };
