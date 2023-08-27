@@ -21,183 +21,27 @@ We understand using ram api can be hard as it has alot this package calls the ap
 
 `npm i ram-api.js` or `yarn add ram-api.js`
 
-> Update to 10.x
+> Update to 14.x
 
 ```text
-changed classes to use old one add /oldclasscode
+changed how classes are written
 ```
 
 > api key
 
 for a api key join the discord and go to #request-api-keys https://discord.gg/s5SmhGYTSZ
 
-> Examples
+> Docs
 
-```javascript
-const ramapi = require("ram-api.js");
-const key = "apikey here";
-//normal
-const apiclient = new ramapi.RamApi(key, "v11");
-const version = "latest"
-//pro
-const apiclient = new ramapi.RamApiPro(key, "v11");
-//basic
-const apiclient = new ramapi.RamApiBasic("v11");
+Dev Builds: https://devdocs.rambot.xyz
 
-//beta
-const betaapi = new ramapi.RamApiBeta();
-const logger = new ramapi.Logs("Name Here");
-const lang = "english";
-const utils = new ramapi.Utils("Name Here");
+Beta: Coming Soon
 
-apiclient
-	.helloAsync(lang)
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional;
-
-apiclient
-	._8ballAsync(lang)
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-
-apiclient
-	.cuddleAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-
-apiclient
-	.goodmorningAsync(lang)
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-apiclient
-	.goodnightAsync(lang)
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-apiclient
-	.hugAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-apiclient
-	.kissAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-apiclient
-	.slapAsync(user1, user2)
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-apiclient
-	.sickAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-apiclient
-	.tiredAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-apiclient
-	.cryAsync(lang)
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-apiclient
-	.laughAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-apiclient
-	.birthdayAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-apiclient
-	.version_infoAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-
-apiclient
-	.ratelimitAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-
-apiclient
-	.ramAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-apiclient
-	.nekoparaAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-
-apiclient.version_checkAsync();
-
-apiclient
-	.rpsAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-
-apiclient
-	.randomNumberAsync(min, max)
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-apiclient
-	.suggestionAsync(suggestion, user)
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); //finally is optional
-// Basic only endpoints
-
-// No Basic only endpoints atm
-
-// Normal only endpoints
-
-// Pro only endpoints
-
-//no pro only endpoints at this time
-
-//beta only endpoints
-
-
-
-//utils
-
-utils
-	.pingAsync()//this runs on the basic endpoint
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!")); 
-utils
-	.packageVersionCheckAsync()
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!"));
-utils
-	.updatePackageAsync(version);
-
-utils
-	.customAsync(endpoint, api_key) // api_key not needed for basic endpoints endpoint Example: /basic/v13/hello?lang=english or /basic/v12/public/hello/english
-	.then((data) => console.log(data)) //then is optional with a await
-	.catch((error) => logger.errorAsync(error)) //catch is required
-	.finally(() => logger.infoAsync("Completed!"));
-```
+Latest: Coming Soon
 
 > Missing endpoint
 
-current api version is v12 if v13 is out then contact support
+current api version is v14 if v15 is out then contact support
 
 ram api endpoints can be found at https://api.rambot.xyz
 
