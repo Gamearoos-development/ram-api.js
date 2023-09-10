@@ -6,6 +6,7 @@ const { RamApiBeta } = require("./Endpoints/beta");
 const { Utils } = require("./Utils/utils");
 const { RamApiDemo } = require("./Endpoints/demo");
 const publicCheck = ["v10", "v11", "v12"];
+const { Logger } = require("simply-logger");
 
 const logger = new Logger(`ram-api.js`, "America/New_York", 12);
 
