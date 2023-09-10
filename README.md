@@ -35,7 +35,7 @@ for a api key join the discord and go to #request-api-keys https://discord.gg/q3
 
 Dev Builds: https://devdocs.rambot.xyz
 
-Beta: Coming Soon
+Beta: https://betadocs.rambot.xyz/
 
 Latest: Coming Soon
 
