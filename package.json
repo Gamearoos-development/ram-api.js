@@ -1,6 +1,6 @@
 {
   "name": "ram-api.js",
-  "version": "14.0.0-dev.11",
+  "version": "14.0.0-dev.12",
   "description": "a npm module to connect to ram api for you",
   "main": "index.js",
   "typings": ".d.ts",
@@ -28,7 +28,7 @@
     "axios": "^0.24.0",
     "better-date.js": "^1.0.1",
     "npm-registry-fetch": "^16.0.0",
-    "package-json": "^8.1.1",
+    "package-json": "^7.0.0",
     "simply-logger": "^1.5.38"
   },
   "devDependencies": {
