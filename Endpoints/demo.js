@@ -29,10 +29,10 @@ const baseURL = `${url}/demo`;
 class RamApiDemo {
   /**
    * Create a new RamApiDemo instance.
-   * @param {number} [retryAfter=6000] - The time in milliseconds to wait before retrying after a rate limit error.
-   * @param {number} [retry=6] - The number of retry attempts to make for rate limit errors.
+   * @param {number} [retryAfter=60000] - The time in milliseconds to wait before retrying after a rate limit error.
+   * @param {number} [retry=3] - The number of retry attempts to make for rate limit errors.
    */
-  constructor(retryAfter = 6000, retry = 6) {
+  constructor(retryAfter = 60000, retry = 3) {
     /** @private */
     this.baseURL = baseURL;
     /** @private */
@@ -43,46 +43,84 @@ class RamApiDemo {
   /**
    * Handle API request errors.
    * @private
-   * @param {string} name - The name of the API request.
+   * @param {string} endpoint - The name of the API request.
    * @param {Error} error - The error object from the failed request.
    * @param {Function} resolve - The promise resolve function.
    * @param {Function} reject - The promise reject function.
-   * @param {string} url - The URL of the API request.
+   * @param {string} baseURL - The URL of the API request.
    * @param {string} type - The HTTP request type.
    * @param {number} [loop=0] - The current loop count for retries.
    */
-  async _newerrors(name, error, resolve, reject, url, type, loop = 0) {
+  async _newerrors(
+    endpoint,
+    error,
+    resolve,
+    reject,
+    baseURL,
+    type,
+    accessLevel,
+    _options,
+    loop = 0
+  ) {
     if (error.response) {
       let err = `Status: ${error.response.status} | Error: ${error.response.statusText}`;
       apilogger.error(err);
       if (
+        this.retry > 0 &&
         error.response.statusText === "Too Many Requests" &&
-        retryAfter >= 6000 &&
-        retry >= loop &&
+        this.retry >= loop &&
         type === "get"
       ) {
-        logger.warn(`api rate limit reached Retrying to run ${name}`);
-        retryAfter = retryAfter + 1000;
+        logger.warn(`api rate limit reached Retrying to run ${endpoint}`);
+
         setTimeout(async () => {
-          try {
-            const res = await axios.get(url);
-            resolve(res.data);
-          } catch (error) {
-            loop++;
-            new_errors(name, error, resolve, reject, url, type, loop);
+          if (accessLevel === "normal") {
+            baseURL = `https://api.rambot.xyz/${requestedVersion}`;
+          } else if (accessLevel === "extended") {
+            baseURL = `https://api.rambot.xyz/extended/${requestedVersion}`;
+          } else if (accessLevel === "demo") {
+            baseURL = "https://api.rambot.xyz/demo";
+          } else if (accessLevel === "pro") {
+            baseURL = `https://api.rambot.xyz/pro/${requestedVersion}`;
           }
-        }, retryAfter);
+
+          try {
+            const response = await axios({
+              method: "get",
+              url: endpoint,
+              params: _options.params || {},
+              baseURL: baseURL,
+              headers: _options.headers || {},
+            });
+
+            resolve(response.data);
+          } catch (err) {
+            loop++;
+            this._newerrors(
+              endpoint,
+              err,
+              resolve,
+              reject,
+              baseURL,
+              type,
+              accessLevel,
+              _options,
+              loop
+            );
+          }
+        }, this.retryAfter);
       } else {
         if (error.response.data.error.message)
           logger.error(
-            `Ram Api Ran into an error while running ${name}. The problem is: ${error.response.data.error.message}.`
+            `Ram Api Ran into an error while running ${endpoint}. The problem is: ${error.response.data.error.message}.`
           );
         reject("Error Handled By Ram-api.js");
       }
     } else {
       logger.error(
-        `Error running ${name}. Please report to the developers the error logged into your console!`
+        `Error running ${endpoint}. Please report to the developers the error logged into your console!`
       );
+      console.log(error);
       reject(error);
     }
   }
@@ -154,11 +192,20 @@ class RamApiDemo {
 
         resolve(response.data);
       } catch (error) {
-        apilogger.error(error);
-        reject(error);
+        this._newerrors(
+          endpoint,
+          error,
+          resolve,
+          reject,
+          baseURL,
+          "get",
+          accessLevel,
+          _options
+        );
       }
     });
   }
+
   /**
    * Get a birthday wish and image.
    * @param {string} [lang="english"] - The language for the birthday wish. Default is "english".

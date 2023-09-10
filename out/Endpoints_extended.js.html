@@ -1,4 +1,32 @@
-const axios = require("axios");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Endpoints/extended.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Endpoints/extended.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const axios = require("axios");
 const { Logger } = require("simply-logger");
 const url = `https://api.rambot.xyz`;
 
@@ -26,7 +54,7 @@ const baseURL = `${url}/demo`;
 /**
  * Represents the RamApiDemo class for interacting with the RamBot API.
  */
-class RamApi {
+class RamApiExtended {
   /**
    * Create a new RamApiDemo instance.
    * @param {apikey} - The api key for the endpoints
@@ -70,9 +98,9 @@ class RamApi {
       let err = `Status: ${error.response.status} | Error: ${error.response.statusText}`;
       apilogger.error(err);
       if (
-        this.retry > 0 &&
-        error.response.statusText === "Too Many Requests" &&
-        this.retry >= loop &&
+        this.retry > 0 &amp;&amp;
+        error.response.statusText === "Too Many Requests" &amp;&amp;
+        this.retry >= loop &amp;&amp;
         type === "get"
       ) {
         logger.warn(`api rate limit reached Retrying to run ${endpoint}`);
@@ -174,7 +202,7 @@ class RamApi {
       }
 
       let baseURL = "NULL";
-      accessLevel = "normal";
+      accessLevel = "extended";
 
       if (accessLevel === "normal") {
         baseURL = `https://api.rambot.xyz/${requestedVersion}`;
@@ -214,14 +242,14 @@ class RamApi {
   /**
    * Get a birthday wish and image.
    * @param {string} [lang="english"] - The language for the birthday wish. Default is "english".
-   * @returns {Promise<{ text: string, url: string }>} - The promise that resolves with an object containing the birthday wish text and image URL.
+   * @returns {Promise&lt;{ text: string, url: string }>} - The promise that resolves with an object containing the birthday wish text and image URL.
    */
   async birthdayAsync(lang = "english") {
     return await this._apiRequest("/bday", "demo", { params: { lang } });
   }
   /**
    * Get a laugh image.
-   * @returns {Promise<{ url: string }>} - The promise that resolves with an object containing the laugh image URL.
+   * @returns {Promise&lt;{ url: string }>} - The promise that resolves with an object containing the laugh image URL.
    */
   async laughAsync() {
     return await this._apiRequest("/laugh", "demo");
@@ -229,21 +257,21 @@ class RamApi {
   /**
    * gets a random cry image and text.
    * @param {string} [lang="english"] - The language for the cry text. Default is "english".
-   * @returns {Promise<{ text: string, url: string }>} - The promise that resolves with an object containing the cry text and image URL.
+   * @returns {Promise&lt;{ text: string, url: string }>} - The promise that resolves with an object containing the cry text and image URL.
    */
   async cryAsync(lang = "english") {
     return await this._apiRequest("/cry", "demo", { params: { lang } });
   }
   /**
    * gets a random tired image.
-   * @returns {Promise<{ url: string }>} - The promise that resolves with an object containing the tired image URL.
+   * @returns {Promise&lt;{ url: string }>} - The promise that resolves with an object containing the tired image URL.
    */
   async tiredAsync() {
     return await this._apiRequest("/tired", "demo");
   }
   /**
    * gets a random sick image.
-   * @returns {Promise<{ url: string }>} - The promise that resolves with an object containing the sick image URL.
+   * @returns {Promise&lt;{ url: string }>} - The promise that resolves with an object containing the sick image URL.
    */
   async sickAsync() {
     return await this._apiRequest("/sick", "demo");
@@ -252,7 +280,7 @@ class RamApi {
    * gets a random slap text and image.
    * @param {string} [user1="You"] - The first user.
    * @param {string} [user2="Ram"] - The second user.
-   * @returns {Promise<{ text: string, url: string, text2: string, text3: string, text4: string, textFormatted: string }>} - The promise that resolves with an object containing the slap text and image URL.
+   * @returns {Promise&lt;{ text: string, url: string, text2: string, text3: string, text4: string, textFormatted: string }>} - The promise that resolves with an object containing the slap text and image URL.
    */
   async slapAsync(user1 = "You", user2 = "Ram") {
     return await this._apiRequest("/slap", "demo", {
@@ -261,14 +289,14 @@ class RamApi {
   }
   /**
    * gets a random kiss image.
-   * @returns {Promise<{ url: string }>} - The promise that resolves with an object containing the kiss image URL.
+   * @returns {Promise&lt;{ url: string }>} - The promise that resolves with an object containing the kiss image URL.
    */
   async kissAsync() {
     return await this._apiRequest("/kiss", "demo");
   }
   /**
    * gets a random hug image.
-   * @returns {Promise<{ url: string }>} - The promise that resolves with an object containing the hug image URL.
+   * @returns {Promise&lt;{ url: string }>} - The promise that resolves with an object containing the hug image URL.
    */
   async hugAsync() {
     return await this._apiRequest("/hug", "demo");
@@ -276,7 +304,7 @@ class RamApi {
   /**
    * gets a random goodNight Image and text.
    * @param {string} [lang="english"] - The language for the goodNight text. Default is "english".
-   * @returns {Promise<{ text: string, url: string }>} - The promise that resolves with an object containing the goodNight text and image URL.
+   * @returns {Promise&lt;{ text: string, url: string }>} - The promise that resolves with an object containing the goodNight text and image URL.
    */
   async goodNightAsync(lang = "english") {
     return await this._apiRequest("/goodNight", "demo", { params: { lang } });
@@ -284,14 +312,14 @@ class RamApi {
   /**
    * gets a random goodMorning image and text.
    * @param {string} [lang="english"] - The language for the goodMorning text. Default is "english".
-   * @returns {Promise<{ text: string, url: string }>} - The promise that resolves with an object containing the goodMorning text and image URL.
+   * @returns {Promise&lt;{ text: string, url: string }>} - The promise that resolves with an object containing the goodMorning text and image URL.
    */
   async goodMorningAsync(lang = "english") {
     return await this._apiRequest("/goodMorning", "demo", { params: { lang } });
   }
   /**
    * gets a random cuddle image.
-   * @returns {Promise<{ url: string }>} - The promise that resolves with an object containing the cuddle image URL.
+   * @returns {Promise&lt;{ url: string }>} - The promise that resolves with an object containing the cuddle image URL.
    */
   async cuddleAsync() {
     return await this._apiRequest("/cuddle", "demo");
@@ -299,7 +327,7 @@ class RamApi {
   /**
    * gets a random hello text.
    * @param {string} [lang="english"] - The language for the hello text. Default is "english".
-   * @returns {Promise<{ text: string}>} - The promise that resolves with an object containing the hello text.
+   * @returns {Promise&lt;{ text: string}>} - The promise that resolves with an object containing the hello text.
    */
   async helloAsync(lang = "english") {
     return await this._apiRequest("/hello", "demo", { params: { lang } });
@@ -307,7 +335,7 @@ class RamApi {
   /**
    * play rps with the api.
    * @param {string} [pick="No Choice Made"] -  The choice of the player. Default is "No Choice Made".
-   * @returns {Promise<{ api_choice: string, your_choice: string }>} - The promise that resolves with an object containing the rps text.
+   * @returns {Promise&lt;{ api_choice: string, your_choice: string }>} - The promise that resolves with an object containing the rps text.
    */
   async rpsAsync(pick = "No Choice Made") {
     return await this._apiRequest("/rps", "demo", { params: { pick } });
@@ -315,21 +343,21 @@ class RamApi {
   /**
    * gets a random 8ball text.
    * @param {string} [lang="english"] - The language for the 8ball text. Default is "english".
-   * @returns {Promise<{ text: string }>} - The promise that resolves with an object containing the 8ball text.
+   * @returns {Promise&lt;{ text: string }>} - The promise that resolves with an object containing the 8ball text.
    */
   async _8ballAsync(lang = "english") {
     return await this._apiRequest("/8ball", "demo", { params: { lang } });
   }
   /**
    * gets the latest version info.
-   * @returns {Promise<{ version: string, outdated: boolean, supported: boolean, latest: string  }>} - The promise that resolves with an object containing the version info.
+   * @returns {Promise&lt;{ version: string, outdated: boolean, supported: boolean, latest: string  }>} - The promise that resolves with an object containing the version info.
    */
   async versionInfoAsync() {
     return await this._apiRequest("/versionCheck", "demo");
   }
   /**
    * gets the ratelimit info.
-   * @returns {Promise<{ limit: number, current: number, remaining: number, resetTime: string, resetTimeFormated: string  }>} - The promise that resolves with an object containing the ratelimit info.
+   * @returns {Promise&lt;{ limit: number, current: number, remaining: number, resetTime: string, resetTimeFormated: string  }>} - The promise that resolves with an object containing the ratelimit info.
    */
   async rateLimitAsync() {
     return await this._apiRequest("/ratelimit", "demo");
@@ -338,7 +366,7 @@ class RamApi {
    * Generate a random number from a range.
    * @param {number} min - The minimum value of the range.
    * @param {number} max - The maximum value of the range.
-   * @returns {Promise<{ Number: number, roundedNumber: number, flooredNumber: number, enteredNumbers: string}>} - The promise that resolves with the random number.
+   * @returns {Promise&lt;{ Number: number, roundedNumber: number, flooredNumber: number, enteredNumbers: string}>} - The promise that resolves with the random number.
    */
   async randomNumberAsync(min, max) {
     return await this._apiRequest("/randomNumber", "demo", {
@@ -350,7 +378,7 @@ class RamApi {
    * send a suggestion.
    * @param {suggestion} suggestion - The Suggestion.
    * @param {requestedBy} requestedBy - Who made the suggestion.
-   * @returns {Promise<"Completed">} - The promise that resolves with completed.
+   * @returns {Promise&lt;"Completed">} - The promise that resolves with completed.
    */
   async suggestionAsync(suggestion, requestedBy = null) {
     return new Promise(async (resolve, reject) => {
@@ -374,32 +402,55 @@ class RamApi {
   }
   /**
    * Get the api ping.
-   * @returns {Promise<{ping: string}>} - The promise that resolves with the ping.
+   * @returns {Promise&lt;{ping: string}>} - The promise that resolves with the ping.
    */
   async pingAsync() {
     return await this._apiRequest("/ping", "demo");
   }
   /**
    * Get a image of ram.
-   * @returns {Promise<{url: string}>} - The promise that resolves with the url.
+   * @returns {Promise&lt;{url: string}>} - The promise that resolves with the url.
    */
   async ramAsync() {
     return await this._apiRequest("/ram", "demo");
   }
   /**
    * Get a image of nekopara.
-   * @returns {Promise<{url: string}>} - The promise that resolves with the url.
+   * @returns {Promise&lt;{url: string}>} - The promise that resolves with the url.
    */
   async nekoparaAsync() {
     return await this._apiRequest("/nekopara", "demo");
   }
   /**
    * Get a image of miku.
-   * @returns {Promise<{url: string}>} - The promise that resolves with the url.
+   * @returns {Promise&lt;{url: string}>} - The promise that resolves with the url.
    */
   async mikuAsync() {
     return await this._apiRequest("/miku", "demo");
   }
 }
 
-module.exports = { RamApi };
+module.exports = { RamApiExtended };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ExecuteConsole.html">ExecuteConsole</a></li><li><a href="RamApi.html">RamApi</a></li><li><a href="RamApiBeta.html">RamApiBeta</a></li><li><a href="RamApiDemo.html">RamApiDemo</a></li><li><a href="RamApiExtended.html">RamApiExtended</a></li><li><a href="RamApiPro.html">RamApiPro</a></li><li><a href="Utils.html">Utils</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Sep 10 2023 16:59:43 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

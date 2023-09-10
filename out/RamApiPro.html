@@ -28,7 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>RamApiPro<span class="signature">(apikey, version)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>RamApiPro<span class="signature">(apikey, retryAfter<span class="signature-attributes">opt</span>, retry<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description">Represents the RamApiDemo class for interacting with the RamBot API.</div>
         
     
 </header>
@@ -39,14 +41,20 @@
         
 
     
-
-    
-    <h4 class="name" id="RamApiPro"><span class="type-signature"></span>new RamApiPro<span class="signature">(apikey, version)</span><span class="type-signature"></span></h4>
+    <h2>Constructor</h2>
     
 
     
+    <h4 class="name" id="RamApiPro"><span class="type-signature"></span>new RamApiPro<span class="signature">(apikey, retryAfter<span class="signature-attributes">opt</span>, retry<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    
+
+    
 
 
+
+<div class="description">
+    Create a new RamApiDemo instance.
+</div>
 
 
 
@@ -69,7 +77,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -87,40 +99,107 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">apikey</span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"></td>
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The api key for the endpoints</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>version</code></td>
+                <td class="name"><code>retryAfter</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">number</span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"></td>
+            
+                <td class="default">
+                
+                    60000
+                
+                </td>
+            
+
+            <td class="description last">The time in milliseconds to wait before retrying after a rate limit error.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>retry</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    3
+                
+                </td>
+            
+
+            <td class="description last">The number of retry attempts to make for rate limit errors.</td>
         </tr>
 
     
@@ -161,7 +240,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line23">line 23</a>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line29">line 29</a>
     </li></ul></dd>
     
 
@@ -217,12 +296,16 @@
     
 
     
-    <h4 class="name" id="_8ballAsync"><span class="type-signature"></span>_8ballAsync<span class="signature">(lang)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="_8ballAsync"><span class="type-signature">(async) </span>_8ballAsync<span class="signature">(lang<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;{text: string}>}</span></h4>
     
 
     
 
 
+
+<div class="description">
+    gets a random 8ball text.
+</div>
 
 
 
@@ -245,6 +328,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
         <th>Default</th>
@@ -265,23 +350,33 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
             </td>
 
             
-
-            
-                <td class="default">
+                <td class="attributes">
                 
-                    english
+                    &lt;optional><br>
+                
+
+                
+
                 
                 </td>
             
 
-            <td class="description last"></td>
+            
+                <td class="default">
+                
+                    "english"
+                
+                </td>
+            
+
+            <td class="description last">The language for the 8ball text. Default is "english".</td>
         </tr>
 
     
@@ -322,7 +417,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line132">line 132</a>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line320">line 320</a>
     </li></ul></dd>
     
 
@@ -347,6 +442,28 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with an object containing the 8ball text.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{text: string}></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -358,12 +475,16 @@
     
 
     
-    <h4 class="name" id="birthdayAsync"><span class="type-signature"></span>birthdayAsync<span class="signature">(lang)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="birthdayAsync"><span class="type-signature">(async) </span>birthdayAsync<span class="signature">(lang<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;{text: string, url: string}>}</span></h4>
     
 
     
 
 
+
+<div class="description">
+    Get a birthday wish and image.
+</div>
 
 
 
@@ -386,6 +507,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
         <th>Default</th>
@@ -406,23 +529,33 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
             </td>
 
             
-
-            
-                <td class="default">
+                <td class="attributes">
                 
-                    english
+                    &lt;optional><br>
+                
+
+                
+
                 
                 </td>
             
 
-            <td class="description last"></td>
+            
+                <td class="default">
+                
+                    "english"
+                
+                </td>
+            
+
+            <td class="description last">The language for the birthday wish. Default is "english".</td>
         </tr>
 
     
@@ -463,7 +596,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line416">line 416</a>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line219">line 219</a>
     </li></ul></dd>
     
 
@@ -488,6 +621,28 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with an object containing the birthday wish text and image URL.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{text: string, url: string}></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -499,12 +654,16 @@
     
 
     
-    <h4 class="name" id="cryAsync"><span class="type-signature"></span>cryAsync<span class="signature">(lang)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="cryAsync"><span class="type-signature">(async) </span>cryAsync<span class="signature">(lang<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;{text: string, url: string}>}</span></h4>
     
 
     
 
 
+
+<div class="description">
+    gets a random cry image and text.
+</div>
 
 
 
@@ -527,6 +686,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
         <th>Default</th>
@@ -547,23 +708,33 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
             </td>
 
             
-
-            
-                <td class="default">
+                <td class="attributes">
                 
-                    english
+                    &lt;optional><br>
+                
+
+                
+
                 
                 </td>
             
 
-            <td class="description last"></td>
+            
+                <td class="default">
+                
+                    "english"
+                
+                </td>
+            
+
+            <td class="description last">The language for the cry text. Default is "english".</td>
         </tr>
 
     
@@ -604,7 +775,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line363">line 363</a>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line234">line 234</a>
     </li></ul></dd>
     
 
@@ -629,6 +800,28 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with an object containing the cry text and image URL.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{text: string, url: string}></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -640,12 +833,126 @@
     
 
     
-    <h4 class="name" id="goodmorningAsync"><span class="type-signature"></span>goodmorningAsync<span class="signature">(lang)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="cuddleAsync"><span class="type-signature">(async) </span>cuddleAsync<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;{url: string}>}</span></h4>
     
 
     
 
 
+
+<div class="description">
+    gets a random cuddle image.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line296">line 296</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with an object containing the cuddle image URL.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{url: string}></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="goodMorningAsync"><span class="type-signature">(async) </span>goodMorningAsync<span class="signature">(lang<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;{text: string, url: string}>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    gets a random goodMorning image and text.
+</div>
 
 
 
@@ -668,6 +975,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
         <th>Default</th>
@@ -688,23 +997,33 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
             </td>
 
             
-
-            
-                <td class="default">
+                <td class="attributes">
                 
-                    english
+                    &lt;optional><br>
+                
+
+                
+
                 
                 </td>
             
 
-            <td class="description last"></td>
+            
+                <td class="default">
+                
+                    "english"
+                
+                </td>
+            
+
+            <td class="description last">The language for the goodMorning text. Default is "english".</td>
         </tr>
 
     
@@ -745,7 +1064,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line182">line 182</a>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line289">line 289</a>
     </li></ul></dd>
     
 
@@ -770,6 +1089,28 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with an object containing the goodMorning text and image URL.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{text: string, url: string}></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -781,12 +1122,16 @@
     
 
     
-    <h4 class="name" id="goodnightAsync"><span class="type-signature"></span>goodnightAsync<span class="signature">(lang)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="goodNightAsync"><span class="type-signature">(async) </span>goodNightAsync<span class="signature">(lang<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;{text: string, url: string}>}</span></h4>
     
 
     
 
 
+
+<div class="description">
+    gets a random goodNight Image and text.
+</div>
 
 
 
@@ -809,6 +1154,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
         <th>Default</th>
@@ -829,23 +1176,33 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
             </td>
 
             
-
-            
-                <td class="default">
+                <td class="attributes">
                 
-                    english
+                    &lt;optional><br>
+                
+
+                
+
                 
                 </td>
             
 
-            <td class="description last"></td>
+            
+                <td class="default">
+                
+                    "english"
+                
+                </td>
+            
+
+            <td class="description last">The language for the goodNight text. Default is "english".</td>
         </tr>
 
     
@@ -886,7 +1243,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line216">line 216</a>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line281">line 281</a>
     </li></ul></dd>
     
 
@@ -911,6 +1268,28 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with an object containing the goodNight text and image URL.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{text: string, url: string}></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -922,12 +1301,16 @@
     
 
     
-    <h4 class="name" id="helloAsync"><span class="type-signature"></span>helloAsync<span class="signature">(lang)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="helloAsync"><span class="type-signature">(async) </span>helloAsync<span class="signature">(lang<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;{text: string}>}</span></h4>
     
 
     
 
 
+
+<div class="description">
+    gets a random hello text.
+</div>
 
 
 
@@ -950,6 +1333,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
         <th>Default</th>
@@ -970,23 +1355,33 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
             </td>
 
             
-
-            
-                <td class="default">
+                <td class="attributes">
                 
-                    english
+                    &lt;optional><br>
+                
+
+                
+
                 
                 </td>
             
 
-            <td class="description last"></td>
+            
+                <td class="default">
+                
+                    "english"
+                
+                </td>
+            
+
+            <td class="description last">The language for the hello text. Default is "english".</td>
         </tr>
 
     
@@ -1027,7 +1422,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line97">line 97</a>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line304">line 304</a>
     </li></ul></dd>
     
 
@@ -1052,6 +1447,28 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with an object containing the hello text.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{text: string}></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -1063,12 +1480,786 @@
     
 
     
-    <h4 class="name" id="randomNumberAsync"><span class="type-signature"></span>randomNumberAsync<span class="signature">(min, max)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="hugAsync"><span class="type-signature">(async) </span>hugAsync<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;{url: string}>}</span></h4>
     
 
     
 
 
+
+<div class="description">
+    gets a random hug image.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line273">line 273</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with an object containing the hug image URL.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{url: string}></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="kissAsync"><span class="type-signature">(async) </span>kissAsync<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;{url: string}>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    gets a random kiss image.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line266">line 266</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with an object containing the kiss image URL.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{url: string}></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="laughAsync"><span class="type-signature">(async) </span>laughAsync<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;{url: string}>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Get a laugh image.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line226">line 226</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with an object containing the laugh image URL.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{url: string}></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="mikuAsync"><span class="type-signature">(async) </span>mikuAsync<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;{url: string}>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Get a image of miku.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line400">line 400</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with the url.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{url: string}></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="nekoparaAsync"><span class="type-signature">(async) </span>nekoparaAsync<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;{url: string}>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Get a image of nekopara.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line393">line 393</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with the url.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{url: string}></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="pingAsync"><span class="type-signature">(async) </span>pingAsync<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;{ping: string}>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Get the api ping.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line379">line 379</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with the ping.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{ping: string}></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="ramAsync"><span class="type-signature">(async) </span>ramAsync<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;{url: string}>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Get a image of ram.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line386">line 386</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with the url.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{url: string}></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="randomNumberAsync"><span class="type-signature">(async) </span>randomNumberAsync<span class="signature">(min, max)</span><span class="type-signature"> &rarr; {Promise.&lt;{Number: number, roundedNumber: number, flooredNumber: number, enteredNumbers: string}>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Generate a random number from a range.
+</div>
 
 
 
@@ -1109,7 +2300,7 @@
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">number</span>
 
 
             
@@ -1119,7 +2310,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">The minimum value of the range.</td>
         </tr>
 
     
@@ -1132,7 +2323,7 @@
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">number</span>
 
 
             
@@ -1142,7 +2333,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">The maximum value of the range.</td>
         </tr>
 
     
@@ -1183,7 +2374,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line73">line 73</a>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line343">line 343</a>
     </li></ul></dd>
     
 
@@ -1211,7 +2402,23 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    - The promise that resolves with the random number.
+</div>
 
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{Number: number, roundedNumber: number, flooredNumber: number, enteredNumbers: string}></span>
+
+
+    </dd>
+</dl>
 
     
 
@@ -1225,12 +2432,126 @@
     
 
     
-    <h4 class="name" id="slapAsync"><span class="type-signature"></span>slapAsync<span class="signature">(user1, user2)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="rateLimitAsync"><span class="type-signature">(async) </span>rateLimitAsync<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;{limit: number, current: number, remaining: number, resetTime: string, resetTimeFormated: string}>}</span></h4>
     
 
     
 
 
+
+<div class="description">
+    gets the ratelimit info.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line334">line 334</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with an object containing the ratelimit info.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{limit: number, current: number, remaining: number, resetTime: string, resetTimeFormated: string}></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="rpsAsync"><span class="type-signature">(async) </span>rpsAsync<span class="signature">(pick<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;{api_choice: string, your_choice: string}>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    play rps with the api.
+</div>
 
 
 
@@ -1253,7 +2574,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -1265,46 +2590,39 @@
 
         <tr>
             
-                <td class="name"><code>user1</code></td>
+                <td class="name"><code>pick</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
             </td>
 
             
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>user2</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type">String</span>
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
+            
 
             
-            </td>
-
+                <td class="default">
+                
+                    "No Choice Made"
+                
+                </td>
             
 
-            
-
-            <td class="description last"></td>
+            <td class="description last">The choice of the player. Default is "No Choice Made".</td>
         </tr>
 
     
@@ -1345,7 +2663,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line293">line 293</a>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line312">line 312</a>
     </li></ul></dd>
     
 
@@ -1373,7 +2691,23 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    - The promise that resolves with an object containing the rps text.
+</div>
 
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{api_choice: string, your_choice: string}></span>
+
+
+    </dd>
+</dl>
 
     
 
@@ -1387,12 +2721,344 @@
     
 
     
-    <h4 class="name" id="suggestionAsync"><span class="type-signature"></span>suggestionAsync<span class="signature">(suggestion, user)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="sickAsync"><span class="type-signature">(async) </span>sickAsync<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;{url: string}>}</span></h4>
     
 
     
 
 
+
+<div class="description">
+    gets a random sick image.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line248">line 248</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with an object containing the sick image URL.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{url: string}></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="slapAsync"><span class="type-signature">(async) </span>slapAsync<span class="signature">(user1<span class="signature-attributes">opt</span>, user2<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;{text: string, url: string, text2: string, text3: string, text4: string, textFormatted: string}>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    gets a random slap text and image.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>user1</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    "You"
+                
+                </td>
+            
+
+            <td class="description last">The first user.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>user2</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    "Ram"
+                
+                </td>
+            
+
+            <td class="description last">The second user.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line257">line 257</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with an object containing the slap text and image URL.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{text: string, url: string, text2: string, text3: string, text4: string, textFormatted: string}></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="suggestionAsync"><span class="type-signature">(async) </span>suggestionAsync<span class="signature">(suggestion, requestedBy)</span><span class="type-signature"> &rarr; {Promise.&lt;"Completed">}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    send a suggestion.
+</div>
 
 
 
@@ -1435,7 +3101,7 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">suggestion</span>
 
 
             
@@ -1449,20 +3115,20 @@
                 </td>
             
 
-            <td class="description last"></td>
+            <td class="description last">The Suggestion.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>user</code></td>
+                <td class="name"><code>requestedBy</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">requestedBy</span>
 
 
             
@@ -1473,12 +3139,12 @@
             
                 <td class="default">
                 
-                    anonymous
+                    null
                 
                 </td>
             
 
-            <td class="description last"></td>
+            <td class="description last">Who made the suggestion.</td>
         </tr>
 
     
@@ -1519,7 +3185,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line45">line 45</a>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line355">line 355</a>
     </li></ul></dd>
     
 
@@ -1547,7 +3213,243 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    - The promise that resolves with completed.
+</div>
 
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;"Completed"></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="tiredAsync"><span class="type-signature">(async) </span>tiredAsync<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;{url: string}>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    gets a random tired image.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line241">line 241</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with an object containing the tired image URL.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{url: string}></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="versionInfoAsync"><span class="type-signature">(async) </span>versionInfoAsync<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;{version: string, outdated: boolean, supported: boolean, latest: string}>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    gets the latest version info.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Endpoints_pro.js.html">Endpoints/pro.js</a>, <a href="Endpoints_pro.js.html#line327">line 327</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The promise that resolves with an object containing the version info.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;{version: string, outdated: boolean, supported: boolean, latest: string}></span>
+
+
+    </dd>
+</dl>
 
     
 
@@ -1571,13 +3473,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ExecuteConsole.html">ExecuteConsole</a></li><li><a href="RamApi.html">RamApi</a></li><li><a href="RamApiBeta.html">RamApiBeta</a></li><li><a href="RamApiDemo.html">RamApiDemo</a></li><li><a href="RamApiPro.html">RamApiPro</a></li><li><a href="Utils.html">Utils</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ExecuteConsole.html">ExecuteConsole</a></li><li><a href="RamApi.html">RamApi</a></li><li><a href="RamApiBeta.html">RamApiBeta</a></li><li><a href="RamApiDemo.html">RamApiDemo</a></li><li><a href="RamApiExtended.html">RamApiExtended</a></li><li><a href="RamApiPro.html">RamApiPro</a></li><li><a href="Utils.html">Utils</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Sep 10 2023 15:09:44 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Sep 10 2023 16:59:43 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
