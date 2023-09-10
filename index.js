@@ -39,7 +39,6 @@ checkForUpdates();
 
 module.exports = {
   RamApiPro,
-  Logs,
   RamApiBasic,
   RamApi,
   Utils,
