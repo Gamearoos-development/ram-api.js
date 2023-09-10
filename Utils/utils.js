@@ -1,5 +1,5 @@
 const { Logger } = require("simply-logger");
-const { series } = require("async");
+
 const { exec } = require("child_process");
 const axios = require("axios");
 const packageJson = require("package-json");

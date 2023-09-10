@@ -293,6 +293,61 @@ class RamApiDemo {
       params: { min, max },
     });
   }
+
+  /**
+   * send a suggestion.
+   * @param {suggestion} suggestion - The Suggestion.
+   * @param {requestedBy} requestedBy - Who made the suggestion.
+   * @returns {Promise<"Completed">} - The promise that resolves with completed.
+   */
+  async suggestionAsync(suggestion, requestedBy = null) {
+    return new Promise(async (resolve, reject) => {
+      let parm = {};
+
+      if (requestedBy !== null) parm = { requestedBy };
+
+      const response = await axios({
+        method: "post",
+        url: `/suggestion/${suggestion}`,
+        body: {},
+        params: parm || {},
+        baseURL: `https://api.rambot.xyz/demo`,
+      }).catch((err) => {
+        reject(err);
+        logger.error("Error in api");
+      });
+
+      resolve("Completed!");
+    });
+  }
+  /**
+   * Get the api ping.
+   * @returns {Promise<{ping: string}>} - The promise that resolves with the ping.
+   */
+  async pingAsync() {
+    return await this._apiRequest("/ping", "demo");
+  }
+  /**
+   * Get a image of ram.
+   * @returns {Promise<{url: string}>} - The promise that resolves with the url.
+   */
+  async ramAsync() {
+    return await this._apiRequest("/ram", "demo");
+  }
+  /**
+   * Get a image of nekopara.
+   * @returns {Promise<{url: string}>} - The promise that resolves with the url.
+   */
+  async nekoparaAsync() {
+    return await this._apiRequest("/nekopara", "demo");
+  }
+  /**
+   * Get a image of miku.
+   * @returns {Promise<{url: string}>} - The promise that resolves with the url.
+   */
+  async mikuAsync() {
+    return await this._apiRequest("/miku", "demo");
+  }
 }
 
 module.exports = { RamApiDemo };
