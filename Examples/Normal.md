@@ -16,7 +16,7 @@
 
 [Back to readme](../README.md)
 
-> Demo Examples
+> Normal Examples
 
 ```javascript
 import \* as ramapi from "ram-api.js"; // typescript
@@ -24,7 +24,7 @@ const ramapi = require("ram-api.js"); // javascript
 
 const lang = "english"; // "spanish" for spanish
 
-let RamApi = new ramapi.DemoEndpoints(60000, 1);
+let RamApi = new ramapi.NormalEndpoints("api key here", "v14", 60000, 1);
 
 
 RamApi.laughAsync()
@@ -33,7 +33,7 @@ console.log(data);
 })
 .catch((error) => {});
 
-RamApi.versionInfoAsync("v14").then(data => {console.log(data)}).catch(error => {})
+RamApi.versionInfoAsync().then(data => {console.log(data)}).catch(error => {})
 
 RamApi.birthdayAsync(lang).then(data => {console.log(data)}).catch(error => {})
 

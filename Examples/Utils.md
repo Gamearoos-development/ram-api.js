@@ -14,50 +14,21 @@
   <a href="https://nodei.co/npm/ram-api.js/"><img src="https://nodei.co/npm/ram-api.js.png?downloads=true&downloadRank=true&stars=true"></a>
 </div>
 
-> About this package
+[Back to readme](../README.md)
 
-We understand using ram api can be hard as it has alot this package calls the api for you however this wont bypass the ratelimit youll still see the ratelimit error
+> Custom Endpoints Example
 
-> Install
+```javascript
 
-`npm i ram-api.js` or `yarn add ram-api.js`
+import \* as ramapi from "ram-api.js"; // typescript
+const ramapi = require("ram-api.js"); // javascript
 
-> Update to 14.x
+new ramapi.Utils().VersionCheck("v13", "60000", 6)
 
-```text
-changed how classes are written
+new ramapi.Utils().pingAsync().then(data => (console.log(data))).catch(err => {})
 
-Added typescript support
+
+
 ```
 
-> api key
-
-for a api key join the discord and go to #request-api-keys https://discord.gg/q3ycRjBG9q
-
-> Examples
-
-[DemoEndpoints](./Examples/Demo.md)
-
-[NormalEndpoints](./Examples/Normal.md)
-
-[ExtendedEndpoints](./Examples/Extended.md)
-
-[ProEnpoints](./Examples/Pro.md)
-
-[Utils](./Examples/Utils.md)
-
-[Utils Custom Endpoints](./Examples/CustomEndpoint.md)
-
-[Execute Logger](./Examples/ExecuteLogger.md)
-
-> Missing endpoint
-
-current api version is v14 if v15 is out then contact support
-
-ram api endpoints can be found at https://api.rambot.xyz
-
-> Support
-
-email : support@rambot.xyz
-
-discord: https://discord.gg/q3ycRjBG9q
+[Custom Endpoints](./CustomEndpoint.md)
