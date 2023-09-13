@@ -6,6 +6,7 @@
   "module": "dist/esm/index.js",
   "types": "dist/cjs/index.d.ts",
   "scripts": {
+    "test": "node test.js",
     "build": "npm run buildESM && npm run buildcjs",
     "buildESM": "tsc",
     "buildcjs": "tsc --module CommonJS --outDir dist/cjs"
