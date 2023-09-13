@@ -25,19 +25,17 @@ We understand using ram api can be hard as it has alot this package calls the ap
 
 ```text
 changed how classes are written
+
+Added typescript support
 ```
 
 > api key
 
 for a api key join the discord and go to #request-api-keys https://discord.gg/q3ycRjBG9q
 
-> Docs
+> Demo Examples
 
-Dev Builds: https://devdocs.rambot.xyz
-
-Beta: https://betadocs.rambot.xyz/
-
-Latest: Coming Soon
+[Demo](./Examples//Demo.md)
 
 > Missing endpoint
 

@@ -1,12 +1,18 @@
 {
   "name": "ram-api.js",
-  "version": "14.0.0-beta.1",
+  "version": "14.0.0-beta.2",
   "description": "a npm module to connect to ram api for you",
-  "main": "index.js",
-  "typings": ".d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/cjs/index.d.ts",
   "scripts": {
-    "test": "node test.js"
+    "build": "npm run buildESM && npm run buildcjs",
+    "buildESM": "tsc",
+    "buildcjs": "tsc --module CommonJS --outDir dist/cjs"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/anime-development/ram-api.js.git"
@@ -25,14 +31,8 @@
   },
   "homepage": "https://github.com/anime-development/ram-api.js#readme",
   "dependencies": {
+    "@classycrafter/super-logger": "^2.0.0",
     "axios": "^0.24.0",
-    "better-date.js": "^1.0.1",
-    "npm-registry-fetch": "^16.0.0",
-    "package-json": "^7.0.0",
-    "simply-logger": "^1.5.38"
-  },
-  "devDependencies": {
-    "jsdoc": "^4.0.2",
-    "jsdoc-to-markdown": "^8.0.0"
+    "npm-registry-fetch": "^16.0.0"
   }
 }
