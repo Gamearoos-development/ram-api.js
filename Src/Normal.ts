@@ -4,7 +4,7 @@ import { ExecuteLogger } from "./ExecuteLoger";
 
 
 
-const logger = new ExecuteLogger("Ram Bot Development");
+var logger = new ExecuteLogger("Ram Bot Development");
   export class NormalEndpoints {
     private retryAfter;
     private retry;
@@ -15,7 +15,7 @@ const logger = new ExecuteLogger("Ram Bot Development");
     
    
     constructor(apikey: string, version = "v14", retryAfter = 60000, retry = 6) {
-        
+      logger = new ExecuteLogger("Ram Bot Development");
         this.retryAfter = retryAfter;
         this.retry = retry;
         this.baseURL = "https://api.rambot.xyz/demo"

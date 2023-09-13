@@ -2,7 +2,7 @@ import axios from "axios";
 import { ExecuteLogger } from "../Src/ExecuteLoger";
 import { DemoEndpoints } from "./Demo";
 
-const logger = new ExecuteLogger("Ram Bot Development");
+var logger = new ExecuteLogger("Ram Bot Development");
 const latestVersion = "v14";
 
 const supportedVersions = ["v14"];
@@ -24,7 +24,9 @@ const notsupported = [
 
 
 export class Utils {
-    constructor() {}
+    constructor() {
+      logger = new ExecuteLogger("Ram Bot Development");
+    }
     async pingAsync(): Promise<{ping: string}> {
  
     
@@ -142,7 +144,7 @@ export class Utils {
             }
 
             if(data.latest === version) {
-                logger.infoAsync("Your Up to date", "ram-api.js")
+                logger.infoAsync("You're Up to date", "ram-api.js")
             } else {
                 logger.fatalAsync("Error fetching provided version", "ram-api")
             }
