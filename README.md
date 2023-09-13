@@ -33,9 +33,9 @@ Added typescript support
 
 for a api key join the discord and go to #request-api-keys https://discord.gg/q3ycRjBG9q
 
-> Demo Examples
+> Examples
 
-[Demo](./Examples//Demo.md)
+[DemoEnpoints](./Examples//Demo.md)
 
 > Missing endpoint
 
