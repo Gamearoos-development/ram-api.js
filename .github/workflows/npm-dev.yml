@@ -16,7 +16,7 @@ jobs:
       - run: npm ci
 
   publish-npm:
-    if: |
+    if: 
       github.event.pull_request.merged == true &&
       github.event.pull_request.base.ref == 'main'
     needs: build
