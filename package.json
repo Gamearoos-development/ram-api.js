@@ -35,5 +35,8 @@
     "@classycrafter/super-logger": "^2.0.0",
     "axios": "^0.24.0",
     "npm-registry-fetch": "^16.0.0"
+  },
+  "devDependencies": {
+    "@types/npm-registry-fetch": "^8.0.4"
   }
 }
