@@ -14,50 +14,33 @@
   <a href="https://nodei.co/npm/ram-api.js/"><img src="https://nodei.co/npm/ram-api.js.png?downloads=true&downloadRank=true&stars=true"></a>
 </div>
 
-> About this package
+[Back to readme](../README.md)
 
-We understand using ram api can be hard as it has alot this package calls the api for you however this wont bypass the ratelimit youll still see the ratelimit error
+> Events Example
 
-> Install
+```javascript
+import * as ramapi from "ram-api.js"; // typescript
+const ramapi = require("ram-api.js"); // javascript
 
-`npm i ram-api.js` or `yarn add ram-api.js`
+const apiEvent = ramapi.Events;
+// listion
+apiEvent.on("package-update", (data) => {
+  console.log(data);
+});
 
-> Update to 14.1.x-dev.1
+//emit to change settings or stop event loops
 
-```text
-Added Events
+apiEvent.emit("stop-update-check"); // will stop the update checker that binds to package-update
+
+apiEvent.emit("start-update-check"); // will start the update checker that binds to package-update will stop first if already running to avoid duplicates
 ```
 
-> api key
+> Listenable Events
 
-for a api key join the discord and go to #request-api-keys https://discord.gg/q3ycRjBG9q
+package-update
 
-> Examples
+> Emit Events
 
-[DemoEndpoints](./Examples/Demo.md)
+stop-update-check
 
-[NormalEndpoints](./Examples/Normal.md)
-
-[ExtendedEndpoints](./Examples/Extended.md)
-
-[ProEnpoints](./Examples/Pro.md)
-
-[Utils](./Examples/Utils.md)
-
-[Utils Custom Endpoints](./Examples/CustomEndpoint.md)
-
-[Execute Logger](./Examples/ExecuteLogger.md)
-
-[Events](./Examples/Events.md)
-
-> Missing endpoint
-
-current api version is v14 if v15 is out then contact support
-
-ram api endpoints can be found at https://api.rambot.xyz
-
-> Support
-
-email : support@rambot.xyz
-
-discord: https://discord.gg/q3ycRjBG9q
+start-update-check
