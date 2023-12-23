@@ -1,6 +1,6 @@
 {
   "name": "ram-api.js",
-  "version": "14.1.0-dev.1",
+  "version": "14.1.0-dev.2",
   "description": "a npm module to connect to ram api for you",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
