@@ -144,7 +144,7 @@ export class DemoEndpoints {
     });
   }
   async versionInfoAsync(version?: string): Promise<{ version: string; outdated: boolean; supported: boolean; latest: string }> {
-    if (!version) version = "v14";
+    if (!version) version = "v15";
 
     return await this._apiRequest("/versionCheck", { params: { version: version } }) as Promise<{ version: string; outdated: boolean; supported: boolean; latest: string }>;
   }
