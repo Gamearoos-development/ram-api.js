@@ -14,7 +14,7 @@ export class ProEndpoints {
 
 
 
-  constructor(apikey: string, version = "v14", retryAfter = 60000, retry = 6) {
+  constructor(apikey: string, version = "v15", retryAfter = 60000, retry = 6) {
     logger = new ExecuteLogger("Ram Bot Development");
     this.retryAfter = retryAfter;
     this.retry = retry;

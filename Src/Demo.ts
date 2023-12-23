@@ -19,7 +19,7 @@ export class DemoEndpoints {
     this.retryAfter = retryAfter;
     this.retry = retry;
     this.baseURL = "https://api.rambot.xyz/demo"
-    this.version = "v14"
+    this.version = "v15"
     this.headers = {};
   }
   private async _newErrors(endpoint: string, error: any, resolve: any, reject: any, type: string, _options: any, loop = 0) {
