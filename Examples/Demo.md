@@ -74,4 +74,6 @@ RamApi.ramAsync().then(data => {console.log(data)}).catch(error => {})
 RamApi.nekoparaAsync().then(data => {console.log(data)}).catch(error => {})
 
 RamApi.mikuAsync().then(data => {console.log(data)}).catch(error => {})
+
+RamApi.memeAsync().then(data => { console.log(data)}).catch(error => {})
 ```

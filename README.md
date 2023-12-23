@@ -52,7 +52,7 @@ for a api key join the discord and go to #request-api-keys https://discord.gg/q3
 
 > Missing endpoint
 
-current api version is v14 if v15 is out then contact support
+current api version is v15 if v16 is out then contact support
 
 ram api endpoints can be found at https://api.rambot.xyz
 
