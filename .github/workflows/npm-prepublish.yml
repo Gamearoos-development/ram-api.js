@@ -25,6 +25,17 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm run build
-      - run: npm publish --tag beta
+      - name: Determine branch
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: branch_name
+      - name: Publish to NPM
+        run: |
+          if [[ "${{ steps.branch_name.outputs.branch }}" == "Development" ]]; then
+            npm publish --tag dev
+          elif [[ "${{ steps.branch_name.outputs.branch }}" == "Beta" ]]; then
+            npm publish --tag beta
+          else
+            npm publish
+          fi
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
