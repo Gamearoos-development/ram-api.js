@@ -22,15 +22,19 @@ We understand using ram api can be hard as it has alot this package calls the ap
 
 `npm i ram-api.js` or `yarn add ram-api.js`
 
-> Update to 14.1.x-dev.1
+> Update to 15.0.x
 
 ```text
-Added Events
+use Normal for v16 and up
+
+no other changes
 ```
 
 > api key
 
 for a api key join the discord and go to #request-api-keys https://discord.gg/q3ycRjBG9q
+
+
 
 > Examples
 
@@ -52,7 +56,7 @@ for a api key join the discord and go to #request-api-keys https://discord.gg/q3
 
 > Missing endpoint
 
-current api version is v15 if v16 is out then contact support
+current api version is v16 if v17 is out then contact support
 
 ram api endpoints can be found at https://api.rambot.xyz
 
