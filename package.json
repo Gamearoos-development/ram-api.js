@@ -1,6 +1,6 @@
 {
   "name": "ram-api.js",
-  "version": "14.1.0",
+  "version": "15.0.2",
   "description": "a npm module to connect to ram api for you",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -33,8 +33,9 @@
   "homepage": "https://github.com/anime-development/ram-api.js#readme",
   "dependencies": {
     "@classycrafter/super-logger": "^2.0.0",
-    "axios": "^0.24.0",
-    "npm-registry-fetch": "^16.0.0"
+    "axios": "^1.6.8",
+    "npm-registry-fetch": "^16.0.0",
+    "typescript": "^5.4.5"
   },
   "devDependencies": {
     "@types/npm-registry-fetch": "^8.0.4"

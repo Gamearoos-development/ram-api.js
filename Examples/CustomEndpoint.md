@@ -34,11 +34,14 @@ new ramapi.Utils().customAsync("/hello", "basic", { version: "v13", params: { la
 
 //pro, normal, or extended are also available options instead of demo or basic below are examples NOTICE: extended only exists in v14 and above
 
-//latest always
-new ramapi.Utils().customAsync("/hello", "normal", { params: { lang: lang }, headers: {"api-key": "api key here"} }).then(data => { console.log(data); }).catch(err => { });
 
-//provide version ex v13
-new ramapi.Utils().customAsync("/hello", "normal", { version: "v13", params: { lang: lang }, headers: {"api-key": "api key here"} }).then(data => { console.log(data); }).catch(err => { });
+//v16 & up
+new ramapi.Utils().customAsync("/hello", "normal", { params: { lang: lang }, headers: {"token": "api key here"} }).then(data => { console.log(data); }).catch(err => { });
+//provide version ex v16 (v16 and up)
+new ramapi.Utils().customAsync("/hello", "normal", { version: "v16", params: { lang: lang }, headers: {"token": "api key here"} }).then(data => { console.log(data); }).catch(err => { });
+
+//provide version ex v13 (v15 and under)
+new ramapi.Utils().customAsync("/hello", "normal", { version: "v15", params: { lang: lang }, headers: {"api-key": "api key here"} }).then(data => { console.log(data); }).catch(err => { });
 
 
 ```

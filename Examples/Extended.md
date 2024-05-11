@@ -16,6 +16,8 @@
 
 [Back to readme](../README.md)
 
+This is not supported past v15
+
 > Extended Examples
 
 ```javascript
