@@ -16,6 +16,8 @@
 
 [Back to readme](../README.md)
 
+ This is not supported past v15
+
 > Extended Examples
 
 ```javascript
@@ -24,7 +26,7 @@ const ramapi = require("ram-api.js"); // javascript
 
 const lang = "english"; // "spanish" for spanish
 
-let RamApi = new ramapi.ExtendedEndpoints("api key here", "v14", 60000, 1);
+let RamApi = new ramapi.ExtendedEndpoints("api key here", "v15", 60000, 1);
 
 
 RamApi.laughAsync()

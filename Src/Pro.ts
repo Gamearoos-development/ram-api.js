@@ -14,11 +14,11 @@ var logger = new ExecuteLogger("Ram Bot Development");
    
     
    
-    constructor(apikey: string, version = "v14", retryAfter = 60000, retry = 6) {
+    constructor(apikey: string, version = "v15", retryAfter = 60000, retry = 6) {
       logger = new ExecuteLogger("Ram Bot Development");
         this.retryAfter = retryAfter;
         this.retry = retry;
-        this.baseURL = "https://api.rambot.xyz/demo"
+        this.baseURL = "https://api.rambot.xyz"
         this.version = version;
         this.headers = {"api-key": apikey};
     }
@@ -90,23 +90,29 @@ var logger = new ExecuteLogger("Ram Bot Development");
 
            _options = _options || {};
           
-            const supportedVersions = ["v14"];
-            const outdatedVersions = ["v11", "v12", "v13"];
-            const notsupported = [
-              "v0",
-              "v1",
-              "v2",
-              "v3",
-              "v4",
-              "v5",
-              "v6",
-              "v7",
-              "v8",
-              "v9",
-              "v10",
-            ];
+           const supportedVersions = ["v16"];
+           const outdatedVersions = [ "v13", "v14", "v15"];
+           const notsupported = [
+             "v0",
+             "v1",
+             "v2",
+             "v3",
+             "v4",
+             "v5",
+             "v6",
+             "v7",
+             "v8",
+             "v9",
+             "v10",
+             "v11",
+             "v12"
+           ];
+
+           
+
+
             const requestedVersion = this.version || "v14";
-      
+            if(requestedVersion === "v16") return reject("This is not supported past v15 use normal endpoints for v16+")
             if (supportedVersions.includes(requestedVersion)) {
             } else if (outdatedVersions.includes(requestedVersion)) {
               logger.warnAsync(
@@ -123,7 +129,7 @@ var logger = new ExecuteLogger("Ram Bot Development");
             try {
               const response = await axios({
                 method: "get",
-                url: endpoint,
+                url: `/${requestedVersion}/` + endpoint,
                 params: _options.params || {},
                 baseURL: this.baseURL,
                 headers: this.headers

@@ -24,7 +24,7 @@ const ramapi = require("ram-api.js"); // javascript
 
 const lang = "english"; // "spanish" for spanish
 
-let RamApi = new ramapi.NormalEndpoints("api key here", "v14", 60000, 1);
+let RamApi = new ramapi.NormalEndpoints("api key here", "v16", 60000, 1);
 
 
 RamApi.laughAsync()

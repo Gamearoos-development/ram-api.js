@@ -18,9 +18,13 @@ var logger = new ExecuteLogger("Ram Bot Development");
       logger = new ExecuteLogger("Ram Bot Development");
         this.retryAfter = retryAfter;
         this.retry = retry;
-        this.baseURL = "https://api.rambot.xyz/demo"
+        this.baseURL = "https://api.rambot.xyz/"
         this.version = version;
         this.headers = {"api-key": apikey};
+
+      if(version === "v16") this.headers = {"token": apikey};
+
+
     }
     private async _newErrors(endpoint: string, error: any, resolve: any, reject: any, type: string, _options: any, loop = 0) {
        
@@ -90,8 +94,8 @@ var logger = new ExecuteLogger("Ram Bot Development");
 
            _options = _options || {};
           
-            const supportedVersions = ["v14"];
-            const outdatedVersions = ["v11", "v12", "v13"];
+            const supportedVersions = ["v16"];
+            const outdatedVersions = [ "v13", "v14", "v15"];
             const notsupported = [
               "v0",
               "v1",
@@ -104,8 +108,10 @@ var logger = new ExecuteLogger("Ram Bot Development");
               "v8",
               "v9",
               "v10",
+              "v11",
+              "v12"
             ];
-            const requestedVersion = this.version || "v14";
+            const requestedVersion = this.version || "v16";
       
             if (supportedVersions.includes(requestedVersion)) {
             } else if (outdatedVersions.includes(requestedVersion)) {
@@ -123,7 +129,7 @@ var logger = new ExecuteLogger("Ram Bot Development");
             try {
               const response = await axios({
                 method: "get",
-                url: endpoint,
+                url: `/${requestedVersion}/` + endpoint,
                 params: _options.params || {},
                 baseURL: this.baseURL,
                 headers: this.headers
